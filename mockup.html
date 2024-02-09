@@ -46,10 +46,33 @@
     <h2>Cabinet's order</h2>
     <form action="process_command.php" method="post">
         <label for="nombre_casiers">Locker's quantity :</label>
-    <input type="number" id="nombre_casiers" name="nombre_casiers" min="1" max="7" required oninput="generateLockers()">
+        <input type="number" id="nombre_casiers" name="nombre_casiers" min="1" max="7" required oninput="generateLockers()">
         
-        <label for="dimensions_casiers">Size of lockers :</label>
-        <input type="text" id="dimensions_casiers" name="dimensions_casiers" placeholder="Ex: 50x30x40" required>
+        <div id="lockersContainer"></div>
+
+        <script>
+            function generateLockers() {
+                var container = document.getElementById("lockersContainer");
+                container.innerHTML = ""; // Clear previous content
+
+                var quantity = document.getElementById("nombre_casiers").value;
+
+                for (var i = 0; i < quantity; i++) {
+                    var label = document.createElement("label");
+                    label.setAttribute("for", "casier_" + (i + 1));
+                    label.textContent = "Size of Locker " + (i + 1) + " :";
+                    
+                    var input = document.createElement("input");
+                    input.setAttribute("type", "text");
+                    input.setAttribute("id", "casier_" + (i + 1));
+                    input.setAttribute("name", "casier_" + (i + 1));
+                    
+                    container.appendChild(label);
+                    container.appendChild(input);
+                    container.appendChild(document.createElement("br"));
+                }
+            }
+        </script>
 
         <label for="couleur_armoire">Locker's color :</label>
         <select id="couleur_armoire" name="couleur_armoire" required>
