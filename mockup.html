@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commande d'Armoire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #ff7700;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff7700;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Cabinet's order</h2>
+    <form action="process_command.php" method="post">
+        <label for="nombre_casiers">Locker's quantity :</label>
+    <input type="number" id="nombre_casiers" name="nombre_casiers" min="1" max="7" required oninput="generateLockers()">
+        
+        <label for="dimensions_casiers">Size of lockers :</label>
+        <input type="text" id="dimensions_casiers" name="dimensions_casiers" placeholder="Ex: 50x30x40" required>
+
+        <label for="couleur_armoire">Locker's color :</label>
+        <select id="couleur_armoire" name="couleur_armoire" required>
+            <option value="noir">Black</option>
+            <option value="blanc">White</option>
+            <option value="orange">Orange</option>
+            <option value="bleu">Blue</option>
+            <option value="rouge">Red</option>
+            <option value="vert">Green</option>
+            <option value="rose">Rose</option>
+        </select>
+
+        <label for="nombre_portes">Door's quantity</label>
+
+        <button type="submit">Passer la commande</button>
+    </form>
+
+</body>
+</html>
