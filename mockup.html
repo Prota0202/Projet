@@ -56,36 +56,37 @@
                 container.innerHTML = ""; // Clear previous content
 
                 var quantity = document.getElementById("nombre_casiers").value;
+                // Force la quantité à 7 si l'utilisateur entre une valeur supérieure
+                quantity = Math.min(quantity, 7);
 
                 for (var i = 0; i < quantity; i++) {
                     var label = document.createElement("label");
                     label.setAttribute("for", "casier_" + (i + 1));
-                    label.textContent = "Size of Locker " + (i + 1) + " :";
+                    label.textContent = "Size and color of Locker " + (i + 1) + "," + " " + "dimensions LxlxH" + " " + " :"
                     
                     var input = document.createElement("input");
                     input.setAttribute("type", "text");
                     input.setAttribute("id", "casier_" + (i + 1));
-                    input.setAttribute("name", "casier_" + (i + 1));
-                    
+                    input.setAttribute("name", "casier_" + (i + 1) + "_size");
+
+                    var select = document.createElement("select");
+                    select.setAttribute("id", "casier_" + (i + 1) + "_color");
+                    select.setAttribute("name", "casier_" + (i + 1) + "_color");
+                    var colors = ["Black", "White", "Orange", "Blue", "Red", "Green", "Rose"];
+                    colors.forEach(function(color) {
+                        var option = document.createElement("option");
+                        option.value = color.toLowerCase();
+                        option.textContent = color;
+                        select.appendChild(option);
+                    });
+
                     container.appendChild(label);
                     container.appendChild(input);
+                    container.appendChild(select);
                     container.appendChild(document.createElement("br"));
                 }
             }
         </script>
-
-        <label for="couleur_armoire">Locker's color :</label>
-        <select id="couleur_armoire" name="couleur_armoire" required>
-            <option value="noir">Black</option>
-            <option value="blanc">White</option>
-            <option value="orange">Orange</option>
-            <option value="bleu">Blue</option>
-            <option value="rouge">Red</option>
-            <option value="vert">Green</option>
-            <option value="rose">Rose</option>
-        </select>
-
-        <label for="nombre_portes">Door's quantity</label>
 
         <button type="submit">Passer la commande</button>
     </form>
