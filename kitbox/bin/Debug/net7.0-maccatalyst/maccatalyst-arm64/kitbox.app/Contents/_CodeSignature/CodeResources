@@ -12,6 +12,10 @@
 		<data>
 		aFBnK1ZBhl1vd6JcSuurUF56V90=
 		</data>
+		<key>Resources/MauiInfo.plist</key>
+		<data>
+		iEtuUGCV6JM3gxS/pO33swhmpp8=
+		</data>
 		<key>Resources/MonoTouchDebugConfiguration.txt</key>
 		<data>
 		oowkf1sL6T19nanXUObgmuayWqM=
@@ -1378,6 +1382,13 @@
 			<key>hash2</key>
 			<data>
 			npS8gTUcN5m1BCtkWK34SDe3Hi1XJjQKqgg4twhrtOU=
+			</data>
+		</dict>
+		<key>Resources/MauiInfo.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tx0KXqEC+DvcCGyogQTEQWHcCWJYYqH24NtPwhpQEjo=
 			</data>
 		</dict>
 		<key>Resources/MonoTouchDebugConfiguration.txt</key>
