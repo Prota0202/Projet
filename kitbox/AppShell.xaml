@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="kitbox.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:kitbox"
+    Shell.FlyoutBehavior="Disabled">
+
+    <TabBar>
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Seller"
+        ContentTemplate="{DataTemplate local:seller}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Stock"
+        ContentTemplate="{DataTemplate local:stock}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Order"
+        ContentTemplate="{DataTemplate local:order}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Supplier"
+        ContentTemplate="{DataTemplate local:supplier}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Secretary"
+        ContentTemplate="{DataTemplate local:secretary}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Direction"
+        ContentTemplate="{DataTemplate local:direction}"
+        Route="MainPage" />
+    </TabBar>
+</Shell>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="kitbox.stock"
+             Title="stock">
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <HorizontalStackLayout Spacing="200">
+        <Picker  Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start"
+                    SelectedItem="{Binding Selection}" WidthRequest="200">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Porte Rouge</x:String>
+                        <x:String>Porte Bleu</x:String>
+                        <x:String>Porte Verte</x:String>
+                        <x:String>Planche Rouge</x:String>
+                        <x:String>Planche Bleu</x:String>
+                        <x:String>Planche Verte</x:String>
+                        <x:String>Visse</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+        <Entry Placeholder="Quantity" x:Name="QuantityEntry" HorizontalOptions="Center" WidthRequest="200"/>
+
+        <Button Text="Add Parts"
+                VerticalOptions="Center"
+                HorizontalOptions="End"/>
+        </HorizontalStackLayout>
+
+        <Label FontSize="16"
+            HorizontalOptions="Start"
+            VerticalOptions="CenterAndExpand">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="-Porte Rouge 56" />
+                    <Span Text="&#x0a;" />
+                    <Span Text="-Porte Bleu 43" />
+                    <Span Text="&#x0a;" />
+                    <Span Text="-Visse" />
+                    <Span Text="&#x0a;" />
+                    <Span Text="-Planche Rouge 65" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </VerticalStackLayout>
+</ContentPage>
