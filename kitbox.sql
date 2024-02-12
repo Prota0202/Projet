@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.24, for osx11.1 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: kitbox
 -- ------------------------------------------------------
--- Server version	8.2.0
+-- Server version	8.0.35
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `are forced`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `are forced` (
   `id_supplier` int DEFAULT NULL,
   `id_component` int DEFAULT NULL,
@@ -45,7 +45,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `component`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `component` (
   `id_component` int NOT NULL AUTO_INCREMENT,
   `Color` varchar(45) DEFAULT NULL,
@@ -73,11 +73,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer` (
   `id_customer` int NOT NULL AUTO_INCREMENT,
   `CustomerName` varchar(45) DEFAULT NULL,
   `MobileNumber` int DEFAULT NULL,
+  `Mail` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_customer`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -92,13 +93,13 @@ LOCK TABLES `customer` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Parts`
+-- Table structure for table `parts`
 --
 
-DROP TABLE IF EXISTS `Parts`;
+DROP TABLE IF EXISTS `parts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Parts` (
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `parts` (
   `idParts` int NOT NULL AUTO_INCREMENT,
   `PartName` varchar(45) DEFAULT NULL,
   `Price` int DEFAULT NULL,
@@ -108,13 +109,13 @@ CREATE TABLE `Parts` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Parts`
+-- Dumping data for table `parts`
 --
 
-LOCK TABLES `Parts` WRITE;
-/*!40000 ALTER TABLE `Parts` DISABLE KEYS */;
-INSERT INTO `Parts` VALUES (1,'TASSE',43,10),(2,'Porte rouge',74,44),(3,'Verre',12,-47);
-/*!40000 ALTER TABLE `Parts` ENABLE KEYS */;
+LOCK TABLES `parts` WRITE;
+/*!40000 ALTER TABLE `parts` DISABLE KEYS */;
+INSERT INTO `parts` VALUES (1,'TASSE',43,10),(2,'Porte rouge',74,44),(3,'Verre',12,-47);
+/*!40000 ALTER TABLE `parts` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -123,7 +124,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `supplier`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `supplier` (
   `id_supplier` int NOT NULL AUTO_INCREMENT,
   `SuplierName` varchar(45) DEFAULT NULL,
@@ -149,4 +150,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-12 21:32:13
+-- Dump completed on 2024-02-12 21:48:05
