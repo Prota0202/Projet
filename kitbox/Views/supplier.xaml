@@ -3,10 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="kitbox.supplier"
              Title="supplier">
-    <VerticalStackLayout>
+    <VerticalStackLayout Spacing="20">
         <Label 
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <HorizontalStackLayout Spacing="200">
+        <Entry Placeholder="New Supplier Name" x:Name="NewSupplierEntry" HorizontalOptions="Start" WidthRequest="200"/>
+
+        <Button Text="Add The New Supplier"
+                Clicked="OnAddNewSupplier"
+                VerticalOptions="Center"
+                HorizontalOptions="End"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="200">
+        <Picker  x:Name="RemoveSupplierPicker" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start"
+                    SelectedItem="{Binding Selection}" WidthRequest="200">
+            </Picker>
+        
+        <Button Text="Remove Supplier"
+                Clicked="OnSupplierRemoveClicked"
+                VerticalOptions="Center"
+                HorizontalOptions="End"/>
+        </HorizontalStackLayout>
+
+        <Label Text="List of Suppliers:" VerticalOptions="Center" HorizontalOptions="Center" />
+        <ListView ItemsSource="{Binding supplierList}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell Text="{Binding DisplayName}" />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        </ListView>
     </VerticalStackLayout>
 </ContentPage>
