@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order 001 Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .green-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="green-header">Order 001</div>
+        <table>
+            <tr>
+                <th>Number of lockers</th>
+                <th>Size of the lockers</th>
+                <th>Color</th>
+                <th>Door Type</th> 
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>10x10x10</td>
+                <td>Black</td>
+                <td>Single</td> 
+            </tr>
+            
+        </table>
+
+       
+        <div>
+            <label for="locker_color">Locker Color:</label>
+            <select id="locker_color" name="locker_color">
+                <option value="black">Black</option>
+                <option value="white">White</option>
+                
+            </select>
+
+            <label for="door_type">Door Type:</label>
+            <select id="door_type" name="door_type">
+                <option value="single">Single</option>
+                <option value="double">Double</option>
+                
+            </select>
+
+            
+        </div>
+
+    </div>
+
+</body>
+</html>
