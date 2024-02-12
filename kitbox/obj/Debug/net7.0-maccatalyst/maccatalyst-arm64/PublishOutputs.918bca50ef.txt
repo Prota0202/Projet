@@ -1,4 +1,9 @@
 /Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/icudt.dat
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/BouncyCastle.Cryptography.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/Google.Protobuf.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/K4os.Compression.LZ4.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/K4os.Compression.LZ4.Streams.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/K4os.Hash.xxHash.dll
 /Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/Microsoft.Extensions.Configuration.dll
 /Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/Microsoft.Extensions.Configuration.Abstractions.dll
 /Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/Microsoft.Extensions.DependencyInjection.dll
@@ -9,6 +14,15 @@
 /Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/Microsoft.Extensions.Options.dll
 /Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/Microsoft.Extensions.Primitives.dll
 /Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/Microsoft.Maui.Graphics.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/Microsoft.Win32.SystemEvents.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/MySql.Data.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/System.Configuration.ConfigurationManager.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/System.Drawing.Common.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/System.IO.Pipelines.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/System.Security.Cryptography.ProtectedData.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/System.Security.Permissions.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/System.Windows.Extensions.dll
+/Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/ZstdSharp.dll
 /Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/kitbox.dll
 /Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/Microsoft.CSharp.dll
 /Users/ayoub/progra/kitbox/kitbox/bin/Debug/net7.0-maccatalyst/maccatalyst-arm64/publish/../kitbox.app/Contents/MonoBundle/Microsoft.VisualBasic.Core.dll

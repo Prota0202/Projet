@@ -47,6 +47,41 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>MonoBundle/BouncyCastle.Cryptography.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ghU8DmiDSg9A4gA4QlQpo+P5z02rvJGRtHbP5WGKFB0=
+			</data>
+		</dict>
+		<key>MonoBundle/Google.Protobuf.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0t+d88FK0xICuYlHa9il5B9oHZnRaqbEjymsyZakR90=
+			</data>
+		</dict>
+		<key>MonoBundle/K4os.Compression.LZ4.Streams.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			trpaty5efJbCvFmLZ8Gw91sUeYUAiTeKiMZPNkabpUg=
+			</data>
+		</dict>
+		<key>MonoBundle/K4os.Compression.LZ4.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			lxiUWqc+T8aL9I6x3UcEu6rNbhwiZw21bewWGxgiaJc=
+			</data>
+		</dict>
+		<key>MonoBundle/K4os.Hash.xxHash.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Gdc/pYwfbBLGHzDqrZGIG9BvUMr0tGKwYbwbRdCld80=
+			</data>
+		</dict>
 		<key>MonoBundle/Microsoft.CSharp.dll</key>
 		<dict>
 			<key>hash2</key>
@@ -194,6 +229,20 @@
 			sLxkYBAtkghhpGcd1gz/UWmYlFgrD2aXY45rV2Tvs4U=
 			</data>
 		</dict>
+		<key>MonoBundle/Microsoft.Win32.SystemEvents.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			56MWX7GCuiW+O0EPzkUo0jj6T/mhpVB6x+UFQtaS2qE=
+			</data>
+		</dict>
+		<key>MonoBundle/MySql.Data.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			FHSS6Q+a+FM+sEyLF0e9HfFgUjB5cxKhPHOlffAwR5o=
+			</data>
+		</dict>
 		<key>MonoBundle/System.AppContext.dll</key>
 		<dict>
 			<key>hash2</key>
@@ -283,6 +332,13 @@
 			<key>hash2</key>
 			<data>
 			wAs1HS1Ztmegwwkyhi2jmUmc04ZSl6AXcxKM0M1vAEo=
+			</data>
+		</dict>
+		<key>MonoBundle/System.Configuration.ConfigurationManager.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			usGs4hpd5W7VC+6Moi/EG8ndMyjad338A6qSw9Bd8QQ=
 			</data>
 		</dict>
 		<key>MonoBundle/System.Configuration.dll</key>
@@ -395,6 +451,13 @@
 			<key>hash2</key>
 			<data>
 			QmuJ9q0lPwK1knRPKIaiawbsDBN0t99eYmP400mv7MM=
+			</data>
+		</dict>
+		<key>MonoBundle/System.Drawing.Common.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AAsJ2ZiyMVmrnn74fHywmq2MnPs2b0rmnfylCvWhZsA=
 			</data>
 		</dict>
 		<key>MonoBundle/System.Drawing.Primitives.dll</key>
@@ -528,6 +591,13 @@
 			<key>hash2</key>
 			<data>
 			gHrDuIPXOLyOz9gQIQIOe1AteRE4fS4v+g9ML+PDpYo=
+			</data>
+		</dict>
+		<key>MonoBundle/System.IO.Pipelines.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6+E55JXedimdw1c1bDtVg4K7XuWjVWVTifH8QpfzXSY=
 			</data>
 		</dict>
 		<key>MonoBundle/System.IO.Pipes.AccessControl.dll</key>
@@ -1041,6 +1111,13 @@
 			drT0gfq9BVSw9yC4dSAxbNSMTzrbBc0guU9w16YIMl4=
 			</data>
 		</dict>
+		<key>MonoBundle/System.Security.Cryptography.ProtectedData.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gaA4XPH+0i8xU3idSuH+51cZ8j5yzVQ+26GvSJJvvyQ=
+			</data>
+		</dict>
 		<key>MonoBundle/System.Security.Cryptography.X509Certificates.dll</key>
 		<dict>
 			<key>hash2</key>
@@ -1053,6 +1130,13 @@
 			<key>hash2</key>
 			<data>
 			FLc+QkDS3aKNe8SEAcLpv7Wde+1BksC8nN73h736hHk=
+			</data>
+		</dict>
+		<key>MonoBundle/System.Security.Permissions.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dO87Z5YKm1af7ZrEVxV3adv+QzsPT6E8UhZ8Ika/7XE=
 			</data>
 		</dict>
 		<key>MonoBundle/System.Security.Principal.Windows.dll</key>
@@ -1244,6 +1328,13 @@
 			nr5Ae1uMUGzqhqO7R5LC/QtSh72k8kdTdasy9JnCDOU=
 			</data>
 		</dict>
+		<key>MonoBundle/System.Windows.Extensions.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			q76BRvo/Y47p9aquhRgtct54B8nwoGMR7xTrTl88s7A=
+			</data>
+		</dict>
 		<key>MonoBundle/System.Windows.dll</key>
 		<dict>
 			<key>hash2</key>
@@ -1328,6 +1419,13 @@
 			EWQDtiEj1Q+4bwxRgcjVmZfaaOxNTdRH9QEntgRkBP4=
 			</data>
 		</dict>
+		<key>MonoBundle/ZstdSharp.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			u5++2S6TLSHD93u3HOUv0x49gCC+86aiDoqsytUjd5g=
+			</data>
+		</dict>
 		<key>MonoBundle/icudt.dat</key>
 		<dict>
 			<key>hash2</key>
@@ -1339,14 +1437,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/cQEn214Jhq3LFSbdheDiLBQUhTEEi5yey5AHrQBBts=
+			B5oeDlKYtvvCMXMnO4xb9Vs7ODTbKWJBF/Efr1w7q7k=
 			</data>
 		</dict>
 		<key>MonoBundle/kitbox.pdb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6XwJvxE7gGCqPeW+qE2trhbYcXCMH+7UTq4PHYgLZBU=
+			WncrG9QGO8ojOz2jVELVP/UarwgQT8pbU5MSHR24Rfo=
 			</data>
 		</dict>
 		<key>MonoBundle/mscorlib.dll</key>

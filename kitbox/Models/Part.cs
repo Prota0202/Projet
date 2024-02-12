@@ -2,9 +2,9 @@
 
 public class Part
 {
-	private string partname ;
-	private int quantity;
-	private int price ;
+	public string partname ;
+	public int quantity;
+	public int price ;
 
 	public Part(string partname, int price) {
 		this.partname = partname;
@@ -32,5 +32,7 @@ public class Part
 		price = changedprice;
 		return price;
 	}
+	public string DisplayName => $"{partname}";
 	public string DisplayNameAndPrice => $"{partname} : {price}$";
+	public string DisplayNameAndQuantity => $"{partname} : {quantity} pieces";
 }
