@@ -59,6 +59,40 @@ public partial class stock : ContentPage
 		RefreshListView();
     }
 }
+    private void OnAddQuantityClicked(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            string partName = btn.CommandParameter.ToString();
+            Part selectedPart = partsList.FirstOrDefault(part => part.DisplayName == partName);
+            if (selectedPart != null)
+            {
+                int quantityToAdd = Convert.ToInt32(((Entry)btn.Parent.FindByName("QuantityToChangeEntry")).Text);
+                selectedPart.Add(quantityToAdd);
+                databaseManager.OpenConnection();
+                databaseManager.UpdatePartQuantity(selectedPart.DisplayName, quantityToAdd);
+                databaseManager.CloseConnection();
+                RefreshListView();
+            }
+        }
+
+        private void OnRemoveQuantityClicked(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            string partName = btn.CommandParameter.ToString();
+            Part selectedPart = partsList.FirstOrDefault(part => part.DisplayName == partName);
+            if (selectedPart != null)
+            {
+                int quantityToRemove = Convert.ToInt32(((Entry)btn.Parent.FindByName("QuantityToChangeEntry")).Text);
+                int quantityChange = -quantityToRemove;
+                databaseManager.OpenConnection();
+                databaseManager.UpdatePartQuantity(selectedPart.DisplayName, quantityChange);
+                databaseManager.CloseConnection();
+                selectedPart.Remove(quantityToRemove);
+                RefreshListView();
+            }
+        }
+
+        
 	private void RefreshListView()
 {
     partsList.Clear();

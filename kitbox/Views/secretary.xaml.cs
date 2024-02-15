@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 public partial class secretary : ContentPage
 {
 	public ObservableCollection<Part> partsList {get; set;} = new ObservableCollection<Part>();
+	public ObservableCollection<Supplier> supplierList {get; set;} = new ObservableCollection<Supplier>();
 	private DatabaseManager databaseManager;
 	public secretary()
 	{
@@ -16,6 +17,7 @@ public partial class secretary : ContentPage
         string password = "root";
 		databaseManager = new DatabaseManager(server, database, username, password);
 		LoadPartsFromDatabase();
+		LoadSuppliersFromDatabase();
 	}
 
 	private void LoadPartsFromDatabase(){
@@ -38,5 +40,15 @@ public partial class secretary : ContentPage
 
 			DisplayAlert("Succes","you created a new part","ok");
 		}
+	}
+
+	private void LoadSuppliersFromDatabase(){
+		databaseManager.OpenConnection();
+		var suppliersFromDatabase = databaseManager.GetSuppliers();
+		databaseManager.CloseConnection();
+		foreach(var supplier in suppliersFromDatabase){
+			supplierList.Add(supplier);
+		}
+		SupplierPicker.ItemsSource = supplierList.Select(part => part.DisplayName).ToList();
 	}
 }
