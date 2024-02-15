@@ -116,16 +116,19 @@ private int GetPartIdByName(string partName)
 
     public List<Supplier> GetSuppliers(){
         List<Supplier> suppliers = new List<Supplier>();
-        string query = "SELECT SuplierName FROM Supplier";
+        string query = "SELECT SuplierName, Adress, Mail, PhoneNumber FROM Supplier";
 
          try{
         MySqlCommand command = new MySqlCommand(query, connection);
         MySqlDataReader reader = command.ExecuteReader();
 
         while (reader.Read()){
-            string supplierName = reader.GetString("SuplierName");
-            Supplier supplier = new Supplier(supplierName);
-            suppliers.Add(supplier);}
+            string supplierName = reader.IsDBNull(reader.GetOrdinal("SuplierName")) ? string.Empty : reader.GetString("SuplierName");
+            string address = reader.IsDBNull(reader.GetOrdinal("Adress")) ? string.Empty : reader.GetString("Adress");
+            string mail = reader.IsDBNull(reader.GetOrdinal("Mail")) ? string.Empty : reader.GetString("Mail");
+            int phonenumber = reader.IsDBNull(reader.GetOrdinal("PhoneNumber")) ? 0 : reader.GetInt32("PhoneNumber");
+            Supplier supplier = new Supplier(supplierName,address,mail,phonenumber);
+            suppliers.Add(supplier);;}
         reader.Close();}
         catch (MySqlException ex){
             Console.WriteLine("Error retrieving suppliers from the database: " + ex.Message);
@@ -134,11 +137,14 @@ private int GetPartIdByName(string partName)
     }
 
     public void AddSupplier(Supplier supplier){
-        string query = "INSERT INTO Supplier (SuplierName) VALUES (@SupplierName)";
+        string query = "INSERT INTO Supplier (SuplierName, Adress, Mail, PhoneNumber) VALUES (@SupplierName, @Adress, @Mail, @PhoneNumber)";
 
         try{
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@SupplierName", supplier.suppliername);
+            command.Parameters.AddWithValue("@Adress", supplier.adress);
+            command.Parameters.AddWithValue("@Mail", supplier.mail);
+            command.Parameters.AddWithValue("@PhoneNumber", supplier.phonenumber);
             command.ExecuteNonQuery();
             Console.WriteLine("Supplier added successfully to the database.");
         }

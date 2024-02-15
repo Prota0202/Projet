@@ -29,7 +29,10 @@ public partial class supplier : ContentPage
 
 	private void OnAddNewSupplier(object sender, EventArgs e) {
 			string supplier2add = NewSupplierEntry.Text;
-			Supplier newsupplier = new Supplier(supplier2add);
+			string adress2add = NewSupplierAdress.Text;
+			string mail2add = NewSupplierMail.Text;
+			int phonenumber2add = Convert.ToInt32(NewSupplierPhoneNumber.Text);
+			Supplier newsupplier = new Supplier(supplier2add, adress2add, mail2add, phonenumber2add);
 			supplierList.Add(newsupplier);
 			databaseManager.OpenConnection();
 			databaseManager.AddSupplier(newsupplier);
