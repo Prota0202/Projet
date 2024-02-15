@@ -24,7 +24,7 @@ public partial class supplier : ContentPage
 		foreach(var supplier in suppliersFromDatabase){
 			supplierList.Add(supplier);
 		}
-		RemoveSupplierPicker.ItemsSource = supplierList.Select(part => part.DisplayName).ToList();
+		// RemoveSupplierPicker.ItemsSource = supplierList.Select(part => part.DisplayName).ToList();
 	}
 
 	private void OnAddNewSupplier(object sender, EventArgs e) {
@@ -37,24 +37,13 @@ public partial class supplier : ContentPage
 			DisplayAlert("Succes","you created a new part","ok");
 	}
 
-	private void OnSupplierRemoveClicked(object sender, EventArgs e){
-    string selectedSupplierName = RemoveSupplierPicker.SelectedItem as string;
-
-    if (!string.IsNullOrEmpty(selectedSupplierName)){
-        databaseManager.OpenConnection();
-        databaseManager.RemoveSupplier(selectedSupplierName);
-        databaseManager.CloseConnection();
-        Supplier supplierToRemove = supplierList.FirstOrDefault(s => s.suppliername == selectedSupplierName);
-        if (supplierToRemove != null){
-            supplierList.Remove(supplierToRemove);
-            DisplayAlert("Success", "Supplier removed successfully", "OK");
-        }
-        else{
-            DisplayAlert("Error", "Failed to find the supplier to remove", "OK");
-        }
-    }
-    else{
-        DisplayAlert("Error", "Please select a supplier to remove", "OK");
-    }
+	private void OnRemoveTapped(object sender, EventArgs e)
+{
+    var label = (Label)sender;
+    var supplier = (Supplier)label.BindingContext;
+    supplierList.Remove(supplier);
+    databaseManager.OpenConnection();
+    databaseManager.RemoveSupplier(supplier.DisplayName);
+    databaseManager.CloseConnection();
 }
 }

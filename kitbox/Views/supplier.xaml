@@ -4,27 +4,20 @@
              x:Class="kitbox.supplier"
              Title="supplier">
     <VerticalStackLayout Spacing="20">
+        <Label Text="Supplier Page" FontSize="42" VerticalOptions="Center" HorizontalOptions="Center" />
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Add a new supplier :"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Start" />
 
-        <HorizontalStackLayout Spacing="200">
+        <HorizontalStackLayout Spacing="20">
         <Entry Placeholder="New Supplier Name" x:Name="NewSupplierEntry" HorizontalOptions="Start" WidthRequest="200"/>
+        <Entry Placeholder="Adress" x:Name="NewSupplierAdress" HorizontalOptions="Start" WidthRequest="200"/>
+        <Entry Placeholder="Mail" x:Name="NewSupplierMail" HorizontalOptions="Start" WidthRequest="200"/>
+        <Entry Placeholder="Phone Number" x:Name="NewSupplierPhoneNumber" HorizontalOptions="Start" WidthRequest="200"/>
 
-        <Button Text="Add The New Supplier"
+        <Button Text="Add A New Supplier"
                 Clicked="OnAddNewSupplier"
-                VerticalOptions="Center"
-                HorizontalOptions="End"/>
-        </HorizontalStackLayout>
-
-        <HorizontalStackLayout Spacing="200">
-        <Picker  x:Name="RemoveSupplierPicker" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start"
-                    SelectedItem="{Binding Selection}" WidthRequest="200">
-            </Picker>
-        
-        <Button Text="Remove Supplier"
-                Clicked="OnSupplierRemoveClicked"
                 VerticalOptions="Center"
                 HorizontalOptions="End"/>
         </HorizontalStackLayout>
@@ -33,9 +26,18 @@
         <ListView ItemsSource="{Binding supplierList}">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextCell Text="{Binding DisplayName}" />
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Padding="0,0,20,0">
+                        <Label Text="{Binding DisplayName}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="Remove" TextColor="#F95B09" TextDecorations="Underline" VerticalOptions="Center" HorizontalOptions="End" Margin="0,0,10,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnRemoveTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
-        </ListView>
+    </ListView>
     </VerticalStackLayout>
 </ContentPage>
