@@ -112,7 +112,7 @@ CREATE TABLE `parts` (
   `Price` int DEFAULT NULL,
   `Quantity` int DEFAULT NULL,
   PRIMARY KEY (`idParts`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +121,7 @@ CREATE TABLE `parts` (
 
 LOCK TABLES `parts` WRITE;
 /*!40000 ALTER TABLE `parts` DISABLE KEYS */;
-INSERT INTO `parts` VALUES (1,'TASSE',43,10),(2,'Porte rouge',74,44),(3,'Verre',12,-47);
+INSERT INTO `parts` VALUES (1,'TASSE',43,16),(2,'Porte rouge',74,8),(3,'Verre',12,3),(4,'Chaise',25,10);
 /*!40000 ALTER TABLE `parts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-15 22:24:16
+-- Dump completed on 2024-02-15 23:57:21
