@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `are forced`;
 CREATE TABLE `are forced` (
   `id_supplier` int DEFAULT NULL,
   `id_component` int DEFAULT NULL,
-  `TimeLimit` int DEFAULT NULL,
+  `Delay` int DEFAULT NULL,
   `Price` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -55,11 +55,15 @@ CREATE TABLE `component` (
   `Color` varchar(45) DEFAULT NULL,
   `Length` int DEFAULT NULL,
   `Width` int DEFAULT NULL,
-  `Height` int DEFAULT NULL,
+  `Height_real` int DEFAULT NULL,
+  `Height_customer` int DEFAULT NULL,
   `RemainingQuantity` int DEFAULT NULL,
   `Side` varchar(45) DEFAULT NULL,
+  `Depth` int DEFAULT NULL,
+  `Diameter` int DEFAULT NULL,
+  `Looker's quantity` int DEFAULT NULL,
   PRIMARY KEY (`id_component`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +72,7 @@ CREATE TABLE `component` (
 
 LOCK TABLES `component` WRITE;
 /*!40000 ALTER TABLE `component` DISABLE KEYS */;
-INSERT INTO `component` VALUES (1,'Vertical batten','TAS27',NULL,27,NULL,32,NULL,NULL),(2,'Crossbar','TRG32',NULL,NULL,32,NULL,NULL,'left'),(3,'Crossbar','TRG52',NULL,NULL,52,NULL,NULL,'right'),(4,'Panel','PAR3232BL','white',32,NULL,32,NULL,'back'),(5,'Door','POR3232BR',NULL,32,NULL,32,NULL,NULL);
+INSERT INTO `component` VALUES (1,'Vertical batten','TAS27',NULL,27,NULL,32,NULL,NULL,NULL,NULL,NULL,NULL),(2,'Crossbar','TRG32',NULL,NULL,32,NULL,NULL,NULL,'left',NULL,NULL,NULL),(3,'Crossbar','TRG52',NULL,NULL,52,NULL,NULL,NULL,'right',NULL,NULL,NULL),(4,'Panel','PAR3232BL','white',32,NULL,32,NULL,NULL,'back',NULL,NULL,NULL),(5,'Door','POR3232BR',NULL,32,NULL,32,NULL,NULL,NULL,NULL,NULL,NULL),(6,'Angle iron ','COR35BL','white',NULL,NULL,32,32,NULL,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `component` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-13 19:25:36
+-- Dump completed on 2024-02-15 14:12:22
