@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="kitbox.supplier"
+             Title="supplier">
+    <VerticalStackLayout Spacing="20">
+        <Label Text="Supplier Page" FontSize="42" VerticalOptions="Center" HorizontalOptions="Center" />
+        <Label 
+            Text="Add a new supplier :"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+
+        <HorizontalStackLayout Spacing="20">
+        <Entry Placeholder="New Supplier Name" x:Name="NewSupplierEntry" HorizontalOptions="Start" WidthRequest="200"/>
+        <Entry Placeholder="Adress" x:Name="NewSupplierAdress" HorizontalOptions="Start" WidthRequest="200"/>
+        <Entry Placeholder="Mail" x:Name="NewSupplierMail" HorizontalOptions="Start" WidthRequest="200"/>
+        <Entry Placeholder="Phone Number" x:Name="NewSupplierPhoneNumber" HorizontalOptions="Start" WidthRequest="200"/>
+
+        <Button Text="Add A New Supplier"
+                Clicked="OnAddNewSupplier"
+                VerticalOptions="Center"
+                HorizontalOptions="End"/>
+        </HorizontalStackLayout>
+
+        <Label Text="List of Suppliers:" VerticalOptions="Center" HorizontalOptions="Center" />
+        <ListView ItemsSource="{Binding supplierList}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Padding="0,0,20,0">
+                        <Label Text="{Binding DisplaySupplier}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="Remove" TextColor="#F95B09" TextDecorations="Underline" VerticalOptions="Center" HorizontalOptions="End" Margin="0,0,10,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnRemoveTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,51 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="kitbox.MainPage">
+
+    <Grid>
+    <StackLayout BackgroundColor="#F5F5F5">
+    <Image Source="origami_background.png" Aspect="AspectFill" />
+    <Label Text="" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
+    </StackLayout>
+
+    <ScrollView>
+    <StackLayout Padding="20">
+    <Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />  
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" /> 
+    </Grid.RowDefinitions>
+
+        <Label Text="Ik weet het niet" FontSize="Title" Grid.Row="0" HorizontalOptions="Center" />
+
+        <CollectionView ItemsSource="{Binding Products}" Grid.Row="1">
+        <CollectionView.ItemTemplate>
+    <DataTemplate>
+        <Frame BackgroundColor="#FFFFFF" Padding="10" Margin="5">
+            <StackLayout>
+        <Image Source="{Binding Image}" Aspect="AspectFit" Height="100" />
+        <Label Text="{Binding Name}" FontSize="Medium" />
+        <Label Text="{Binding Price}" FontSize="Small" />
+        </StackLayout>
+        </Frame>
+        </DataTemplate>
+        </CollectionView.ItemTemplate>
+        </CollectionView>
+
+      <Entry Placeholder="Username" Grid.Row="2" />
+      <Entry Placeholder="Password" Grid.Row="3" /> 
+
+    <StackLayout Orientation="Horizontal" Spacing="10" Grid.Row="4" HorizontalOptions="Center">
+        <Button Text="Log In" FontSize="Large" HorizontalOptions="Center" />
+        <Button Text="Sign Up" FontSize="Large" HorizontalOptions="Center" />
+    </StackLayout>
+
+    </Grid>
+    </StackLayout>
+    </ScrollView>
+    </Grid>
+
+</ContentPage>
