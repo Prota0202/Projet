@@ -8,4 +8,10 @@ public partial class OrderingPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+	private void basketclicked(object sender, EventArgs e)
+	{
+
+		Navigation.PushAsync(new BasketPage());
+	}
 }

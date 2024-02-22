@@ -83,7 +83,7 @@
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
                 <Button Text="Add Locker" />
-                <Button Text="My Order" />
+                <Button Text="My Order" Clicked="basketclicked"/>
                 <Button Text="Save" />
             </StackLayout>
 
