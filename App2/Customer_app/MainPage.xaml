@@ -9,14 +9,15 @@
             Spacing="25">
             <Image
                 Source="kitbox.png"
-                HeightRequest="185"
+                HeightRequest="250"
                 Aspect="AspectFit"
-                SemanticProperties.Description="The kitbox" />
+                SemanticProperties.Description="The kitbox"
+                HorizontalOptions="Center" />
 
             <Label
                 Text="WELCOME TO KITBOX COMPANY"
                 SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
+                FontSize="52"
                 HorizontalOptions="Center" />
 
             <Button
