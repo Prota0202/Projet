@@ -60,6 +60,7 @@ CREATE TABLE `component` (
   `Depth` int DEFAULT NULL,
   `Diameter` int DEFAULT NULL,
   `Looker's quantity` int DEFAULT NULL,
+  `Ordered_Quantity` int DEFAULT '0',
   PRIMARY KEY (`id_component`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -70,7 +71,7 @@ CREATE TABLE `component` (
 
 LOCK TABLES `component` WRITE;
 /*!40000 ALTER TABLE `component` DISABLE KEYS */;
-INSERT INTO `component` VALUES (1,'Vertical batten','TAS27',NULL,27,NULL,32,NULL,NULL,NULL,NULL,NULL,NULL),(2,'Crossbar','TRG32',NULL,NULL,32,NULL,NULL,NULL,'left',NULL,NULL,NULL),(3,'Crossbar','TRG52',NULL,NULL,52,NULL,NULL,NULL,'right',NULL,NULL,NULL),(4,'Panel','PAR3232BL','white',32,NULL,32,NULL,NULL,'back',NULL,NULL,NULL),(5,'Door','POR3232BR',NULL,32,NULL,32,NULL,NULL,NULL,NULL,NULL,NULL),(6,'Angle iron ','COR35BL','white',NULL,NULL,32,32,NULL,NULL,NULL,NULL,1);
+INSERT INTO `component` VALUES (1,'Vertical batten','TAS27',NULL,27,NULL,32,NULL,0,NULL,NULL,NULL,NULL,0),(2,'Crossbar','TRG32',NULL,NULL,32,NULL,NULL,0,'left',NULL,NULL,NULL,0),(3,'Crossbar','TRG52',NULL,NULL,52,NULL,NULL,0,'right',NULL,NULL,NULL,0),(4,'Panel','PAR3232BL','white',32,32,32,NULL,0,'back',NULL,NULL,NULL,0),(5,'Door','POR3232BR',NULL,32,32,32,NULL,0,NULL,NULL,NULL,NULL,0),(6,'Angle iron ','COR35BL','white',NULL,NULL,32,32,0,NULL,NULL,NULL,1,0);
 /*!40000 ALTER TABLE `component` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +113,7 @@ CREATE TABLE `parts` (
   `Price` int DEFAULT NULL,
   `Quantity` int DEFAULT NULL,
   PRIMARY KEY (`idParts`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +122,7 @@ CREATE TABLE `parts` (
 
 LOCK TABLES `parts` WRITE;
 /*!40000 ALTER TABLE `parts` DISABLE KEYS */;
-INSERT INTO `parts` VALUES (1,'TASSE',43,16),(2,'Porte rouge',74,8),(3,'Verre',12,3),(4,'Chaise',25,10);
+INSERT INTO `parts` VALUES (1,'TASSE',43,28),(2,'Porte rouge',74,8),(3,'Verre',12,3),(4,'Chaise',25,10),(5,'La dignité a Abdelbadi',5,0);
 /*!40000 ALTER TABLE `parts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +140,7 @@ CREATE TABLE `supplier` (
   `Mail` varchar(45) DEFAULT NULL,
   `PhoneNumber` int DEFAULT NULL,
   PRIMARY KEY (`id_supplier`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +149,7 @@ CREATE TABLE `supplier` (
 
 LOCK TABLES `supplier` WRITE;
 /*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
-INSERT INTO `supplier` VALUES (1,'Supplier 1',NULL,NULL,NULL),(7,'Supplier 2',NULL,NULL,NULL),(10,'IKEA','Rue de l’exemple 47, 1000 Bruxelles','ikea@gmail.com',496338745);
+INSERT INTO `supplier` VALUES (1,'Supplier 1',NULL,NULL,NULL),(7,'Supplier 2',NULL,NULL,NULL),(10,'IKEA','Rue de l’exemple 47, 1000 Bruxelles','ikea@gmail.com',496338745),(11,'Ixina ','Rue de la habra ','Raphestunemerde@gmail.com',488469172);
 /*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -161,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-15 23:57:21
+-- Dump completed on 2024-02-24  0:20:15

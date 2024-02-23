@@ -166,4 +166,29 @@ private int GetPartIdByName(string partName)
         Console.WriteLine("Error removing supplier from the database: " + ex.Message);
     }
 }
+
+public List<Element> GetElements(){
+        List<Element> elements = new List<Element>();
+        string query = "SELECT Name, Code, RemainingQuantity, Ordered_Quantity FROM component";
+
+        try{
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read()){
+                string Name = reader.GetString("Name");
+                string code = reader.GetString("Code");
+                int quantity = reader.IsDBNull(reader.GetOrdinal("RemainingQuantity")) ? 0 : reader.GetInt32("RemainingQuantity");
+                int quantityordered = reader.IsDBNull(reader.GetOrdinal("Ordered_Quantity")) ? 0 : reader.GetInt32("Ordered_Quantity");
+                Element elementloaded = new Element(Name, code, quantity, quantityordered);
+                elements.Add(elementloaded);
+            }
+            reader.Close();
+        }
+        catch (MySqlException ex)
+        {
+            Console.WriteLine("Error retrieving parts from the database: " + ex.Message);
+        }
+        return elements;
+    }
 }
