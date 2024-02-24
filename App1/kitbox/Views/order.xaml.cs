@@ -25,4 +25,39 @@ public partial class order : ContentPage
 			elementsList.Add(elem);
 		}
 	}
+	private void OnButtonPlusClicked(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            var element = (Element)button.CommandParameter;
+			Console.WriteLine(element.Name);
+			Console.WriteLine(element.Code);
+            if (element != null)
+            {
+				Console.WriteLine("it works");
+                int quantityToAdd = Convert.ToInt32(((Entry)button.Parent.FindByName("QuantityToChangeEntry")).Text);
+				Console.WriteLine(quantityToAdd);
+				element.OrderToSupplier(quantityToAdd);
+				databaseManager.OpenConnection();
+                databaseManager.UpdateElement(element);
+                databaseManager.CloseConnection();
+                element.OrderToSupplier(quantityToAdd);
+				RefreshListView();
+            }
+            else
+            {
+                Console.WriteLine("Invalid quantity entered.");
+            }
+        }
+
+private void RefreshListView()
+{
+    elementsList.Clear();
+	databaseManager.OpenConnection();
+    var ElementsFromDataBase = databaseManager.GetElements();
+	databaseManager.CloseConnection();
+    foreach (var elem in ElementsFromDataBase)
+    {
+        elementsList.Add(elem);
+    }
+}
 }

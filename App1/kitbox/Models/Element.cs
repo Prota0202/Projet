@@ -5,7 +5,7 @@ public class Element
     public string Name { get; }
     public string Code { get; }
     public int Quantity { get; }
-    public int Quantityordered { get; }
+    public int Quantityordered { get; set;}
     public double Length { get; set; }
     public double Width { get; set; }
     public double Height { get; set; }
@@ -18,6 +18,11 @@ public class Element
         Quantity  = quantity;
         Quantityordered = quantityordered;
     }
+
+    public int OrderToSupplier(int amount){
+		Quantityordered += amount;
+		return Quantityordered;
+	}
 
     public string DisplayNameCodeQuantityOrdered => $"{Name} ({Code}) : {Quantity} pieces available - {Quantityordered} coming";
 }

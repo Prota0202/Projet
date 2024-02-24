@@ -191,4 +191,23 @@ public List<Element> GetElements(){
         }
         return elements;
     }
+
+public void UpdateElement(Element element)
+{
+    string query = "UPDATE component SET Ordered_Quantity = @OrderedQuantity, RemainingQuantity = @RemainingQuantity WHERE Code = @Code";
+
+    try
+    {
+        MySqlCommand command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@OrderedQuantity", element.Quantityordered);
+        command.Parameters.AddWithValue("@RemainingQuantity", element.Quantity);
+        command.Parameters.AddWithValue("@Code", element.Code);
+        command.ExecuteNonQuery();
+        Console.WriteLine("Element updated successfully.");
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error updating element: " + ex.Message);
+    }
+}
 }
