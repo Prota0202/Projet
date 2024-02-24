@@ -6,4 +6,9 @@ public partial class BasketPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+	private void OrderBackbuttonclicked(object sender, EventArgs e)
+	{
+		Navigation.PopAsync();
+	}
 }

@@ -8,5 +8,12 @@
             Text="Faudra faire ici un récap de tous les casiers qu'il a confectionner pdt qu'il commande seulement"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <Button
+            x:Name="StartOrdering"
+            Text="Back to order page"
+            Clicked="OrderBackbuttonclicked"
+            HorizontalOptions="Center" />
+
     </VerticalStackLayout>
 </ContentPage>
