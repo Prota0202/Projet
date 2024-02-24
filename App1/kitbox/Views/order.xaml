@@ -9,6 +9,11 @@
         <Button Text="Order's history"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"/>
+                
+        <Button Text="Refresh (temporary)"
+                Clicked="OnRefreshClicked"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
 
         <ListView x:Name="ElementsQuantity" ItemsSource="{Binding elementsList}">
         <ListView.ItemTemplate>

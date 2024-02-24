@@ -15,16 +15,20 @@ public partial class order : ContentPage
         string username = "root";
         string password = "root";
 		databaseManager = new DatabaseManager(server, database, username, password);
-		LoadPartsFromDatabase();
-	}
-	private void LoadPartsFromDatabase(){
+		LoadElementsFromDatabase();	}
+	private void LoadElementsFromDatabase(){
 		databaseManager.OpenConnection();
-		var partsFromDatabase = databaseManager.GetElements();
+		var ElementsFromDataBase = databaseManager.GetElements();
 		databaseManager.CloseConnection();
-		foreach(var elem in partsFromDatabase){
+		foreach(var elem in ElementsFromDataBase){
 			elementsList.Add(elem);
 		}
 	}
+
+	private void OnRefreshClicked(object sender, EventArgs e)
+{
+		RefreshListView();
+}
 	private void OnButtonPlusClicked(object sender, EventArgs e)
         {
             var button = (Button)sender;

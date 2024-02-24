@@ -6,42 +6,21 @@
     <VerticalStackLayout Spacing="20">
         <Label Text="Add or remove quantity of part" FontSize="42" VerticalOptions="Center" HorizontalOptions="Center" />
 
-        <HorizontalStackLayout Spacing="200">
-        <Picker x:Name="AddPartPicker" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start"
-                    SelectedItem="{Binding Selection}" WidthRequest="200">
-            </Picker>
-
-        <Entry Placeholder="Quantity" x:Name="QuantityEntry" HorizontalOptions="Center" WidthRequest="200"/>
-
-        <Button Text="Add Parts"
-                Clicked="OnAddPartsClicked"
+        <Button Text="Refresh (temporary)"
+                Clicked="OnRefreshClicked"
                 VerticalOptions="Center"
-                HorizontalOptions="End"/>
-        </HorizontalStackLayout>
+                HorizontalOptions="Center"/>
 
-        <HorizontalStackLayout Spacing="200">
-        <Picker  x:Name="RemovePartPicker" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start"
-                    SelectedItem="{Binding Selection}" WidthRequest="200">
-            </Picker>
-
-        <Entry Placeholder="Quantity" x:Name="Quantity2Entry" HorizontalOptions="Center" WidthRequest="200"/>
-
-        <Button Text="Remove Parts"
-                Clicked="OnRemovePartsClicked"
-                VerticalOptions="Center"
-                HorizontalOptions="End"/>
-        </HorizontalStackLayout>
-
-        <Label Text="List of Parts:" VerticalOptions="Center" HorizontalOptions="Center" />
-        <ListView x:Name="PartsQuantity" ItemsSource="{Binding partsList}">
+        <Label Text="List of Parts:" FontSize="22" VerticalOptions="Center" HorizontalOptions="Center" />
+        <ListView x:Name="PartsQuantity" ItemsSource="{Binding elementsList}">
         <ListView.ItemTemplate>
             <DataTemplate>
                  <ViewCell>
                         <StackLayout Orientation="Horizontal" Padding="10">
-                            <Label Text="{Binding DisplayNameAndQuantity}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
-                            <Button Text="-" Clicked="OnRemoveQuantityClicked" VerticalOptions="Center" HorizontalOptions="End" CommandParameter="{Binding DisplayName}"/>
+                            <Label Text="{Binding DisplayNameCodeQuantityOrdered}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                            <Button Text="-" Clicked="OnRemoveQuantityClicked" VerticalOptions="Center" HorizontalOptions="End" CommandParameter="{Binding}"/>
                             <Entry Placeholder="Quantity" x:Name="QuantityToChangeEntry" HorizontalOptions="Center" HeightRequest="40" WidthRequest="100"/>
-                            <Button Text="+" Clicked="OnAddQuantityClicked" VerticalOptions="Center" HorizontalOptions="End" CommandParameter="{Binding DisplayName}"/>
+                            <Button Text="+" Clicked="OnAddQuantityClicked" VerticalOptions="Center" HorizontalOptions="End" CommandParameter="{Binding}"/>
                         </StackLayout>
                     </ViewCell>
             </DataTemplate>
