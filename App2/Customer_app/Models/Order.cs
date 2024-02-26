@@ -11,5 +11,6 @@ namespace Customer_app.Models
         public string AngleIronColor { get; set; }
         public string Comment { get; set; }
         
+        
     }
 }
