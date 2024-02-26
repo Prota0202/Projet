@@ -10,5 +10,6 @@ namespace Customer_app.Models
         public string Door { get; set; }
         public string AngleIronColor { get; set; }
         public string Comment { get; set; }
+        
     }
 }
