@@ -81,11 +81,7 @@
             <Label Text="Comment:" />
             <Entry x:Name="CommentEntry" />
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
-                <Button Text="Add Locker" />
-                <Button Text="My Order" Clicked="basketclicked"/>
-                <Button Text="Save" />
-            </StackLayout>
+
 
             <Label Text="Number of lockers in the pack: [x/7]" HorizontalOptions="Center" />
 
