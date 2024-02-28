@@ -167,30 +167,44 @@ private int GetPartIdByName(string partName)
     }
 }
 
-public List<Element> GetElements(){
-        List<Element> elements = new List<Element>();
-        string query = "SELECT Name, Code, RemainingQuantity, Ordered_Quantity FROM component";
+public List<Element> GetElements()
+{
+    List<Element> elements = new List<Element>();
+    string query = "SELECT Name, Code, RemainingQuantity, Ordered_Quantity, Color, Length, Width, Height_real, Height_customer, Side, Depth, Diameter, LockerQuantity, KitboxQuantity FROM component";
 
-        try{
-            MySqlCommand command = new MySqlCommand(query, connection);
-            MySqlDataReader reader = command.ExecuteReader();
+    try
+    {
+        MySqlCommand command = new MySqlCommand(query, connection);
+        MySqlDataReader reader = command.ExecuteReader();
 
-            while (reader.Read()){
-                string Name = reader.GetString("Name");
-                string code = reader.GetString("Code");
-                int quantity = reader.IsDBNull(reader.GetOrdinal("RemainingQuantity")) ? 0 : reader.GetInt32("RemainingQuantity");
-                int quantityordered = reader.IsDBNull(reader.GetOrdinal("Ordered_Quantity")) ? 0 : reader.GetInt32("Ordered_Quantity");
-                Element elementloaded = new Element(Name, code, quantity, quantityordered);
-                elements.Add(elementloaded);
-            }
-            reader.Close();
-        }
-        catch (MySqlException ex)
+        while (reader.Read())
         {
-            Console.WriteLine("Error retrieving parts from the database: " + ex.Message);
+            string name = reader.GetString("Name");
+            string code = reader.GetString("Code");
+            int quantity = reader.IsDBNull(reader.GetOrdinal("RemainingQuantity")) ? 0 : reader.GetInt32("RemainingQuantity");
+            int quantityOrdered = reader.IsDBNull(reader.GetOrdinal("Ordered_Quantity")) ? 0 : reader.GetInt32("Ordered_Quantity");
+            string color = reader.IsDBNull(reader.GetOrdinal("Color")) ? "" : reader.GetString("Color");
+            int length = reader.IsDBNull(reader.GetOrdinal("Length")) ? 0 : reader.GetInt32("Length");
+            int width = reader.IsDBNull(reader.GetOrdinal("Width")) ? 0 : reader.GetInt32("Width");
+            int heightReal = reader.IsDBNull(reader.GetOrdinal("Height_real")) ? 0 : reader.GetInt32("Height_real");
+            int heightCustomer = reader.IsDBNull(reader.GetOrdinal("Height_customer")) ? 0 : reader.GetInt32("Height_customer");
+            string side = reader.IsDBNull(reader.GetOrdinal("Side")) ? "" : reader.GetString("Side");
+            int depth = reader.IsDBNull(reader.GetOrdinal("Depth")) ? 0 : reader.GetInt32("Depth");
+            int diameter = reader.IsDBNull(reader.GetOrdinal("Diameter")) ? 0 : reader.GetInt32("Diameter");
+            int lockerQuantity = reader.IsDBNull(reader.GetOrdinal("LockerQuantity")) ? 0 : reader.GetInt32("LockerQuantity");
+            int kitboxQuantity = reader.IsDBNull(reader.GetOrdinal("KitboxQuantity")) ? 0 : reader.GetInt32("KitboxQuantity");
+
+            Element element = new Element(name, code, color, length, width, heightReal, heightCustomer, quantity, side, depth, diameter, lockerQuantity, quantityOrdered, kitboxQuantity);
+            elements.Add(element);
         }
-        return elements;
+        reader.Close();
     }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving elements from the database: " + ex.Message);
+    }
+    return elements;
+}
 
 public void UpdateElement(Element element)
 {
@@ -210,4 +224,46 @@ public void UpdateElement(Element element)
         Console.WriteLine("Error updating element: " + ex.Message);
     }
 }
+
+public void AddElement(Element element){
+    string query = "INSERT INTO component (Name, Code, Color, Length, Width, Height_real, Height_customer, RemainingQuantity, Side, Depth, Diameter, LockerQuantity, Ordered_Quantity, KitboxQuantity) " +
+                   "VALUES (@Name, @Code, @Color, @Length, @Width, @Height_real, @Height_customer, @RemainingQuantity, @Side, @Depth, @Diameter, @LockerQuantity, @Ordered_Quantity, @KitboxQuantity)";
+
+    try{
+        MySqlCommand command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@Name", element.Name);
+        command.Parameters.AddWithValue("@Code", element.Code);
+        command.Parameters.AddWithValue("@Color", element.Color);
+        command.Parameters.AddWithValue("@Length", element.Length);
+        command.Parameters.AddWithValue("@Width", element.Width);
+        command.Parameters.AddWithValue("@Height_real", element.HeightReal);
+        command.Parameters.AddWithValue("@Height_customer", element.HeightCustomer);
+        command.Parameters.AddWithValue("@RemainingQuantity", element.Quantity);
+        command.Parameters.AddWithValue("@Side", element.Side);
+        command.Parameters.AddWithValue("@Depth", element.Depth);
+        command.Parameters.AddWithValue("@Diameter", element.Diameter);
+        command.Parameters.AddWithValue("@LockerQuantity", element.LockerQuantity);
+        command.Parameters.AddWithValue("@Ordered_Quantity", element.Quantityordered);
+        command.Parameters.AddWithValue("@KitboxQuantity", element.KitboxQuantity);
+        command.ExecuteNonQuery();
+        Console.WriteLine("Element added successfully to the database.");
+    }
+    catch (MySqlException ex){
+        Console.WriteLine("Error adding element to the database: " + ex.Message);
+    }
+}
+
+public void RemoveElement(Element element){
+    string query = "DELETE FROM component WHERE Code = @Code";
+    try{
+        MySqlCommand command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@Code", element.Code);
+        command.ExecuteNonQuery();
+        Console.WriteLine("Element removed successfully from the database.");
+    }
+    catch (MySqlException ex){
+        Console.WriteLine("Error removing element from the database: " + ex.Message);
+    }
+}
+
 }

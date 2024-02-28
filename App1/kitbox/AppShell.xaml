@@ -33,7 +33,7 @@
         Route="MainPage" />
 
     <ShellContent
-        Title="Secretary"
+        Title="Parts"
         ContentTemplate="{DataTemplate local:secretary}"
         Route="MainPage" />
 

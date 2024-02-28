@@ -19,7 +19,7 @@
         <RowDefinition Height="Auto" /> 
     </Grid.RowDefinitions>
 
-        <Label Text="Ik weet het niet" FontSize="Title" Grid.Row="0" HorizontalOptions="Center" />
+        <Label Text="Register In" FontSize="Title" Grid.Row="0" HorizontalOptions="Center" />
 
         <CollectionView ItemsSource="{Binding Products}" Grid.Row="1">
         <CollectionView.ItemTemplate>
