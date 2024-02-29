@@ -85,6 +85,12 @@
 
             <Label Text="Number of lockers in the pack: [x/7]" HorizontalOptions="Center" />
 
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                <Button Text="Add Locker" />
+                <Button Text="My Order" />
+                <Button Text="Save" />
+            </StackLayout>
+
         </StackLayout>
     </ScrollView>
 

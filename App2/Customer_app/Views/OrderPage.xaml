@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.OrderPage"
+             Title="OrderPage">
+    <ScrollView>
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+
+    <StackLayout Spacing="10">
+            <Label Text="Depth:" />
+            <Picker x:Name="DepthPicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>32</x:String>
+                        <x:String>42</x:String>
+                        <x:String>52</x:String>
+                        <x:String>62</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label Text="Width:" />
+            <Picker x:Name="WidthPicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>32</x:String>
+                        <x:String>42</x:String>
+                        <x:String>52</x:String>
+                        <x:String>62</x:String>
+                        <x:String>80</x:String>
+                        <x:String>100</x:String>
+                        <x:String>120</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label Text="Height:" />
+            <Picker x:Name="HeightPicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>32</x:String>
+                        <x:String>42</x:String>
+                        <x:String>52</x:String>
+                        <x:String>62</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label Text="Panel Color:" />
+            <Picker x:Name="PanelColorPicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>White</x:String>
+                        <x:String>Brown</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label Text="Door:" />
+            <Picker x:Name="DoorPicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>No Door</x:String>
+                        <x:String>White Glass</x:String>
+                        <x:String>Brown Glass</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label Text="Angle Iron Color:" />
+            <Picker x:Name="AngleIronColorPicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>White</x:String>
+                        <x:String>Brown</x:String>
+                        <x:String>Black</x:String>
+                        <x:String>Galva</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label Text="Number of lockers in the pack: [x/7]" HorizontalOptions="Center" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                <Button Text="Add Locker" />
+                <Button Text="My Order" />
+                <Button Text="Save" />
+            </StackLayout>
+
+
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

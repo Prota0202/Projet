@@ -22,34 +22,5 @@ public partial class OrderingPage : ContentPage
         string username = "root";
         string password = "root";
         databaseManager = new DatabaseManager(server, database, username, password);
-        LoadOrdersFromDatabase();
-    }
-
-    private void LoadOrdersFromDatabase()
-    {
-        databaseManager.OpenConnection();
-        var OrdersFromDataBase = databaseManager.GetOrders();
-        databaseManager.CloseConnection();
-        foreach (var order in OrdersFromDataBase)
-        {
-            OrdersList.Add(order);
-        }
-    }
-
-    private void BasketClicked(object sender, EventArgs e)
-{
-     Navigation.PushAsync(new BasketPage());
-}
-
-
-    private void OnRefreshClicked(object sender, EventArgs e)
-    {
-        RefreshListView();
-    }
-
-    private void RefreshListView()
-    {
-        OrdersList.Clear();
-        LoadOrdersFromDatabase(); 
     }
 }

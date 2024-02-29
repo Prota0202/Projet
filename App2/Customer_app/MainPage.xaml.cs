@@ -1,4 +1,5 @@
 ﻿using Customer_app.Views;
+using MauiApp1;
 
 namespace Customer_app;
 
@@ -12,7 +13,7 @@ public partial class MainPage : ContentPage
 
 	private void Orderbuttonclicked(object sender, EventArgs e)
 	{
-		Navigation.PushAsync(new OrderingPage()); 
+		Navigation.PushAsync(new OrderPage()); 
 	}
 
 }
