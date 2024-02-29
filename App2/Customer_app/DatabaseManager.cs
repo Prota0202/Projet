@@ -26,7 +26,7 @@ public class DatabaseManager
     public List<Order> GetOrders()
     {
         List<Order> Orders = new List<Order>();
-        string query = "SELECT idorder, depth, width, height, panel_color, door_type, angle_iron_color, comment FROM order";
+        string query = "SELECT idorder, depth, width, height, panel_color, door_type, angle_iron_color, comment FROM `order`";
 
         try
         {
