@@ -23,10 +23,11 @@ DROP TABLE IF EXISTS `are forced`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `are forced` (
-  `id_supplier` int DEFAULT NULL,
-  `id_component` int DEFAULT NULL,
+  `id_supplier` int NOT NULL,
+  `id_component` int NOT NULL,
   `Delay` int DEFAULT NULL,
   `Price` int DEFAULT NULL,
+  PRIMARY KEY (`id_component`,`id_supplier`),
   KEY `id_supplier_idx` (`id_supplier`),
   KEY `id_component_idx` (`id_component`),
   CONSTRAINT `id_component` FOREIGN KEY (`id_component`) REFERENCES `component` (`id_component`),
@@ -67,7 +68,7 @@ CREATE TABLE `component` (
   `Ordered_Quantity` int DEFAULT '0',
   `KitboxQuantity` int DEFAULT NULL,
   PRIMARY KEY (`id_component`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +77,7 @@ CREATE TABLE `component` (
 
 LOCK TABLES `component` WRITE;
 /*!40000 ALTER TABLE `component` DISABLE KEYS */;
-INSERT INTO `component` VALUES (1,'Vertical batten','TAS27',NULL,27,NULL,32,NULL,39,NULL,NULL,NULL,NULL,44,NULL),(2,'Crossbar','TRG32',NULL,NULL,32,NULL,NULL,7,'left',NULL,NULL,NULL,11,NULL),(3,'Crossbar','TRG52',NULL,NULL,52,NULL,NULL,0,'right',NULL,NULL,NULL,0,NULL),(4,'Panel','PAR3232BL','white',32,32,32,NULL,0,'back',NULL,NULL,NULL,0,NULL),(5,'Door','POR3232BR',NULL,32,32,32,NULL,0,NULL,NULL,NULL,NULL,0,NULL),(6,'Angle iron ','COR35BL','white',NULL,NULL,32,32,0,NULL,NULL,NULL,1,0,NULL),(7,'Vertical Batten','TAS37',NULL,37,0,42,0,0,NULL,0,0,0,0,0);
+INSERT INTO `component` VALUES (1,'Vertical batten','TAS27',NULL,27,NULL,32,NULL,39,NULL,NULL,NULL,NULL,69,NULL),(2,'Crossbar','TRG32',NULL,NULL,32,NULL,NULL,-2,'left',NULL,NULL,NULL,-12,NULL),(3,'Crossbar','TRG52',NULL,NULL,52,NULL,NULL,0,'right',NULL,NULL,NULL,0,NULL),(4,'Panel','PAR3232BL','white',32,32,32,NULL,0,'back',NULL,NULL,NULL,0,NULL),(5,'Door','POR3232BR',NULL,32,32,32,NULL,0,NULL,NULL,NULL,NULL,0,NULL),(6,'Angle iron ','COR35BL','white',NULL,NULL,32,32,0,NULL,NULL,NULL,1,0,NULL),(7,'Vertical Batten','TAS37',NULL,37,0,42,0,0,NULL,0,0,0,0,0),(11,'Veryt','CSQ54','red',0,0,0,0,0,'front',0,0,0,0,0),(12,'Veryt','CSQ54','red',0,0,0,0,0,'front',0,0,0,0,0);
 /*!40000 ALTER TABLE `component` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,6 +104,36 @@ CREATE TABLE `customer` (
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order`
+--
+
+DROP TABLE IF EXISTS `order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order` (
+  `idorder` int NOT NULL AUTO_INCREMENT,
+  `depth` int DEFAULT NULL,
+  `width` int DEFAULT NULL,
+  `height` int DEFAULT NULL,
+  `panel_color` varchar(45) DEFAULT NULL,
+  `door_type` varchar(45) DEFAULT NULL,
+  `angle_iron_color` varchar(45) DEFAULT NULL,
+  `comment` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idorder`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order`
+--
+
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES (1,200,50,200,'Black','normal','Black',NULL),(2,300,500,50,'Withe','normal','White',NULL);
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -145,7 +176,7 @@ CREATE TABLE `supplier` (
   `Mail` varchar(45) DEFAULT NULL,
   `PhoneNumber` int DEFAULT NULL,
   PRIMARY KEY (`id_supplier`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +185,7 @@ CREATE TABLE `supplier` (
 
 LOCK TABLES `supplier` WRITE;
 /*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
-INSERT INTO `supplier` VALUES (1,'Supplier 1',NULL,NULL,NULL),(7,'Supplier 2',NULL,NULL,NULL),(10,'IKEA','Rue de l’exemple 47, 1000 Bruxelles','ikea@gmail.com',496338745);
+INSERT INTO `supplier` VALUES (1,'Supplier 1',NULL,NULL,NULL),(7,'Supplier 2',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -167,4 +198,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-28 21:56:19
+-- Dump completed on 2024-02-29 14:57:43
