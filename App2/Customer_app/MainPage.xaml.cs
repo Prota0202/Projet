@@ -1,5 +1,4 @@
 ﻿using Customer_app.Views;
-using MauiApp1;
 
 namespace Customer_app;
 
