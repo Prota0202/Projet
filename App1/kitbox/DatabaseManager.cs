@@ -4,10 +4,15 @@ using MySql.Data.MySqlClient;
 public class DatabaseManager
 {
     private MySqlConnection connection;
-    private string connectionString;
+    private const string server = "pat.infolab.ecam.be";
+    private const string port = "63425";
+    private const string database = "kitbox";
+    private const string username = "kitbox";
+    private const string password = "kitbox";
+    private readonly string connectionString;
 
-    public DatabaseManager(string server, string database, string username, string password){
-        connectionString = $"Server={server};Database={database};Uid={username};Pwd={password};";
+    public DatabaseManager(){
+        connectionString = $"Server={server};Port={port};Database={database};Uid={username};Pwd={password};";
         connection = new MySqlConnection(connectionString);
     }
 
@@ -116,7 +121,7 @@ private int GetPartIdByName(string partName)
 
     public List<Supplier> GetSuppliers(){
         List<Supplier> suppliers = new List<Supplier>();
-        string query = "SELECT SuplierName, Adress, Mail, PhoneNumber FROM Supplier";
+        string query = "SELECT SuplierName, Adress, Mail, PhoneNumber FROM supplier";
 
          try{
         MySqlCommand command = new MySqlCommand(query, connection);
@@ -137,7 +142,7 @@ private int GetPartIdByName(string partName)
     }
 
     public void AddSupplier(Supplier supplier){
-        string query = "INSERT INTO Supplier (SuplierName, Adress, Mail, PhoneNumber) VALUES (@SupplierName, @Adress, @Mail, @PhoneNumber)";
+        string query = "INSERT INTO supplier (SuplierName, Adress, Mail, PhoneNumber) VALUES (@SupplierName, @Adress, @Mail, @PhoneNumber)";
 
         try{
             MySqlCommand command = new MySqlCommand(query, connection);
@@ -154,7 +159,7 @@ private int GetPartIdByName(string partName)
     }
 
     public void RemoveSupplier(string supplierName){
-    string query = "DELETE FROM Supplier WHERE SuplierName = @SupplierName";
+    string query = "DELETE FROM supplier WHERE SuplierName = @SupplierName";
 
     try{
         MySqlCommand command = new MySqlCommand(query, connection);
