@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 // using Xamarin.Forms;
 public partial class secretary : ContentPage
 {
-	public ObservableCollection<Part> partsList {get; set;} = new ObservableCollection<Part>();
 	public ObservableCollection<Element> elementsList {get; set;} = new ObservableCollection<Element>();
 	public ObservableCollection<Supplier> supplierList {get; set;} = new ObservableCollection<Supplier>();
 	private DatabaseManager databaseManager;
@@ -11,24 +10,9 @@ public partial class secretary : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = this;
-
-		string server = "localhost";
-        string database = "kitbox";
-        string username = "root";
-        string password = "root";
 		databaseManager = new DatabaseManager();
-		LoadPartsFromDatabase();
 		LoadElementsFromDatabase();
 		LoadSuppliersFromDatabase();
-	}
-
-	private void LoadPartsFromDatabase(){
-		databaseManager.OpenConnection();
-		var partsFromDatabase = databaseManager.GetParts();
-		databaseManager.CloseConnection();
-		foreach(var part in partsFromDatabase){
-			partsList.Add(part);
-		}
 	}
 	private void LoadElementsFromDatabase(){
 		databaseManager.OpenConnection();
@@ -39,7 +23,6 @@ public partial class secretary : ContentPage
 		}
 		PartSupplier.ItemsSource= elementsList.Select(elem => elem.DisplayNameCode).ToList();
 	}
-
 	private void OnAddTheNewProductClicked(object sender, EventArgs e)
 {
     string name = NameEntry.Text;
@@ -61,8 +44,6 @@ public partial class secretary : ContentPage
     databaseManager.CloseConnection();
     DisplayAlert("Success", "You created a new element", "OK");
 }
-
-
 	private void LoadSuppliersFromDatabase(){
 		databaseManager.OpenConnection();
 		var suppliersFromDatabase = databaseManager.GetSuppliers();
@@ -72,7 +53,6 @@ public partial class secretary : ContentPage
 		}
 		SupplierPicker.ItemsSource = supplierList.Select(part => part.DisplayName).ToList();
 	}
-
 private void OnRemoveTapped(object sender, EventArgs e){
     if (sender is View view){
         if (view.BindingContext is Element selectedElement){

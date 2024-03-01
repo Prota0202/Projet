@@ -74,51 +74,6 @@ public class DatabaseManager
         }
         return parts;
     }
-
-    public void UpdatePartQuantity(string partName, int quantityToAdd)
-{
-    int idPart = GetPartIdByName(partName);
-    
-    if (idPart != -1)
-    {
-        string query = "UPDATE Parts SET Quantity = Quantity + @QuantityToAdd WHERE idParts = @IdParts";
-        MySqlCommand command = new MySqlCommand(query, connection);
-        command.Parameters.AddWithValue("@QuantityToAdd", quantityToAdd);
-        command.Parameters.AddWithValue("@IdParts", idPart);
-        try
-        {
-            command.ExecuteNonQuery();
-            Console.WriteLine("Part quantity updated successfully.");
-        }
-        catch (MySqlException ex)
-        {
-            Console.WriteLine("Error updating part quantity: " + ex.Message);
-        }
-    }
-}
-
-private int GetPartIdByName(string partName)
-{
-    int idPart = -1;
-    string query = "SELECT idParts FROM Parts WHERE PartName = @PartName";
-    MySqlCommand command = new MySqlCommand(query, connection);
-    command.Parameters.AddWithValue("@PartName", partName);
-    try
-    {
-        MySqlDataReader reader = command.ExecuteReader();
-        if (reader.Read())
-        {
-            idPart = reader.GetInt32("idParts");
-        }
-        reader.Close();
-    }
-    catch (MySqlException ex)
-    {
-        Console.WriteLine("Error retrieving part id: " + ex.Message);
-    }
-    return idPart;
-}
-
     public List<Supplier> GetSuppliers(){
         List<Supplier> suppliers = new List<Supplier>();
         string query = "SELECT SuplierName, Adress, Mail, PhoneNumber FROM supplier";

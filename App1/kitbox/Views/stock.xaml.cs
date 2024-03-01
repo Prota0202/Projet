@@ -8,11 +8,6 @@ public partial class stock : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = this;
-
-		string server = "localhost";
-        string database = "kitbox";
-        string username = "root";
-        string password = "root";
 		databaseManager = new DatabaseManager();
         LoadElementsFromDatabase();
 	}

@@ -8,11 +8,6 @@ public partial class supplier : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = this;
-
-		string server = "localhost";
-        string database = "kitbox";
-        string username = "root";
-        string password = "root";
 		databaseManager = new DatabaseManager();
 		LoadSuppliersFromDatabase();
 	}
@@ -37,7 +32,7 @@ public partial class supplier : ContentPage
 			databaseManager.OpenConnection();
 			databaseManager.AddSupplier(newsupplier);
 			databaseManager.CloseConnection();
-			DisplayAlert("Succes","you created a new part","ok");
+			DisplayAlert("Succes","You succesfuly added a new supplier","ok");
 	}
 
 	private void OnRemoveTapped(object sender, EventArgs e)
