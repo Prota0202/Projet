@@ -9,10 +9,10 @@ namespace Customer_app.Models
         public string? PanelColor { get; set; } // nullable
         public string? Door { get; set; } // nullable
         public string? AngleIronColor { get; set; } // nullable
-        public string? Comment { get; set; } // nullable
+      
 
         
-        public Order(int id, int depth, int width, int height, string panelColor, string door, string angleIronColor, string comment)
+        public Order(int id, int depth, int width, int height, string panelColor, string door, string angleIronColor)
         {
             Id = id;
             Depth = depth;
@@ -21,7 +21,7 @@ namespace Customer_app.Models
             PanelColor = panelColor;
             Door = door;
             AngleIronColor = angleIronColor;
-            Comment = comment;
+            
         }
     }
 }

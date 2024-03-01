@@ -44,7 +44,7 @@ public class DatabaseManager
                     reader.GetString("panel_color"),
                     reader.GetString("door_type"),
                     reader.GetString("angle_iron_color"),
-                    reader.IsDBNull(reader.GetOrdinal("comment")) ? null : reader.GetString("comment"));
+                    
                 Orders.Add(order);
             }
             reader.Close();
