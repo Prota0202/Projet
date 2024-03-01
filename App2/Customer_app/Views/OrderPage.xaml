@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp1.OrderPage"
-             Title="OrderPage">
+             x:Class="Customer_app.Views.OrderPage"
+             Title="Order Page">
+    
     <ScrollView>
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
-
     <StackLayout Spacing="10">
             <Label Text="Depth:" />
             <Picker x:Name="DepthPicker">
@@ -88,7 +82,7 @@
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
                 <Button Text="Add Locker" />
-                <Button Text="My Order" />
+                <Button Text="My Order" Clicked="basketclicked" />
                 <Button Text="Save" />
             </StackLayout>
 
