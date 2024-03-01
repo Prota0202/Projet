@@ -1,35 +1,36 @@
-namespace Customer_app.Views;
-
-
-public partial class OrderPage : ContentPage
+namespace Customer_app.Views
 {
-	public OrderPage()
-	{
-		InitializeComponent();
-	}
-	
-	
-	
-	private int lockerCount = 1; 
+    public partial class OrderPage : ContentPage
+    {
+        private int lockerCount = 0;
 
-	private void AddLockerButton_Clicked(object sender, EventArgs e)
-	{
-		
-		var newLockerLabel = new Label
-		{
-			Text = "Locker " + lockerCount, 
-			HorizontalOptions = LayoutOptions.Center
-		};
+        public OrderPage()
+        {
+            InitializeComponent();
+        }
 
-		
-		lockerCount++;
-		MainStackLayout.Children.Add(newLockerLabel);
-	}
+        private void AddLockerButton_Clicked(object sender, EventArgs e)
+        {
+            if (lockerCount < 7)
+            {
+                lockerCount++;
+                var newLockerLabel = new Label
+                {
+                    Text = "Locker " + lockerCount,
+                    HorizontalOptions = LayoutOptions.Center
+                };
 
+                MainStackLayout.Children.Add(newLockerLabel);
+            }
+            else
+            {
+                DisplayAlert("Limit reached", "You cannot add more than 7 lockers.", "OK");
+            }
+        }
 
-	private void basketclicked(object sender, EventArgs e)
-	{
-
-		Navigation.PushAsync(new BasketPage());
-	}
+        private void basketclicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new BasketPage());
+        }
+    }
 }
