@@ -35,7 +35,7 @@ public class DatabaseManager
 
             while (reader.Read())
             {
-                
+
                 Order order = new Order(
                     reader.GetInt32("idorder"),
                     reader.GetInt32("depth"),
@@ -43,9 +43,11 @@ public class DatabaseManager
                     reader.GetInt32("height"),
                     reader.GetString("panel_color"),
                     reader.GetString("door_type"),
-                    reader.GetString("angle_iron_color"),
-                    
-                Orders.Add(order);
+                    reader.GetString("angle_iron_color")
+                    );
+            
+                
+            Orders.Add(order);
             }
             reader.Close();
         }

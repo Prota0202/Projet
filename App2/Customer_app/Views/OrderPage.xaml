@@ -80,8 +80,8 @@
 
             <Label Text="Number of lockers in the pack: [x/7]" HorizontalOptions="Center" />
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
-                <Button Text="Add Locker" />
+            <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
                 <Button Text="My Order" Clicked="basketclicked" />
                 <Button Text="Save" />
             </StackLayout>
