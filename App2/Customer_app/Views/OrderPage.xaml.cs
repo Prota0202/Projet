@@ -7,6 +7,7 @@ namespace Customer_app.Views
         public OrderPage()
         {
             InitializeComponent();
+			//MainGrid = this.FindByName<Grid>("MainGrid");
         }
 
         private void AddLockerButton_Clicked(object sender, EventArgs e)
@@ -20,6 +21,8 @@ namespace Customer_app.Views
                     HorizontalOptions = LayoutOptions.Center
                 };
 
+				//Grid.SetRow(newLockerLabel, 6);
+        		//Grid.SetColumn(newLockerLabel, 13);
                 MainStackLayout.Children.Add(newLockerLabel);
             }
             else
