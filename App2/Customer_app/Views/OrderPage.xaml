@@ -5,90 +5,94 @@
              Title="Order Page">
     
     <ScrollView>
-    <StackLayout Spacing="10">
-            <Label Text="Depth:" />
-            <Picker x:Name="DepthPicker">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>32</x:String>
-                        <x:String>42</x:String>
-                        <x:String>52</x:String>
-                        <x:String>62</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+        <Grid RowDefinitions="100, Auto, *"
+        ColumnDefinitions=".60*, .40*"
+        Padding="10"
+        RowSpacing="10"
+        ColumnSpacing="10">
+            <StackLayout Spacing="10" Grid.Row="1">
+                    <Label Text="Depth:" />
+                    <Picker x:Name="DepthPicker">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>32</x:String>
+                                <x:String>42</x:String>
+                                <x:String>52</x:String>
+                                <x:String>62</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
 
-            <Label Text="Width:" />
-            <Picker x:Name="WidthPicker">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>32</x:String>
-                        <x:String>42</x:String>
-                        <x:String>52</x:String>
-                        <x:String>62</x:String>
-                        <x:String>80</x:String>
-                        <x:String>100</x:String>
-                        <x:String>120</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+                    <Label Text="Width:" />
+                    <Picker x:Name="WidthPicker">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>32</x:String>
+                                <x:String>42</x:String>
+                                <x:String>52</x:String>
+                                <x:String>62</x:String>
+                                <x:String>80</x:String>
+                                <x:String>100</x:String>
+                                <x:String>120</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
 
-            <Label Text="Height:" />
-            <Picker x:Name="HeightPicker">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>32</x:String>
-                        <x:String>42</x:String>
-                        <x:String>52</x:String>
-                        <x:String>62</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+                    <Label Text="Height:" />
+                    <Picker x:Name="HeightPicker">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>32</x:String>
+                                <x:String>42</x:String>
+                                <x:String>52</x:String>
+                                <x:String>62</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
 
-            <Label Text="Panel Color:" />
-            <Picker x:Name="PanelColorPicker">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>White</x:String>
-                        <x:String>Brown</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+                    <Label Text="Panel Color:" />
+                    <Picker x:Name="PanelColorPicker">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>White</x:String>
+                                <x:String>Brown</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
 
-            <Label Text="Door:" />
-            <Picker x:Name="DoorPicker">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>No Door</x:String>
-                        <x:String>White Glass</x:String>
-                        <x:String>Brown Glass</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+                    <Label Text="Door:" />
+                    <Picker x:Name="DoorPicker">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>No Door</x:String>
+                                <x:String>White Glass</x:String>
+                                <x:String>Brown Glass</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
 
-            <Label Text="Angle Iron Color:" />
-            <Picker x:Name="AngleIronColorPicker">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>White</x:String>
-                        <x:String>Brown</x:String>
-                        <x:String>Black</x:String>
-                        <x:String>Galva</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+                    <Label Text="Angle Iron Color:" />
+                    <Picker x:Name="AngleIronColorPicker">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>White</x:String>
+                                <x:String>Brown</x:String>
+                                <x:String>Black</x:String>
+                                <x:String>Galva</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
 
-            <Label Text="Number of lockers in the pack: [x/7]" HorizontalOptions="Center" />
+                    <Label Text="Number of lockers in the pack: [x/7]" HorizontalOptions="Center" />
 
-            <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
-                <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
-                <Button Text="My Order" Clicked="basketclicked" />
-                <Button Text="Save" />
-            </StackLayout>
+                    <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Grid.Row="2">
+                        <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
+                        <Button Text="My Order" Clicked="basketclicked" />
+                        <Button Text="Save" />
+                    </StackLayout>
 
-
-
-        </StackLayout>
+                </StackLayout>
+            </Grid>
     </ScrollView>
 
 </ContentPage>
