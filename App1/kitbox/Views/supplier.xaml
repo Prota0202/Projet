@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="kitbox.supplier"
              Title="supplier">
+
+    <ScrollView>
     <VerticalStackLayout Spacing="20">
         <Label Text="Supplier Page" FontSize="42" VerticalOptions="Center" HorizontalOptions="Center" />
         <Label 
@@ -40,4 +42,5 @@
         </ListView.ItemTemplate>
     </ListView>
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="kitbox.order"
              Title="order">
+    <ScrollView>
     <VerticalStackLayout Spacing="20">
         <Label Text="List of Elements:" VerticalOptions="Center" HorizontalOptions="Center" FontSize="42" />
 
@@ -29,4 +30,5 @@
         </ListView.ItemTemplate>
     </ListView>
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

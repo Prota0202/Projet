@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="kitbox.stock"
              Title="stock">
+
+    <ScrollView>
     <VerticalStackLayout Spacing="20">
         <Label Text="Add or remove quantity of part" FontSize="42" VerticalOptions="Center" HorizontalOptions="Center" />
 
@@ -27,4 +29,5 @@
         </ListView.ItemTemplate>
     </ListView>
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
