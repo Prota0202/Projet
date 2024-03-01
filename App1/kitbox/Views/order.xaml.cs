@@ -14,7 +14,7 @@ public partial class order : ContentPage
         string database = "kitbox";
         string username = "root";
         string password = "root";
-		databaseManager = new DatabaseManager(server, database, username, password);
+		databaseManager = new DatabaseManager();
 		LoadElementsFromDatabase();	}
 	private void LoadElementsFromDatabase(){
 		databaseManager.OpenConnection();

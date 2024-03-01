@@ -13,7 +13,7 @@ public partial class supplier : ContentPage
         string database = "kitbox";
         string username = "root";
         string password = "root";
-		databaseManager = new DatabaseManager(server, database, username, password);
+		databaseManager = new DatabaseManager();
 		LoadSuppliersFromDatabase();
 	}
 
