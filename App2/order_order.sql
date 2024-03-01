@@ -115,7 +115,6 @@ CREATE TABLE `order` (
   `panel_color` varchar(45) DEFAULT NULL,
   `door_type` varchar(45) DEFAULT NULL,
   `angle_iron_color` varchar(45) DEFAULT NULL,
-  `comment` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idorder`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -191,4 +190,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-01  9:14:42
+-- Dump completed on 2024-03-01  9:19:06
