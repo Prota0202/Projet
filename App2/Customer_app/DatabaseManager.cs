@@ -109,4 +109,35 @@ public class DatabaseManager
         }
         return Orders;
     }
+    
+    
+    public void SaveOrder(Order order)
+    {
+        try
+        {
+            OpenConnection();
+
+            string query = "INSERT INTO `order` (depth, width, height, panel_color, door_type, angle_iron_color) VALUES (@Depth, @Width, @Height, @PanelColor, @Door, @AngleIronColor)";
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Depth", order.Depth);
+            command.Parameters.AddWithValue("@Width", order.Width);
+            command.Parameters.AddWithValue("@Height", order.Height);
+            command.Parameters.AddWithValue("@PanelColor", order.PanelColor);
+            command.Parameters.AddWithValue("@Door", order.Door);
+            command.Parameters.AddWithValue("@AngleIronColor", order.AngleIronColor);
+
+            command.ExecuteNonQuery();
+            Console.WriteLine("Order saved successfully.");
+        }
+        catch (MySqlException ex)
+        {
+            Console.WriteLine("Error saving order: " + ex.Message);
+        }
+        finally
+        {
+            CloseConnection();
+        }
+    }
+
 }
