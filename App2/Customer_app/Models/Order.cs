@@ -9,6 +9,10 @@ namespace Customer_app.Models
         public string? PanelColor { get; set; } // nullable
         public string? Door { get; set; } // nullable
         public string? AngleIronColor { get; set; } // nullable
+        
+        // Ajoutez une liste de composants pour représenter les composants de la commande
+        public List<Element> Components { get; set; } // Liste des composants de la commande
+        
       
 
         
@@ -21,6 +25,9 @@ namespace Customer_app.Models
             PanelColor = panelColor;
             Door = door;
             AngleIronColor = angleIronColor;
+            
+            // Initialisez la liste des composants
+            Components = new List<Element>(); // Initialiser la liste des composants
             
         }
     }

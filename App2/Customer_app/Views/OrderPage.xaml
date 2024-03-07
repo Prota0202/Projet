@@ -88,7 +88,7 @@
                     <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Grid.Row="2">
                         <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
                         <Button Text="My Order" Clicked="basketclicked" />
-                        <Button Text="Save" Clicked="SaveButton_Clicked" />
+                        <Button x:Name="SaveButton" Text="Save" Clicked="SaveButton_Clicked" />
                     </StackLayout>
 
                 </StackLayout>

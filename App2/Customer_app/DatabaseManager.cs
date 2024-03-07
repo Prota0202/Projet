@@ -5,6 +5,10 @@ using MySql.Data.MySqlClient;
 using Customer_app.Models;
 public class DatabaseManager
 {
+    
+    public MySqlConnection Connection { get; private set; }
+    
+    
     private MySqlConnection connection;
     private const string server = "pat.infolab.ecam.be";
     private const string port = "63425";
@@ -15,7 +19,7 @@ public class DatabaseManager
     public DatabaseManager()
     {
         connectionString = $"Server={server};Port={port};Database={database};Uid={username};Pwd={password};";
-        connection = new MySqlConnection(connectionString);
+        Connection = new MySqlConnection(connectionString);
     }
 
     public void OpenConnection(){
@@ -111,13 +115,15 @@ public class DatabaseManager
     }
     
     
-    public void SaveOrder(Order order)
+    public int SaveOrderWithoutId(Order order)
     {
+        int orderId = -1; // Initialiser l'ID de la commande à une valeur par défaut
+
         try
         {
             OpenConnection();
 
-            string query = "INSERT INTO `order` (depth, width, height, panel_color, door_type, angle_iron_color) VALUES (@Depth, @Width, @Height, @PanelColor, @Door, @AngleIronColor)";
+            string query = "INSERT INTO `order` (depth, width, height, panel_color, door_type, angle_iron_color) VALUES (@Depth, @Width, @Height, @PanelColor, @Door, @AngleIronColor); SELECT LAST_INSERT_ID();";
 
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@Depth", order.Depth);
@@ -127,8 +133,9 @@ public class DatabaseManager
             command.Parameters.AddWithValue("@Door", order.Door);
             command.Parameters.AddWithValue("@AngleIronColor", order.AngleIronColor);
 
-            command.ExecuteNonQuery();
-            Console.WriteLine("Order saved successfully.");
+            // Exécuter la requête et récupérer l'ID de la commande nouvellement insérée
+            orderId = Convert.ToInt32(command.ExecuteScalar());
+            Console.WriteLine("Order saved successfully with ID: " + orderId);
         }
         catch (MySqlException ex)
         {
@@ -138,6 +145,44 @@ public class DatabaseManager
         {
             CloseConnection();
         }
+
+        return orderId;
     }
+
+
+    public void SaveBill(int numOrder, string listOrder)
+    {
+        try
+        {
+            OpenConnection();
+
+            // Ajoutez les instructions de débogage ici
+            Console.WriteLine("NumOrder: " + numOrder);
+            Console.WriteLine("ListOrder: " + listOrder);
+
+            string query = "INSERT INTO bill (NumOrder, ListOrder) VALUES (@NumOrder, @ListOrder)";
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@NumOrder", numOrder);
+            command.Parameters.AddWithValue("@ListOrder", listOrder);
+
+            // Ajoutez une instruction pour afficher la requête SQL complète
+            Console.WriteLine("Query: " + command.CommandText);
+
+            command.ExecuteNonQuery();
+            Console.WriteLine("Bill saved successfully.");
+        }
+        catch (MySqlException ex)
+        {
+            Console.WriteLine("Error saving bill: " + ex.Message);
+        }
+        finally
+        {
+            CloseConnection();
+        }
+    }
+
+
+
 
 }
