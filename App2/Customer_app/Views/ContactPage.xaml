@@ -32,5 +32,11 @@
             Clicked="OrderBackbuttonclicked"
             HorizontalOptions="Center" />
 
+        <Button
+            x:Name="SaveContact"
+            Text="Save Contact"
+            Clicked="OnAddContactClicked"
+            HorizontalOptions="Center" />
+
     </VerticalStackLayout>
 </ContentPage>
