@@ -41,9 +41,16 @@ namespace Customer_app.Views
             if (lockerCount < 7)
             {
                 lockerCount++;
+                // Récupérer les valeurs sélectionnées dans l'interface utilisateur
+                //int depth = Convert.ToInt32(DepthPicker.SelectedItem);
+                //int width = Convert.ToInt32(WidthPicker.SelectedItem);
+                int height = Convert.ToInt32(HeightPicker.SelectedItem);
+                string panelColor = PanelColorPicker.SelectedItem.ToString();
+                string doorType = DoorPicker.SelectedItem.ToString();
+                string angleIronColor = AngleIronColorPicker.SelectedItem.ToString();
                 var newLockerLabel = new Label
                 {
-                    Text = "Locker " + lockerCount,
+                    Text = "Locker " + lockerCount + "\nHeight : " + height + "cm" + "\nPanel Color : " + panelColor + "\nDoor : " + doorType + "\n Angle Iron : " + angleIronColor,
                     // HorizontalOptions = LayoutOptions.Center
                 };
 
@@ -98,6 +105,10 @@ namespace Customer_app.Views
                 SaveBill(orderId, GenerateBillList(newOrder));
             }
 
+            //Activer l'alerte pour le formulaire de contact
+            DisplayActionSheet("Out of stock : Please complete the contact form", "Cancel", null, "Contact Form");
+            
+            
             // Attendre une courte période avant de réactiver le gestionnaire d'événements
             await Task.Delay(1000);
 
