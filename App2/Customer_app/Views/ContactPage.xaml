@@ -7,7 +7,21 @@
         <Frame Padding="10, 2, 10, 2">
             <HorizontalStackLayout>
                 <Label Text="Name :" VerticalOptions="Center" WidthRequest="60"></Label>
-                <Entry VerticalOptions="Center"></Entry>
+                <Entry Placeholder="Firstname Lastname" x:Name="NameContact" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="200"/>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label Text="Email :" VerticalOptions="Center" WidthRequest="60"></Label>
+                <Entry Placeholder="email@exemple.com" x:Name="EmailContact" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="200"/>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label Text="Phone :" VerticalOptions="Center" WidthRequest="60"></Label>
+                <Entry Placeholder="0032 123456789" x:Name="PhoneContact" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="200"/>
             </HorizontalStackLayout>
         </Frame>
         
