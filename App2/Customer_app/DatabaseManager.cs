@@ -3,37 +3,46 @@ using System;
 using Microsoft.Maui.Controls.Platform.Compatibility;
 using MySql.Data.MySqlClient;
 using Customer_app.Models;
+using System.Data;
 public class DatabaseManager
 {
     
     public MySqlConnection Connection { get; private set; }
     
     
-    private MySqlConnection connection;
+    // private MySqlConnection connection;
     private const string server = "pat.infolab.ecam.be";
     private const string port = "63425";
     private const string database = "kitbox";
     private const string username = "kitbox";
     private const string password = "kitbox";
     private readonly string connectionString;
+
     public DatabaseManager()
     {
         connectionString = $"Server={server};Port={port};Database={database};Uid={username};Pwd={password};";
         Connection = new MySqlConnection(connectionString);
     }
 
-    public void OpenConnection(){
-        try{
-            connection.Open();
+    public void OpenConnection()
+    {
+        try
+        {
+            if (Connection.State != ConnectionState.Open)
+            {
+                Connection.Open();
+            }
         }
-        catch(MySqlException ex){
-            Console.WriteLine("Error database couldn't open a connection: "+ ex.Message);
+        catch (MySqlException ex)
+        {
+            Console.WriteLine("Error database couldn't open a connection: " + ex.Message);
         }
     }
 
+
     public void CloseConnection(){
         try{
-            connection.Close();
+            Connection.Close();
         }
         catch(MySqlException ex){
             Console.WriteLine("Error database couldn't close the connection: "+ ex.Message);
@@ -47,7 +56,7 @@ public class DatabaseManager
 
     try
     {
-        MySqlCommand command = new MySqlCommand(query, connection);
+        MySqlCommand command = new MySqlCommand(query, Connection);
         MySqlDataReader reader = command.ExecuteReader();
 
         while (reader.Read())
@@ -86,7 +95,7 @@ public class DatabaseManager
 
         try
         {
-            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlCommand command = new MySqlCommand(query, Connection);
             MySqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
@@ -125,7 +134,7 @@ public class DatabaseManager
 
             string query = "INSERT INTO `order` (depth, width, height, panel_color, door_type, angle_iron_color) VALUES (@Depth, @Width, @Height, @PanelColor, @Door, @AngleIronColor); SELECT LAST_INSERT_ID();";
 
-            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlCommand command = new MySqlCommand(query, Connection);
             command.Parameters.AddWithValue("@Depth", order.Depth);
             command.Parameters.AddWithValue("@Width", order.Width);
             command.Parameters.AddWithValue("@Height", order.Height);
@@ -162,7 +171,7 @@ public class DatabaseManager
 
             string query = "INSERT INTO bill (NumOrder, ListOrder) VALUES (@NumOrder, @ListOrder)";
 
-            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlCommand command = new MySqlCommand(query, Connection);
             command.Parameters.AddWithValue("@NumOrder", numOrder);
             command.Parameters.AddWithValue("@ListOrder", listOrder);
 
