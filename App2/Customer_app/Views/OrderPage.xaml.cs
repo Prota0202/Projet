@@ -44,12 +44,13 @@ namespace Customer_app.Views
                 var newLockerLabel = new Label
                 {
                     Text = "Locker " + lockerCount,
-                    HorizontalOptions = LayoutOptions.Center
+                    // HorizontalOptions = LayoutOptions.Center
                 };
 
-                //Grid.SetRow(newLockerLabel, 6);
-                //Grid.SetColumn(newLockerLabel, 13);
-                MainStackLayout.Children.Add(newLockerLabel);
+                // //Grid.SetRow(newLockerLabel, 6);
+                // //Grid.SetColumn(newLockerLabel, 13);
+                // MainStackLayout.Children.Add(newLockerLabel);
+                RightStackLayout.Children.Add(newLockerLabel);
             }
             else
             {
@@ -200,5 +201,3 @@ namespace Customer_app.Views
         }
     }
 }
-
-    

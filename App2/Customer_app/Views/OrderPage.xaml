@@ -3,14 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Customer_app.Views.OrderPage"
              Title="Order Page">
+
     
     <ScrollView>
-        <Grid RowDefinitions="100, Auto, *"
+        <Grid RowDefinitions="50, Auto, *"
         ColumnDefinitions=".60*, .40*"
         Padding="10"
         RowSpacing="10"
-        ColumnSpacing="10">
-            <StackLayout Spacing="10" Grid.Row="1">
+        ColumnSpacing="50">
+            <StackLayout Spacing="10" Grid.Row="1" Grid.Column="0">
                     <Label Text="Depth:" />
                     <Picker x:Name="DepthPicker">
                         <Picker.ItemsSource>
@@ -90,7 +91,27 @@
                         <Button Text="My Order" Clicked="basketclicked" />
                         <Button x:Name="SaveButton" Text="Save" Clicked="SaveButton_Clicked" />
                     </StackLayout>
+                </StackLayout>
 
+                <StackLayout x:Name="RightStackLayout" Spacing="50" Grid.Row="1" Grid.Column="1">
+                  <StackLayout.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#505050" Offset="0" />  <GradientStop Color="#7F7F7F" Offset="1" />  </LinearGradientBrush>
+                  </StackLayout.Background>
+                    <Label Text="Your lockers" FontSize="18" HorizontalOptions="CenterAndExpand" TextDecorations="Underline" />
+                    <ListView x:Name="LockerSummaryListView" Grid.ColumnSpan="2" Margin="0,10,0,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="10">
+                                        <Label Text="Profondeur: {Binding Depth}" FontSize="16" />
+                                        <Label Text="Largeur: {Binding Width}" FontSize="16" />
+                                        <Label Text="Hauteur: {Binding Height}" FontSize="16" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackLayout>
             </Grid>
     </ScrollView>
