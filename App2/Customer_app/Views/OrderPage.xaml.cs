@@ -195,9 +195,10 @@ namespace Customer_app.Views
 
 
 
-        private void basketclicked(object sender, EventArgs e)
+        //Modifie la fonction pour que le bouton renvoie vers la page de contact (modif aussi le nom du bouton dans xaml)
+        private void ContactPageclicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new BasketPage());
+            Navigation.PushAsync(new ContactPage());
         }
     }
 }
