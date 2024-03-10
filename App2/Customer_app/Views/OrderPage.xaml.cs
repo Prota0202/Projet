@@ -31,7 +31,7 @@ namespace Customer_app.Views
             }
         }
         private async void ShowConfirmationAlert(object sender, EventArgs e){
-            var result = await DisplayAlert("Confirmation","the depth and width will be the same for every locker","ok","cancel");
+            var result = await DisplayAlert("Confirmation","the depth and width will be the same for every locker","OK","CANCEL");
 
             if(result){
                 SaveDepthWidth();
@@ -255,8 +255,17 @@ namespace Customer_app.Views
             int amountlocker = currentOrder.GetNumberOfLockers();
             string recap = databaseManager.LoadOrder(idneworder, amountlocker);
             Console.WriteLine(recap);
-            DisplayAlert("Recap",recap,"okay");
+            DisplayAlert("Recap",recap,"OK");
             ResetFields();
+
+            int ContactForm = databaseManager.TestContact(idneworder, amountlocker);
+            if(ContactForm == 0)
+            {
+                await Navigation.PushAsync(new ContactPage());
+                DisplayAlert("Out of stock :","Please complete the contact form","OK");
+            }
+            Console.WriteLine(ContactForm);
+
 
 
             // Créer un nouvel objet Order avec ces valeurs
@@ -276,7 +285,8 @@ namespace Customer_app.Views
             // }
 
             //Activer l'alerte pour le formulaire de contact
-            DisplayActionSheet("Out of stock : Please complete the contact form", "Cancel", null, "Contact Form");
+            //string action = await DisplayActionSheet("Out of stock : Please complete the contact form", "Cancel", null, "Contact Form");
+            //Console.WriteLine(action);
             
             
             // Attendre une courte période avant de réactiver le gestionnaire d'événements
@@ -365,15 +375,6 @@ namespace Customer_app.Views
 
             return orderId;
         }
-
-
-
-
-
-
-
-
-
 
 
         //Modifie la fonction pour que le bouton renvoie vers la page de contact (modif aussi le nom du bouton dans xaml)

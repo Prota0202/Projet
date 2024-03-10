@@ -86,8 +86,6 @@
                         </Picker.ItemsSource>
                     </Picker>
 
-                    <Label Text="Number of lockers in the pack: [x/7]" HorizontalOptions="Center" />
-
                     <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Grid.Row="2">
                         <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
                         <Button Text="Contact Page" Clicked="ContactPageclicked" />

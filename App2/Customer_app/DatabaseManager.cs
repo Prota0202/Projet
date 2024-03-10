@@ -603,6 +603,177 @@ private int GetComponentQuantity(string componentCode)
     return lockerQuantity;
 }
 
+private int GetRemainingQuantity(string componentCode)
+{
+    int remainingQuantity = 0;
+    Console.WriteLine("code recu " + componentCode);
+    string query = "SELECT RemainingQuantity FROM component WHERE Code = @ComponentCode";
+
+    try
+    {
+        // Ouvrir une nouvelle connexion pour éviter les conflits avec le DataReader précédent
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
+        {
+            connection.Open();
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ComponentCode", componentCode);
+            object result = command.ExecuteScalar();
+
+            if (result != null && result != DBNull.Value)
+            {
+                remainingQuantity = Convert.ToInt32(result);
+            }
+        }
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving remaining quantity for component: " + ex.Message);
+    }
+
+    return remainingQuantity;
+}
+
+public int TestContact(int orderId, int amountlocker)
+{
+    //StringBuilder orderDetails = new StringBuilder();
+    int result = 1;
+    try
+    {
+        OpenConnection();
+
+        // Récupérer les données des lockers pour l'ID de la commande donnée
+        string query = "SELECT * FROM neworder WHERE idneworder = @OrderId";
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@OrderId", orderId);
+        MySqlDataReader reader = command.ExecuteReader();
+
+       while (reader.Read())
+        {
+            for (int lockerNumber = 1; lockerNumber <= amountlocker; lockerNumber++)
+            {
+                int verticalBattenNecessary = GetComponentQuantity(reader.GetString($"verticalbatten{lockerNumber}"));
+                int frontCrossbarNecessary = GetComponentQuantity(reader.GetString($"frontcrossbar{lockerNumber}"));
+                int backCrossbarNecessary = GetComponentQuantity(reader.GetString($"backcrossbar{lockerNumber}"));
+                int sideCrossbarNecessary = GetComponentQuantity(reader.GetString($"sidecrossbar{lockerNumber}"));
+                int horizontalPanelNecessary = GetComponentQuantity(reader.GetString($"horizontalpanel{lockerNumber}"));
+                int sidePanelNecessary = GetComponentQuantity(reader.GetString($"sidepanel{lockerNumber}"));
+                int backPanelNecessary = GetComponentQuantity(reader.GetString($"backpanel{lockerNumber}"));
+                int doorNecessary = GetComponentQuantity(reader.GetString($"door{lockerNumber}"));
+
+                int verticalBattenStock = GetRemainingQuantity(reader.GetString($"verticalbatten{lockerNumber}"));
+                int frontCrossbarStock = GetRemainingQuantity(reader.GetString($"frontcrossbar{lockerNumber}"));
+                int backCrossbarStock = GetRemainingQuantity(reader.GetString($"backcrossbar{lockerNumber}"));
+                int sideCrossbarStock = GetRemainingQuantity(reader.GetString($"sidecrossbar{lockerNumber}"));
+                int horizontalPanelStock = GetRemainingQuantity(reader.GetString($"horizontalpanel{lockerNumber}"));
+                int sidePanelStock = GetRemainingQuantity(reader.GetString($"sidepanel{lockerNumber}"));
+                int backPanelStock = GetRemainingQuantity(reader.GetString($"backpanel{lockerNumber}"));
+                int doorStock = GetRemainingQuantity(reader.GetString($"door{lockerNumber}"));
+                Console.WriteLine("Front : {0}",frontCrossbarStock);
+                Console.WriteLine("Front Necessaire : {0}", verticalBattenNecessary);
+
+                if(verticalBattenStock < verticalBattenNecessary)
+                {
+                    result = 0;
+                    return result;
+                }
+                else
+                {
+                    verticalBattenStock -= verticalBattenNecessary;
+                }
+                if(frontCrossbarStock < frontCrossbarNecessary)
+                {
+                    result = 0;
+                    return result;
+                }
+                else
+                {
+                    frontCrossbarStock -= frontCrossbarNecessary;
+                }
+                if(backCrossbarStock < backCrossbarNecessary)
+                {
+                    result = 0;
+                    return result;
+                }
+                else
+                {
+                    backCrossbarStock -= backCrossbarNecessary;
+                }
+                if(sideCrossbarStock < sideCrossbarNecessary)
+                {
+                    result = 0;
+                    return result;
+                }
+                else
+                {
+                    sideCrossbarStock -= sideCrossbarNecessary;
+                }
+                if(horizontalPanelStock < horizontalPanelNecessary)
+                {
+                    result = 0;
+                    return result;
+                }
+                else
+                {
+                    horizontalPanelStock -= horizontalPanelNecessary;
+                }
+                if(sidePanelStock < sidePanelNecessary)
+                {
+                    result = 0;
+                    return result;
+                }
+                else
+                {
+                    sidePanelStock -= sidePanelNecessary;
+                }
+                if(backPanelStock < backPanelNecessary)
+                {
+                    result = 0;
+                    return result;
+                }
+                else
+                {
+                    backPanelStock -= backPanelNecessary;
+                }
+                if(doorStock < doorNecessary)
+                {
+                    result = 0;
+                    return result;
+                }
+                else
+                {
+                    doorStock -= doorNecessary;
+                }
+
+                // Ajouter le détail du locker à la chaîne
+                /*orderDetails.AppendLine($"Locker {lockerNumber}:");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"verticalbatten{lockerNumber}"))} Vertical Batten :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"frontcrossbar{lockerNumber}"))} Front Crossbar :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"backcrossbar{lockerNumber}"))} Back Crossbar :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"sidecrossbar{lockerNumber}"))} Side Crossbar :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"horizontalpanel{lockerNumber}"))} Horizontal Panel :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"sidepanel{lockerNumber}"))} Side Panel :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"backpanel{lockerNumber}"))} Back Panel :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"door{lockerNumber}"))} Door :");
+                orderDetails.AppendLine();*/
+            }
+        }
+
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error loading order details: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return result;
+}
+
+
 public void AddCustomer(Customer customer)
 {
     try
