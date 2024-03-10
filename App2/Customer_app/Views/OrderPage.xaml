@@ -6,14 +6,15 @@
 
     
     <ScrollView>
-        <Grid RowDefinitions="50, Auto, *"
+        <Grid RowDefinitions="Auto, Auto, Auto, *"
         ColumnDefinitions=".60*, .40*"
         Padding="10"
-        RowSpacing="10"
+        RowSpacing="50"
         ColumnSpacing="50">
-            <StackLayout Spacing="10" Grid.Row="1" Grid.Column="0">
-                    <Label Text="Depth:" />
-                    <Picker x:Name="DepthPicker">
+            <StackLayout x:Name="PickerStackLayout" Spacing="10" Grid.Row="1" Grid.Column="0">
+                        <!--Pickers ici-->
+                        <Label Text="Depth:" />
+                        <Picker x:Name="DepthPicker">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>32</x:String>
@@ -38,8 +39,23 @@
                         </Picker.ItemsSource>
                     </Picker>
 
-                    <Button Text="Save Depth and Width" Clicked="ShowConfirmationAlert"/>
+                    <Button x:Name="SaveDepthWidthButton" Text="Save Depth and Width" Clicked="ShowConfirmationAlert"/>
+            </StackLayout>
 
+            <StackLayout x:Name="LabelStackLayout" Spacing="10" Grid.Row="1" Grid.Column="0" IsVisible="False">
+                    <StackLayout.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#505050" Offset="0" />  <GradientStop Color="#7F7F7F" Offset="1" />  </LinearGradientBrush>
+                  </StackLayout.Background>
+                <!--Labels ici-->
+                <Label x:Name="Sentence" FontSize="18" HorizontalOptions="CenterAndExpand"/>
+
+            </StackLayout>
+
+
+
+
+            <StackLayout Spacing="10" Grid.Row="2" Grid.Column="0">
                     <Label Text="Height:" />
                     <Picker x:Name="HeightPicker">
                         <Picker.ItemsSource>
@@ -85,15 +101,15 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
+            </StackLayout>
 
-                    <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Grid.Row="2">
+                    <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Grid.Row="3">
                         <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
                         <Button Text="Contact Page" Clicked="ContactPageclicked" />
                         <Button x:Name="SaveButton" Text="Save" Clicked="SaveButton_Clicked" />
                     </StackLayout>
-                </StackLayout>
 
-                <StackLayout x:Name="RightStackLayout" Spacing="50" Grid.Row="1" Grid.Column="1">
+                <StackLayout x:Name="RightStackLayout" Spacing="25" Grid.Row="2" Grid.Column="1">
                   <StackLayout.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                         <GradientStop Color="#505050" Offset="0" />  <GradientStop Color="#7F7F7F" Offset="1" />  </LinearGradientBrush>

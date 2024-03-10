@@ -30,14 +30,60 @@ namespace Customer_app.Views
                 elementsList.Add(elem);
             }
         }
-        private async void ShowConfirmationAlert(object sender, EventArgs e){
-            var result = await DisplayAlert("Confirmation","the depth and width will be the same for every locker","OK","CANCEL");
+        // private async void ShowConfirmationAlert(object sender, EventArgs e)
+        // {
+        //     var result = await DisplayAlert("Confirmation", "the depth and width will be the same for every locker", "OK", "CANCEL");
 
-            if(result){
+        //     if (result)
+        //     {
+        //         SaveDepthWidth();
+        //         // Si l'utilisateur clique sur OK, masquez les Picker
+        //         DepthPicker.IsVisible = false;
+        //         WidthPicker.IsVisible = false;
+        //     }
+        //     else
+        //     {
+        //         // Si l'utilisateur clique sur ANNULER, laissez les Picker visibles
+        //         DepthPicker.IsVisible = true;
+        //         WidthPicker.IsVisible = true;
+        //     }
+        // }
+        public string ChoiceText { get; set; }
+        public bool IsChoiceTextVisible { get; set; }
+
+        private async void ShowConfirmationAlert(object sender, EventArgs e)
+        {
+            var result = await DisplayAlert("Confirmation", "the depth and width will be the same for every locker", "OK", "CANCEL");
+
+            if (result)
+            {
                 SaveDepthWidth();
+
+                // Masquez le StackLayout des Pickers
+                PickerStackLayout.IsVisible = false;
+
+                // Affichez le StackLayout des Labels
+                LabelStackLayout.IsVisible = true;
+
+                // Mettez à jour les Labels avec les valeurs sélectionnées
+                Sentence.Text = $"Your choice is for depth → {DepthPicker.SelectedItem} and for width → {WidthPicker.SelectedItem}";
+
             }
-            else{}
+            else
+            {
+                // Si l'utilisateur clique sur ANNULER, laissez le StackLayout des Pickers visible
+                PickerStackLayout.IsVisible = true;
+
+                // Masquez le StackLayout des Labels
+                LabelStackLayout.IsVisible = false;
+            }
         }
+
+
+
+
+
+
         private void SaveDepthWidth(){
             int depth = Convert.ToInt32(DepthPicker.SelectedItem);
             int width = Convert.ToInt32(WidthPicker.SelectedItem);
@@ -88,26 +134,6 @@ namespace Customer_app.Views
         //     else
         //     {
         //         DisplayAlert("Limit reached", "You cannot add more than 7 lockers.", "OK");
-        //     }
-        // }
-
-        // private void RemoveButton_Clicked(object sender, EventArgs e)
-        // {
-        //     var button = sender as Button;
-        //     if (button != null)
-        //     {
-        //         var lockerCountToRemove = Convert.ToInt32(button.CommandParameter);
-        //         if (lockerCountToRemove >= 1 && lockerCountToRemove <= RightStackLayout.Children.Count)
-        //         {
-        //             // Supprimez le locker de la liste
-        //             currentOrder.RemoveLocker(lockerCountToRemove - 1);
-
-        //             // Supprimez le layout du casier de la vue
-        //             RightStackLayout.Children.RemoveAt(lockerCountToRemove * 2 - 1); // Les indices sont décalés par les boutons "Remove"
-
-        //             // Mettez à jour le texte des labels pour refléter les nouveaux indices
-        //             UpdateLockerLabels();
-        //         }
         //     }
         // }
 
