@@ -19,7 +19,6 @@
                                 <x:String>32</x:String>
                                 <x:String>42</x:String>
                                 <x:String>52</x:String>
-                                <x:String>62</x:String>
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
