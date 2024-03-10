@@ -194,7 +194,7 @@ public class DatabaseManager
 public string GetVerticalBattenCode(int height)
 {
     string code = " ";
-    string query = "SELECT Code FROM component WHERE Name = 'vertical batten' AND Height_real = @Height";
+    string query = "SELECT Code FROM component WHERE Name = 'Vertical batten' AND Height_customer = @Height";
     try{
         OpenConnection();
         MySqlCommand command = new MySqlCommand(query, Connection);
@@ -300,5 +300,229 @@ public string GetBackCrossbarCode(int width)
 
     return code;
 }
+
+public string GetBackPanelCode(string color, int height ,int width)
+{
+    string code = " ";
+    string query = "SELECT Code FROM component WHERE Name = 'Panel' AND Side = 'back' AND Color = @Color AND Height_customer = @Height AND Width = @Width";
+    try
+    {
+        OpenConnection();
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@Color", color);
+        command.Parameters.AddWithValue("@Height", height);
+        command.Parameters.AddWithValue("@Width", width);
+        MySqlDataReader reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            code = reader.GetString("Code");
+        }
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving crossbar code: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return code;
+}
+
+public string GetSidePanelCode(string color, int height ,int depth)
+{
+    string code = " ";
+    string query = "SELECT Code FROM component WHERE Name = 'Panel' AND Side = 'left or right' AND Color = @Color AND Height_customer = @Height AND Depth = @Depth";
+    try
+    {
+        OpenConnection();
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@Color", color);
+        command.Parameters.AddWithValue("@Height", height);
+        command.Parameters.AddWithValue("@Depth", depth);
+        MySqlDataReader reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            code = reader.GetString("Code");
+        }
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving crossbar code: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return code;
+}
+
+public string GetHorizontalPanelCode(string color, int width ,int depth)
+{
+    string code = " ";
+    string query = "SELECT Code FROM component WHERE Name = 'Panel' AND Side = 'horizontal' AND Color = @Color AND Width = @Width AND Depth = @Depth";
+    try
+    {
+        OpenConnection();
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@Color", color);
+        command.Parameters.AddWithValue("@Width", width);
+        command.Parameters.AddWithValue("@Depth", depth);
+        MySqlDataReader reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            code = reader.GetString("Code");
+        }
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving crossbar code: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return code;
+}
+
+public string GetDoorCode(string color, int height ,int width)
+{
+    string code = " ";
+    string query = "SELECT Code FROM component WHERE Name = 'Door' AND Color = @Color AND Height_customer = @Height AND Width = @Width";
+    try
+    {
+        OpenConnection();
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@Color", color);
+        command.Parameters.AddWithValue("@Height", height);
+        command.Parameters.AddWithValue("@Width", width);
+        MySqlDataReader reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            code = reader.GetString("Code");
+        }
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving crossbar code: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return code;
+}
+
+public int GetNextOrderId()
+{
+    int orderId = -1;
+    string query = "SELECT MAX(idneworder) FROM neworder";
+
+    try
+    {
+        OpenConnection();
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        object result = command.ExecuteScalar();
+
+        if (result != null && result != DBNull.Value)
+        {
+            orderId = Convert.ToInt32(result);
+        }
+        orderId++; // Increment to get the next available order ID
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving next order ID: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return orderId;
+}
+
+public void SaveLockerComponents(int orderId, int lockerNumber, string verticalBatten, string frontCrossbar, string backCrossbar, string sideCrossbar, string horizontalPanel, string sidePanel, string backPanel, string door)
+{
+    try
+    {
+        OpenConnection();
+
+        string query = "INSERT INTO neworder (idneworder, verticalbatten" + lockerNumber + ", frontcrossbar" + lockerNumber + ", backcrossbar" + lockerNumber + ", sidecrossbar" + lockerNumber + ", horizontalpanel" + lockerNumber + ", sidepanel" + lockerNumber + ", backpanel" + lockerNumber + ", door" + lockerNumber + ") VALUES (@IdNewOrder, @VerticalBatten, @FrontCrossbar, @BackCrossbar, @SideCrossbar, @HorizontalPanel, @SidePanel, @BackPanel, @Door)";
+
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@IdNewOrder", orderId);
+        command.Parameters.AddWithValue("@VerticalBatten", verticalBatten);
+        command.Parameters.AddWithValue("@FrontCrossbar", frontCrossbar);
+        command.Parameters.AddWithValue("@BackCrossbar", backCrossbar);
+        command.Parameters.AddWithValue("@SideCrossbar", sideCrossbar);
+        command.Parameters.AddWithValue("@HorizontalPanel", horizontalPanel);
+        command.Parameters.AddWithValue("@SidePanel", sidePanel);
+        command.Parameters.AddWithValue("@BackPanel", backPanel);
+        command.Parameters.AddWithValue("@Door", door);
+
+        command.ExecuteNonQuery();
+        Console.WriteLine("Components for locker " + lockerNumber + " saved successfully.");
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error saving locker components: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+}
+
+public void UpdateLockerComponents(int orderId, int lockerNumber, string verticalBatten, string frontCrossbar, string backCrossbar, string sideCrossbar, string horizontalPanel, string sidePanel, string backPanel, string door)
+{
+    try
+    {
+        OpenConnection();
+
+        string query = "UPDATE neworder SET " +
+                       "verticalbatten" + lockerNumber + " = @VerticalBatten, " +
+                       "frontcrossbar" + lockerNumber + " = @FrontCrossbar, " +
+                       "backcrossbar" + lockerNumber + " = @BackCrossbar, " +
+                       "sidecrossbar" + lockerNumber + " = @SideCrossbar, " +
+                       "horizontalpanel" + lockerNumber + " = @HorizontalPanel, " +
+                       "sidepanel" + lockerNumber + " = @SidePanel, " +
+                       "backpanel" + lockerNumber + " = @BackPanel, " +
+                       "door" + lockerNumber + " = @Door " +
+                       "WHERE idneworder = @OrderId";
+
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@VerticalBatten", verticalBatten);
+        command.Parameters.AddWithValue("@FrontCrossbar", frontCrossbar);
+        command.Parameters.AddWithValue("@BackCrossbar", backCrossbar);
+        command.Parameters.AddWithValue("@SideCrossbar", sideCrossbar);
+        command.Parameters.AddWithValue("@HorizontalPanel", horizontalPanel);
+        command.Parameters.AddWithValue("@SidePanel", sidePanel);
+        command.Parameters.AddWithValue("@BackPanel", backPanel);
+        command.Parameters.AddWithValue("@Door", door);
+        command.Parameters.AddWithValue("@OrderId", orderId);
+
+        command.ExecuteNonQuery();
+        Console.WriteLine("Locker components saved successfully.");
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error saving locker components: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+}
+
+
 
 }

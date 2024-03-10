@@ -68,8 +68,9 @@
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>No Door</x:String>
-                                <x:String>White Glass</x:String>
-                                <x:String>Brown Glass</x:String>
+                                <x:String>White</x:String>
+                                <x:String>Marron</x:String>
+                                <x:String>Glass</x:String>
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>

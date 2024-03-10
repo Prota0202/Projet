@@ -81,45 +81,71 @@ namespace Customer_app.Views
             SaveButton.Clicked -= SaveButton_Clicked;
 
             // Récupérer les valeurs sélectionnées dans l'interface utilisateur
-            int depth = Convert.ToInt32(DepthPicker.SelectedItem);
-            int width = Convert.ToInt32(WidthPicker.SelectedItem);
-            int height = Convert.ToInt32(HeightPicker.SelectedItem);
-            string panelColor = PanelColorPicker.SelectedItem.ToString();
-            string doorType = DoorPicker.SelectedItem.ToString();
-            string angleIronColor = AngleIronColorPicker.SelectedItem.ToString();
+            // int depth = Convert.ToInt32(DepthPicker.SelectedItem);
+            // int width = Convert.ToInt32(WidthPicker.SelectedItem);
+            // int height = Convert.ToInt32(HeightPicker.SelectedItem);
+            // string panelColor = PanelColorPicker.SelectedItem.ToString();
+            // string doorType = DoorPicker.SelectedItem.ToString();
+            // string angleIronColor = AngleIronColorPicker.SelectedItem.ToString();
 
-            // Ajoutez les instructions de débogage ici
-            Console.WriteLine("Depth: " + depth);
-            Console.WriteLine("Width: " + width);
-            Console.WriteLine("Height: " + height);
-            Console.WriteLine("PanelColor: " + panelColor);
-            Console.WriteLine("DoorType: " + doorType);
-            Console.WriteLine("AngleIronColor: " + angleIronColor);
-            string verticalbatten = databaseManager.GetVerticalBattenCode(height);
-            Console.WriteLine(verticalbatten);
+            // // Ajoutez les instructions de débogage ici
+            // Console.WriteLine("Depth: " + depth);
+            // Console.WriteLine("Width: " + width);
+            // Console.WriteLine("Height: " + height);
+            // Console.WriteLine("PanelColor: " + panelColor);
+            // Console.WriteLine("DoorType: " + doorType);
+            // Console.WriteLine("AngleIronColor: " + angleIronColor);
+            // string verticalbatten = databaseManager.GetVerticalBattenCode(height);
+            // Console.WriteLine("VERTICAL BATTEN "+verticalbatten);
+            // string sidecrossbar = databaseManager.GetSideCrossbarCode(depth);
+            // Console.WriteLine("SIDE CROSSBAR "+sidecrossbar);
+            // string frontcrossbar = databaseManager.GetFrontCrossbarCode(width);
+            // Console.WriteLine("FRONT CROSSBAR "+frontcrossbar);
+            // string backcrossbar = databaseManager.GetBackCrossbarCode(width);
+            // Console.WriteLine("BACK CROSSBAR "+backcrossbar);
+            // string backpanel = databaseManager.GetBackPanelCode(panelColor,height,width);
+            // Console.WriteLine("BACK PANEL "+backpanel);
+            // string door = databaseManager.GetDoorCode(panelColor, height,width);
+            // Console.WriteLine("DOOR"+door);
+            int depth = currentOrder.Depth;
+            int width = currentOrder.Width;
+            int idneworder = databaseManager.GetNextOrderId();
+
+            int lockerNumber = 1;
+            foreach (var locker in currentOrder.Lockers){
+            string verticalbatten = databaseManager.GetVerticalBattenCode(locker.Height);
             string sidecrossbar = databaseManager.GetSideCrossbarCode(depth);
-            Console.WriteLine(sidecrossbar);
-            string frontcrossbar = databaseManager.GetSideCrossbarCode(width);
-            Console.WriteLine(frontcrossbar);
-            string backcrossbar = databaseManager.GetSideCrossbarCode(width);
-            Console.WriteLine(backcrossbar);
+            string frontcrossbar = databaseManager.GetFrontCrossbarCode(width);
+            string backcrossbar = databaseManager.GetBackCrossbarCode(width);
+            string horizontalpanel = databaseManager.GetHorizontalPanelCode(locker.PanelColor,width,depth);
+            string sidepanel = databaseManager.GetSidePanelCode(locker.PanelColor,locker.Height,depth);
+            string backpanel = databaseManager.GetBackPanelCode(locker.PanelColor, locker.Height, width);
+            string door = databaseManager.GetDoorCode(locker.PanelColor, locker.Height, width);
+            if(lockerNumber==1){
+                    databaseManager.SaveLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
+            }
+            else{
+                    databaseManager.UpdateLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
+            }
+            lockerNumber++;
+            }
 
 
             // Créer un nouvel objet Order avec ces valeurs
-            Order newOrder = new Order(0, depth, width, height, panelColor, doorType, angleIronColor);
+            // Order newOrder = new Order(0, depth, width, height, panelColor, doorType, angleIronColor);
 
             // Appeler la méthode pour enregistrer cette commande dans la base de données
-            int orderId = databaseManager.SaveOrderWithoutId(newOrder);
+            // int orderId = databaseManager.SaveOrderWithoutId(newOrder);
 
             // Vérifier si l'enregistrement de la commande a réussi
-            if (orderId != -1)
-            {
-                // Réinitialiser les champs après l'enregistrement de la commande
-                ResetFields();
+            // if (orderId != -1)
+            // {
+            //     // Réinitialiser les champs après l'enregistrement de la commande
+            //     ResetFields();
 
-                // Appeler la méthode pour enregistrer la facture avec l'ID de la commande
-                SaveBill(orderId, GenerateBillList(newOrder));
-            }
+            //     // Appeler la méthode pour enregistrer la facture avec l'ID de la commande
+            //     SaveBill(orderId, GenerateBillList(newOrder));
+            // }
 
             //Activer l'alerte pour le formulaire de contact
             DisplayActionSheet("Out of stock : Please complete the contact form", "Cancel", null, "Contact Form");
