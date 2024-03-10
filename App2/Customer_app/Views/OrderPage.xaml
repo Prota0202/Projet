@@ -39,6 +39,8 @@
                         </Picker.ItemsSource>
                     </Picker>
 
+                    <Button Text="Save Depth and Width" Clicked="ShowConfirmationAlert"/>
+
                     <Label Text="Height:" />
                     <Picker x:Name="HeightPicker">
                         <Picker.ItemsSource>

@@ -9,21 +9,16 @@ namespace Customer_app.Views
     public partial class OrderPage : ContentPage
     {
         private int lockerCount = 0;
-
-
         public ObservableCollection<Customer_app.Models.Element> elementsList { get; set; } =
             new ObservableCollection<Customer_app.Models.Element>();
-
-
         private readonly DatabaseManager databaseManager;
-
+        private NewOrder currentOrder;
         public OrderPage()
         {
             databaseManager = new DatabaseManager();
             InitializeComponent();
             //MainGrid = this.FindByName<Grid>("MainGrid");
         }
-
         public void LoadElementsFromDatabase()
         {
             databaseManager.OpenConnection();
@@ -34,26 +29,38 @@ namespace Customer_app.Views
                 elementsList.Add(elem);
             }
         }
+        private async void ShowConfirmationAlert(object sender, EventArgs e){
+            var result = await DisplayAlert("Confirmation","the depth and width will be the same for every locker","ok","cancel");
 
-
+            if(result){
+                SaveDepthWidth();
+            }
+            else{}
+        }
+        private void SaveDepthWidth(){
+            int depth = Convert.ToInt32(DepthPicker.SelectedItem);
+            int width = Convert.ToInt32(WidthPicker.SelectedItem);
+            currentOrder = new NewOrder(depth,width);
+            Console.WriteLine(currentOrder.DisplayName);
+        }
         private void AddLockerButton_Clicked(object sender, EventArgs e)
         {
             if (lockerCount < 7)
             {
                 lockerCount++;
-                // Récupérer les valeurs sélectionnées dans l'interface utilisateur
-                //int depth = Convert.ToInt32(DepthPicker.SelectedItem);
-                //int width = Convert.ToInt32(WidthPicker.SelectedItem);
                 int height = Convert.ToInt32(HeightPicker.SelectedItem);
                 string panelColor = PanelColorPicker.SelectedItem.ToString();
                 string doorType = DoorPicker.SelectedItem.ToString();
                 string angleIronColor = AngleIronColorPicker.SelectedItem.ToString();
+                currentOrder.AddLocker(height,panelColor,doorType,angleIronColor);
+                Console.WriteLine(currentOrder.DisplayText);
+
+
                 var newLockerLabel = new Label
                 {
                     Text = "Locker " + lockerCount + "\nHeight : " + height + "cm" + "\nPanel Color : " + panelColor + "\nDoor : " + doorType + "\n Angle Iron : " + angleIronColor,
                     // HorizontalOptions = LayoutOptions.Center
                 };
-
                 // //Grid.SetRow(newLockerLabel, 6);
                 // //Grid.SetColumn(newLockerLabel, 13);
                 // MainStackLayout.Children.Add(newLockerLabel);
@@ -88,6 +95,15 @@ namespace Customer_app.Views
             Console.WriteLine("PanelColor: " + panelColor);
             Console.WriteLine("DoorType: " + doorType);
             Console.WriteLine("AngleIronColor: " + angleIronColor);
+            string verticalbatten = databaseManager.GetVerticalBattenCode(height);
+            Console.WriteLine(verticalbatten);
+            string sidecrossbar = databaseManager.GetSideCrossbarCode(depth);
+            Console.WriteLine(sidecrossbar);
+            string frontcrossbar = databaseManager.GetSideCrossbarCode(width);
+            Console.WriteLine(frontcrossbar);
+            string backcrossbar = databaseManager.GetSideCrossbarCode(width);
+            Console.WriteLine(backcrossbar);
+
 
             // Créer un nouvel objet Order avec ces valeurs
             Order newOrder = new Order(0, depth, width, height, panelColor, doorType, angleIronColor);
@@ -179,6 +195,8 @@ namespace Customer_app.Views
                 command.Parameters.AddWithValue("@PanelColor", order.PanelColor);
                 command.Parameters.AddWithValue("@Door", order.Door);
                 command.Parameters.AddWithValue("@AngleIronColor", order.AngleIronColor);
+                string ayoub = databaseManager.GetVerticalBattenCode(order.Height);
+                Console.WriteLine(ayoub);
 
                 // Exécuter la requête et récupérer l'ID de la commande nouvellement insérée
                 orderId = Convert.ToInt32(command.ExecuteScalar());

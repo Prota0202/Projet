@@ -191,7 +191,114 @@ public class DatabaseManager
         }
     }
 
+public string GetVerticalBattenCode(int height)
+{
+    string code = " ";
+    string query = "SELECT Code FROM component WHERE Name = 'vertical batten' AND Height_real = @Height";
+    try{
+        OpenConnection();
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@Height", height);
+        MySqlDataReader reader = command.ExecuteReader();
+        while (reader.Read()){
+            code = reader.GetString("Code");
+        }
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving vertical batten codes: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
 
+    return code;
+}
 
+public string GetSideCrossbarCode(int depth)
+{
+    string code = " ";
+    string query = "SELECT Code FROM component WHERE Name = 'Crossbar' AND Depth = @Depth AND Side = 'left or right'";
+    try
+    {
+        OpenConnection();
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@Depth", depth);
+        MySqlDataReader reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            code = reader.GetString("Code");
+        }
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving crossbar code: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return code;
+}
+
+public string GetFrontCrossbarCode(int width)
+{
+    string code = " ";
+    string query = "SELECT Code FROM component WHERE Name = 'Crossbar' AND Width = @Width AND Side = 'front'";
+    try
+    {
+        OpenConnection();
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@Width", width);
+        MySqlDataReader reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            code = reader.GetString("Code");
+        }
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving crossbar code: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return code;
+}
+
+public string GetBackCrossbarCode(int width)
+{
+    string code = " ";
+    string query = "SELECT Code FROM component WHERE Name = 'Crossbar' AND Width = @Width AND Side = 'back'";
+    try
+    {
+        OpenConnection();
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@Width", width);
+        MySqlDataReader reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            code = reader.GetString("Code");
+        }
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving crossbar code: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return code;
+}
 
 }
