@@ -19,6 +19,16 @@ public class NewOrder
         UpdateDisplayText();
     }
 
+    public void RemoveLocker(int lockerIndex)
+    {
+        if (lockerIndex >= 0 && lockerIndex < Lockers.Count)
+        {
+            Lockers.RemoveAt(lockerIndex);
+            UpdateDisplayText();
+        }
+    }
+
+
     public int GetNumberOfLockers()
         {
             return Lockers.Count;

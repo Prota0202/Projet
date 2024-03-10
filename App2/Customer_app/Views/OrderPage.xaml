@@ -109,6 +109,7 @@
                                         <Label Text="Profondeur: {Binding Depth}" FontSize="16" />
                                         <Label Text="Largeur: {Binding Width}" FontSize="16" />
                                         <Label Text="Hauteur: {Binding Height}" FontSize="16" />
+                                        <Button Text="Remove" Clicked="RemoveButton_Clicked" CommandParameter="{Binding .}" />
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>

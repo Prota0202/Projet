@@ -44,34 +44,155 @@ namespace Customer_app.Views
             currentOrder = new NewOrder(depth,width);
             Console.WriteLine(currentOrder.DisplayName);
         }
+        // private void AddLockerButton_Clicked(object sender, EventArgs e)
+        // {
+        //     if (lockerCount < 7)
+        //     {
+        //         lockerCount++;
+        //         int height = Convert.ToInt32(HeightPicker.SelectedItem);
+        //         string panelColor = PanelColorPicker.SelectedItem.ToString();
+        //         string doorType = DoorPicker.SelectedItem.ToString();
+        //         string angleIronColor = AngleIronColorPicker.SelectedItem.ToString();
+        //         currentOrder.AddLocker(height,panelColor,doorType,angleIronColor);
+        //         Console.WriteLine(currentOrder.DisplayText);
+
+
+        //         var newLockerLabel = new Label
+        //         {
+        //             Text = "Locker " + lockerCount + "\nHeight : " + height + "cm" + "\nPanel Color : " + panelColor + "\nDoor : " + doorType + "\n Angle Iron : " + angleIronColor,
+        //             // HorizontalOptions = LayoutOptions.Center
+        //         };
+        //         // //Grid.SetRow(newLockerLabel, 6);
+        //         // //Grid.SetColumn(newLockerLabel, 13);
+        //         // MainStackLayout.Children.Add(newLockerLabel);
+        //         //RightStackLayout.Children.Add(newLockerLabel);
+
+        //         var removeButton = new Button
+        //         {
+        //             Text = "Remove",
+        //             CommandParameter = lockerCount,
+        //         };
+        //         removeButton.CommandParameter = currentOrder.Lockers.Last(); // Utilisez le dernier casier ajouté comme paramètre de commande
+
+
+        //         var lockerLayout = new StackLayout
+        //         {
+        //             Children = { newLockerLabel, removeButton }
+        //         };
+
+        //         RightStackLayout.Children.Add(lockerLayout);
+                
+        //         // Actualisez l'affichage
+        //         UpdateLockerLabels();
+        //     }
+        //     else
+        //     {
+        //         DisplayAlert("Limit reached", "You cannot add more than 7 lockers.", "OK");
+        //     }
+        // }
+
+        // private void RemoveButton_Clicked(object sender, EventArgs e)
+        // {
+        //     var button = sender as Button;
+        //     if (button != null)
+        //     {
+        //         var lockerCountToRemove = Convert.ToInt32(button.CommandParameter);
+        //         if (lockerCountToRemove >= 1 && lockerCountToRemove <= RightStackLayout.Children.Count)
+        //         {
+        //             // Supprimez le locker de la liste
+        //             currentOrder.RemoveLocker(lockerCountToRemove - 1);
+
+        //             // Supprimez le layout du casier de la vue
+        //             RightStackLayout.Children.RemoveAt(lockerCountToRemove * 2 - 1); // Les indices sont décalés par les boutons "Remove"
+
+        //             // Mettez à jour le texte des labels pour refléter les nouveaux indices
+        //             UpdateLockerLabels();
+        //         }
+        //     }
+        // }
+
         private void AddLockerButton_Clicked(object sender, EventArgs e)
         {
             if (lockerCount < 7)
             {
-                lockerCount++;
                 int height = Convert.ToInt32(HeightPicker.SelectedItem);
                 string panelColor = PanelColorPicker.SelectedItem.ToString();
                 string doorType = DoorPicker.SelectedItem.ToString();
                 string angleIronColor = AngleIronColorPicker.SelectedItem.ToString();
-                currentOrder.AddLocker(height,panelColor,doorType,angleIronColor);
-                Console.WriteLine(currentOrder.DisplayText);
-
 
                 var newLockerLabel = new Label
                 {
-                    Text = "Locker " + lockerCount + "\nHeight : " + height + "cm" + "\nPanel Color : " + panelColor + "\nDoor : " + doorType + "\n Angle Iron : " + angleIronColor,
-                    // HorizontalOptions = LayoutOptions.Center
+                    Text = $"Locker {lockerCount + 1}\nHeight: {height}cm\nPanel Color: {panelColor}\nDoor: {doorType}\nAngle Iron: {angleIronColor}"
                 };
-                // //Grid.SetRow(newLockerLabel, 6);
-                // //Grid.SetColumn(newLockerLabel, 13);
-                // MainStackLayout.Children.Add(newLockerLabel);
-                RightStackLayout.Children.Add(newLockerLabel);
+
+                var removeButton = new Button
+                {
+                    Text = "Remove",
+                    CommandParameter = lockerCount, // Utilisez le compteur actuel comme paramètre
+                };
+                removeButton.Clicked += RemoveButton_Clicked;
+
+                var lockerLayout = new StackLayout
+                {
+                    Children = { newLockerLabel, removeButton }
+                };
+
+                RightStackLayout.Children.Add(lockerLayout);
+
+                // Incrémentez le compteur après l'affichage du casier
+                lockerCount++;
+
+                // Appel pour mettre à jour les numéros de casier après l'ajout initial
+                UpdateLockerLabels();
             }
             else
             {
                 DisplayAlert("Limit reached", "You cannot add more than 7 lockers.", "OK");
             }
         }
+
+        private void RemoveButton_Clicked(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            if (button != null)
+            {
+                var lockerIndex = (int)button.CommandParameter;
+
+                // Assurez-vous que votre classe NewOrder a une méthode pour supprimer un casier
+                // Remplacez RemoveLocker(locker) par l'appel à la méthode appropriée
+                currentOrder.RemoveLocker(lockerIndex);
+
+                // Supprimez le layout du casier de la vue
+                RightStackLayout.Children.Remove(button.Parent as View);
+
+                // Décrémentez lockerCount après la suppression
+                lockerCount--;
+
+                // Mettez à jour les labels après la suppression
+                UpdateLockerLabels();
+            }
+        }
+
+
+        private void UpdateLockerLabels()
+        {
+            int index = -1;
+            foreach (var child in RightStackLayout.Children)
+            {
+                if (child is StackLayout lockerLayout)
+                {
+                    if (lockerLayout.Children.Count == 2 && lockerLayout.Children[0] is Label label && lockerLayout.Children[1] is Button removeButton)
+                    {
+                        label.Text = $"Locker {index}\n{string.Join('\n', label.Text.Split('\n')[1..5])}";
+
+                        removeButton.CommandParameter = index;
+                    }
+                }
+                index++;
+            }
+        }
+
+
 
 
 
