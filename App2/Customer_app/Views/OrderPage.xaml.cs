@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using Customer_app.Models;
 using System.Text;
 using MySql.Data.MySqlClient;
+using System.Net.Cache;
 namespace Customer_app.Views
 
     
@@ -130,6 +131,12 @@ namespace Customer_app.Views
             lockerNumber++;
             }
 
+            int amountlocker = currentOrder.GetNumberOfLockers();
+            string recap = databaseManager.LoadOrder(idneworder, amountlocker);
+            Console.WriteLine(recap);
+            DisplayAlert("Recap",recap,"okay");
+            ResetFields();
+
 
             // Créer un nouvel objet Order avec ces valeurs
             // Order newOrder = new Order(0, depth, width, height, panelColor, doorType, angleIronColor);
@@ -160,9 +167,7 @@ namespace Customer_app.Views
 
 
 
-        private void ResetFields()
-        {
-            // Réinitialiser les valeurs des champs
+        private void ResetFields(){
             DepthPicker.SelectedItem = null;
             WidthPicker.SelectedItem = null;
             HeightPicker.SelectedItem = null;

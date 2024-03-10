@@ -18,6 +18,11 @@ public class NewOrder
         Lockers.Add(new Locker(height, panelColor, doorType, angleIronColor));
         UpdateDisplayText();
     }
+
+    public int GetNumberOfLockers()
+        {
+            return Lockers.Count;
+        }
     private void UpdateDisplayText()
         {
             DisplayText = $"Depth: {Depth}, Width: {Width}\n";

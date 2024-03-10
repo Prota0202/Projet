@@ -4,6 +4,8 @@ using Microsoft.Maui.Controls.Platform.Compatibility;
 using MySql.Data.MySqlClient;
 using Customer_app.Models;
 using System.Data;
+using System.Text;
+
 public class DatabaseManager
 {
     
@@ -523,6 +525,110 @@ public void UpdateLockerComponents(int orderId, int lockerNumber, string vertica
     }
 }
 
+public string LoadOrder(int orderId, int amountlocker)
+{
+    StringBuilder orderDetails = new StringBuilder();
+
+    try
+    {
+        OpenConnection();
+
+        // Récupérer les données des lockers pour l'ID de la commande donnée
+        string query = "SELECT * FROM neworder WHERE idneworder = @OrderId";
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@OrderId", orderId);
+        MySqlDataReader reader = command.ExecuteReader();
+
+       while (reader.Read())
+        {
+            for (int lockerNumber = 1; lockerNumber <= amountlocker; lockerNumber++)
+            {
+                // Ajouter le détail du locker à la chaîne
+                orderDetails.AppendLine($"Locker {lockerNumber}:");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"verticalbatten{lockerNumber}"))} Vertical Batten :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"frontcrossbar{lockerNumber}"))} Front Crossbar :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"backcrossbar{lockerNumber}"))} Back Crossbar :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"sidecrossbar{lockerNumber}"))} Side Crossbar :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"horizontalpanel{lockerNumber}"))} Horizontal Panel :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"sidepanel{lockerNumber}"))} Side Panel :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"backpanel{lockerNumber}"))} Back Panel :");
+                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"door{lockerNumber}"))} Door :");
+                orderDetails.AppendLine();
+            }
+        }
+
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error loading order details: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return orderDetails.ToString();
+}
+
+
+private int GetComponentQuantity(string componentCode)
+{
+    int lockerQuantity = 0;
+    Console.WriteLine("code recu " + componentCode);
+    string query = "SELECT LockerQuantity FROM component WHERE Code = @ComponentCode";
+
+    try
+    {
+        // Ouvrir une nouvelle connexion pour éviter les conflits avec le DataReader précédent
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
+        {
+            connection.Open();
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ComponentCode", componentCode);
+            object result = command.ExecuteScalar();
+
+            if (result != null && result != DBNull.Value)
+            {
+                lockerQuantity = Convert.ToInt32(result);
+            }
+        }
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving locker quantity for component: " + ex.Message);
+    }
+
+    return lockerQuantity;
+}
+
+public void AddCustomer(Customer customer)
+{
+    try
+    {
+        OpenConnection();
+
+        string query = "INSERT INTO customer (CustomerName, CustomerFirstName, MobileNumber, Mail) VALUES (@CustomerName, @CustomerFirstName, @MobileNumber, @Mail)";
+
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@CustomerName", customer.CustomerName);
+        command.Parameters.AddWithValue("@CustomerFirstName", customer.FirstCustomerName);
+        command.Parameters.AddWithValue("@MobileNumber", customer.CustomerPhone);
+        command.Parameters.AddWithValue("@Mail", customer.CustomerEmail);
+
+        command.ExecuteNonQuery();
+        Console.WriteLine("Customer added successfully.");
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error adding customer: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+}
 
 
 }
