@@ -66,7 +66,7 @@ namespace Customer_app.Views
                 LabelStackLayout.IsVisible = true;
 
                 // Mettez à jour les Labels avec les valeurs sélectionnées
-                Sentence.Text = $"Your choice is for depth → {DepthPicker.SelectedItem} and for width → {WidthPicker.SelectedItem}";
+                Sentence.Text = $"Your choice is → {DepthPicker.SelectedItem}cm deep and → {WidthPicker.SelectedItem}cm wide ";
 
             }
             else
@@ -145,6 +145,8 @@ namespace Customer_app.Views
                 string panelColor = PanelColorPicker.SelectedItem.ToString();
                 string doorType = DoorPicker.SelectedItem.ToString();
                 string angleIronColor = AngleIronColorPicker.SelectedItem.ToString();
+                currentOrder.AddLocker(height,panelColor,doorType,angleIronColor);
+                Console.WriteLine(currentOrder.DisplayText);
 
                 var newLockerLabel = new Label
                 {
