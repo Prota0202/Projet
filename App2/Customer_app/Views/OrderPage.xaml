@@ -106,7 +106,7 @@
                 </StackLayout>
 
             <ScrollView Grid.Row="2" Grid.Column="1" VerticalOptions="StartAndExpand">
-                <StackLayout x:Name="RightStackLayout" Spacing="25" HeightRequest="500">
+                <StackLayout x:Name="RightStackLayout" Spacing="25">
                   <StackLayout.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                         <GradientStop Color="#505050" Offset="0" />  <GradientStop Color="#7F7F7F" Offset="1" />  </LinearGradientBrush>
