@@ -6,23 +6,19 @@
 
     
     <ScrollView>
-        <Grid RowDefinitions="Auto, Auto, Auto, *"
-        ColumnDefinitions=".60*, .40*"
-        Padding="10"
-        RowSpacing="50"
-        ColumnSpacing="50">
+        <Grid RowDefinitions="Auto, Auto, Auto, *" ColumnDefinitions=".60*, .40*" Padding="10" RowSpacing="50" ColumnSpacing="50">
             <StackLayout x:Name="PickerStackLayout" Spacing="10" Grid.Row="1" Grid.Column="0">
-                        <!--Pickers ici-->
-                        <Label Text="Depth:" />
-                        <Picker x:Name="DepthPicker">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>32</x:String>
-                                <x:String>42</x:String>
-                                <x:String>52</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                <!--Pickers ici-->
+                <Label Text="Depth:" />
+                <Picker x:Name="DepthPicker">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>32</x:String>
+                            <x:String>42</x:String>
+                            <x:String>52</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
                     <Label Text="Width:" />
                     <Picker x:Name="WidthPicker">
@@ -103,13 +99,14 @@
                     </Picker>
             </StackLayout>
 
-                    <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Grid.Row="3">
-                        <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
-                        <Button Text="Contact Page" Clicked="ContactPageclicked" />
-                        <Button x:Name="SaveButton" Text="Save" Clicked="SaveButton_Clicked" />
-                    </StackLayout>
+                <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Grid.Row="3">
+                    <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
+                    <!--<Button Text="Contact Page" Clicked="ContactPageclicked" /> enlèce le bouton ContactPage-->
+                    <Button x:Name="SaveButton" Text="Save" Clicked="SaveButton_Clicked" />
+                </StackLayout>
 
-                <StackLayout x:Name="RightStackLayout" Spacing="25" Grid.Row="2" Grid.Column="1">
+            <ScrollView Grid.Row="2" Grid.Column="1" VerticalOptions="StartAndExpand">
+                <StackLayout x:Name="RightStackLayout" Spacing="25" HeightRequest="500">
                   <StackLayout.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                         <GradientStop Color="#505050" Offset="0" />  <GradientStop Color="#7F7F7F" Offset="1" />  </LinearGradientBrush>
@@ -130,7 +127,8 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
-            </Grid>
+            </ScrollView>
+        </Grid>
     </ScrollView>
 
 </ContentPage>
