@@ -53,7 +53,7 @@ namespace Customer_app.Views
 
         private async void ShowConfirmationAlert(object sender, EventArgs e)
         {
-            var result = await DisplayAlert("Confirmation", "the depth and width will be the same for every locker", "OK", "CANCEL");
+            var result = await DisplayAlert("Confirmation", "The depth and width will be the same for every locker", "OK", "CANCEL");
 
             if (result)
             {
@@ -64,6 +64,9 @@ namespace Customer_app.Views
 
                 // Affichez le StackLayout des Labels
                 LabelStackLayout.IsVisible = true;
+
+                OrderStackLayout.IsVisible = true;
+
 
                 // Mettez à jour les Labels avec les valeurs sélectionnées
                 Sentence.Text = $"Your choice is → {DepthPicker.SelectedItem}cm deep and → {WidthPicker.SelectedItem}cm wide ";
@@ -76,6 +79,9 @@ namespace Customer_app.Views
 
                 // Masquez le StackLayout des Labels
                 LabelStackLayout.IsVisible = false;
+
+                OrderStackLayout.IsVisible = false;
+
             }
         }
 

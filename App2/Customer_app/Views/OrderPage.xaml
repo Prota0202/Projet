@@ -51,7 +51,7 @@
 
 
 
-            <StackLayout Spacing="10" Grid.Row="2" Grid.Column="0">
+            <StackLayout x:Name="OrderStackLayout" Spacing="10" Grid.Row="2" Grid.Column="0" IsVisible="False">
                     <Label Text="Height:" />
                     <Picker x:Name="HeightPicker">
                         <Picker.ItemsSource>
