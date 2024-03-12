@@ -6,28 +6,28 @@
     <VerticalStackLayout Spacing="10" Margin="20, 20, 20, 0">
         <Frame Padding="10, 2, 10, 2">
             <HorizontalStackLayout>
-                <Label Text="Lastname :" VerticalOptions="Center" WidthRequest="80"></Label>
+                <Label Text="Lastname :" VerticalOptions="Center" WidthRequest="90"></Label>
                 <Entry Placeholder="Lastname " x:Name="NameContact" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="200"/>
             </HorizontalStackLayout>
         </Frame>
 
         <Frame Padding="10, 2, 10, 2">
             <HorizontalStackLayout>
-                <Label Text="Firstname :" VerticalOptions="Center" WidthRequest="80"></Label>
+                <Label Text="Firstname :" VerticalOptions="Center" WidthRequest="90"></Label>
                 <Entry Placeholder="Firstname" x:Name="FirstNameContact" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="200"/>
             </HorizontalStackLayout>
         </Frame>
 
         <Frame Padding="10, 2, 10, 2">
             <HorizontalStackLayout>
-                <Label Text="Email :" VerticalOptions="Center" WidthRequest="80"></Label>
+                <Label Text="Email :" VerticalOptions="Center" WidthRequest="90"></Label>
                 <Entry Placeholder="email@exemple.com" x:Name="EmailContact" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="200"/>
             </HorizontalStackLayout>
         </Frame>
 
         <Frame Padding="10, 2, 10, 2">
             <HorizontalStackLayout>
-                <Label Text="Phone :" VerticalOptions="Center" WidthRequest="80"></Label>
+                <Label Text="Phone :" VerticalOptions="Center" WidthRequest="90"></Label>
                 <Entry Placeholder="0032123456789" x:Name="PhoneContact" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="200"/>
             </HorizontalStackLayout>
         </Frame>

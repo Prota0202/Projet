@@ -6,7 +6,7 @@
 
     
     <ScrollView>
-        <Grid RowDefinitions="Auto, Auto, Auto, *" ColumnDefinitions=".60*, .40*" Padding="10" RowSpacing="50" ColumnSpacing="50">
+        <Grid RowDefinitions="Auto, Auto, Auto, 60" ColumnDefinitions=".60*, .40*" Padding="10" RowSpacing="50" ColumnSpacing="50">
             <StackLayout x:Name="PickerStackLayout" Spacing="10" Grid.Row="1" Grid.Column="0">
                 <!--Pickers ici-->
                 <Label Text="Depth:" />
