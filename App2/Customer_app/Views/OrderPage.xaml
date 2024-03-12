@@ -9,6 +9,19 @@
         <Grid RowDefinitions="Auto, Auto, Auto, 60" ColumnDefinitions=".60*, .40*" Padding="10" RowSpacing="50" ColumnSpacing="50">
             <StackLayout x:Name="PickerStackLayout" Spacing="10" Grid.Row="1" Grid.Column="0">
                 <!--Pickers ici-->
+                <!--<Label Text="Quantities of kitboxes">
+                <Picker x:Name="DepthPicker">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>1</x:String>
+                            <x:String>2</x:String>
+                            <x:String>3</x:String>
+                            <x:String>4</x:String>
+                            <x:String>5</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>-->
+
                 <Label Text="Depth:" />
                 <Picker x:Name="DepthPicker">
                     <Picker.ItemsSource>
