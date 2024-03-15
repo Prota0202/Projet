@@ -3,20 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Customer_app.Views.BasketPage"
              Title="Basket Page">
-    <Grid RowDefinitions="Auto, 50, 50" ColumnDefinitions="Auto"  Padding="10" RowSpacing="50">
+    <Grid  Padding="10">
+        <Grid.RowDefinitions >
+            <RowDefinition Height= "*" />
+            <RowDefinition Height= "*" />
+            <RowDefinition Height= "50" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width= "*" />
+            <ColumnDefinition Width= "*" />
+        </Grid.ColumnDefinitions>
+
         <Label Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Text="Ici on met une scrollView"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Label Grid.Row ="1" Grid.Column = "1"
             Text="Prix"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-            
-        <Button Grid.Row ="1" Grid.Column ="0"
+        <Button Grid.Row ="2"
+            Grid.Column="0"
             x:Name="StartOrdering"
             Text="Add a kitbox"
             Clicked="OrderBackbuttonclicked"
             HorizontalOptions="Center" />
 
-        <Button Grid.Row ="1" Grid.Column ="1"
+        <Button Grid.Row ="2" Grid.Column = "1"
             x:Name="BuyOrder"
             Text="Buy"
             Clicked="OrderBackbuttonclicked"
