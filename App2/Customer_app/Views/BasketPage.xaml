@@ -34,9 +34,9 @@
             HorizontalOptions="Center" />
 
         <Button Grid.Row ="2" Grid.Column = "1"
-            x:Name="BuyOrder"
+            x:Name="BuyButton"
             Text="Buy"
-            Clicked="OrderBackbuttonclicked"
+            Clicked="BuyButton_Clicked"
             HorizontalOptions="Center" />
 
     </Grid>

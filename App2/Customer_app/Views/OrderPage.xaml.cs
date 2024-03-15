@@ -87,9 +87,6 @@ namespace Customer_app.Views
 
 
 
-
-
-
         private void SaveDepthWidth(){
             int depth = Convert.ToInt32(DepthPicker.SelectedItem);
             int width = Convert.ToInt32(WidthPicker.SelectedItem);
@@ -286,11 +283,12 @@ namespace Customer_app.Views
             lockerNumber++;
             }
 
-            int amountlocker = currentOrder.GetNumberOfLockers();
+//Enleve pcq plus besoin du recap maintenant, on l'affiche qd BuyButton_Clicked
+            /*int amountlocker = currentOrder.GetNumberOfLockers();
             string recap = databaseManager.LoadOrder(idneworder, amountlocker);
             Console.WriteLine(recap);
             DisplayAlert("Recap",recap,"OK");
-            ResetFields();
+            ResetFields();*/
 
 // A mettre dans l'action du bouton Buy
             // int ContactForm = databaseManager.TestContact(idneworder, amountlocker);
