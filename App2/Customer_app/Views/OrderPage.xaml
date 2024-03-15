@@ -9,8 +9,8 @@
         <Grid RowDefinitions="Auto, Auto, Auto, 60" ColumnDefinitions=".60*, .40*" Padding="10" RowSpacing="50" ColumnSpacing="50">
             <StackLayout x:Name="PickerStackLayout" Spacing="10" Grid.Row="1" Grid.Column="0">
                 <!--Pickers ici-->
-                <!--<Label Text="Quantities of kitboxes">
-                <Picker x:Name="DepthPicker">
+                <Label Text="Quantities of kitboxes"/>
+                <Picker x:Name="QuantitiesKitboxes">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>1</x:String>
@@ -20,33 +20,33 @@
                             <x:String>5</x:String>
                         </x:Array>
                     </Picker.ItemsSource>
-                </Picker>-->
-
-                <Label Text="Depth:" />
-                <Picker x:Name="DepthPicker">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>32</x:String>
-                            <x:String>42</x:String>
-                            <x:String>52</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
                 </Picker>
 
-                    <Label Text="Width:" />
-                    <Picker x:Name="WidthPicker">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>32</x:String>
-                                <x:String>42</x:String>
-                                <x:String>52</x:String>
-                                <x:String>62</x:String>
-                                <x:String>80</x:String>
-                                <x:String>100</x:String>
-                                <x:String>120</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                  <Label Text="Depth:" />
+                  <Picker x:Name="DepthPicker">
+                      <Picker.ItemsSource>
+                          <x:Array Type="{x:Type x:String}">
+                              <x:String>32</x:String>
+                              <x:String>42</x:String>
+                              <x:String>52</x:String>
+                          </x:Array>
+                      </Picker.ItemsSource>
+                  </Picker>
+  
+                      <Label Text="Width:" />
+                      <Picker x:Name="WidthPicker">
+                          <Picker.ItemsSource>
+                              <x:Array Type="{x:Type x:String}">
+                                  <x:String>32</x:String>
+                                  <x:String>42</x:String>
+                                  <x:String>52</x:String>
+                                  <x:String>62</x:String>
+                                  <x:String>80</x:String>
+                                  <x:String>100</x:String>
+                                  <x:String>120</x:String>
+                              </x:Array>
+                          </Picker.ItemsSource>
+                      </Picker>
 
                     <Button x:Name="SaveDepthWidthButton" Text="Save Depth and Width" Clicked="ShowConfirmationAlert"/>
             </StackLayout>
