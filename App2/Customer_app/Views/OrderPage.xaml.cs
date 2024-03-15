@@ -292,13 +292,16 @@ namespace Customer_app.Views
             DisplayAlert("Recap",recap,"OK");
             ResetFields();
 
-            int ContactForm = databaseManager.TestContact(idneworder, amountlocker);
-            if(ContactForm == 0)
-            {
-                await Navigation.PushAsync(new ContactPage());
-                DisplayAlert("Out of stock :","Please complete the contact form","OK");
-            }
-            Console.WriteLine(ContactForm);
+// A mettre dans l'action du bouton Buy
+            // int ContactForm = databaseManager.TestContact(idneworder, amountlocker);
+            // if(ContactForm == 0)
+            // {
+            //     await Navigation.PushAsync(new ContactPage());
+            //     DisplayAlert("Out of stock :","Please complete the contact form","OK");
+            // }
+            // Console.WriteLine(ContactForm);
+
+            Navigation.PushAsync(new BasketPage());
 
 
 
