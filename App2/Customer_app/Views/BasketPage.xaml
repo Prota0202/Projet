@@ -3,17 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Customer_app.Views.BasketPage"
              Title="Basket Page">
-    <VerticalStackLayout>
-        <Label 
-            Text="Faudra faire ici un récap de tous les casiers qu'il a confectionner pdt qu'il commande seulement"
+    <Grid RowDefinitions="Auto, 50, 50" ColumnDefinitions="Auto"  Padding="10" RowSpacing="50">
+        <Label Grid.Row="0"
+            Text="Prix"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <Button
+            
+        <Button Grid.Row ="1" Grid.Column ="0"
             x:Name="StartOrdering"
-            Text="Back to order page"
+            Text="Add a kitbox"
             Clicked="OrderBackbuttonclicked"
             HorizontalOptions="Center" />
 
-    </VerticalStackLayout>
+        <Button Grid.Row ="1" Grid.Column ="1"
+            x:Name="BuyOrder"
+            Text="Buy"
+            Clicked="OrderBackbuttonclicked"
+            HorizontalOptions="Center" />
+
+    </Grid>
 </ContentPage>
