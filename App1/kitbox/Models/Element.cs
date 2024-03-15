@@ -1,4 +1,4 @@
-﻿namespace kitbox;
+namespace kitbox;
 
 public class Element
 {
@@ -50,8 +50,23 @@ public class Element
 		Quantity -= amount;
 		return Quantity;
 	}
-
     public string DisplayNameCodeQuantityOrdered => $"{Name} ({Code}) : {Quantity} pieces available - {Quantityordered} coming";
+    public string DisplayNameCodeQuantityOrdereds 
+    {
+        get
+        {
+            int spacesToAdd1 = 17 - Name.Length;
+            string space1 = new string(' ', spacesToAdd1);
+
+            int spacesToAdd2 = 8 - Color.Length;
+            string space2 = new string(' ', spacesToAdd2);
+
+            int spacesToAdd3 = 12 - Code.Length;
+            string space3 = new string(' ', spacesToAdd3);
+
+            return $"{Name}{space1}{Color}{space2}{Code}{space3}{Quantity} pieces available    {Quantityordered} coming";
+        }
+    }
     public string DisplayName => $"{Name}";
     public string DisplayNameCode => $"{Code} : {Name}";
 }
