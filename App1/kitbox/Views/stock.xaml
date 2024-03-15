@@ -19,7 +19,7 @@
             <DataTemplate>
                  <ViewCell>
                         <StackLayout Orientation="Horizontal" Padding="10">
-                            <Label Text="{Binding DisplayNameCodeQuantityOrdered}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                            <Label Text="{Binding DisplayNameCodeQuantityOrdereds}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
                             <Button Text="-" Clicked="OnRemoveQuantityClicked" VerticalOptions="Center" HorizontalOptions="End" CommandParameter="{Binding}"/>
                             <Entry Placeholder="Quantity" x:Name="QuantityToChangeEntry" HorizontalOptions="Center" HeightRequest="40" WidthRequest="100"/>
                             <Button Text="+" Clicked="OnAddQuantityClicked" VerticalOptions="Center" HorizontalOptions="End" CommandParameter="{Binding}"/>
