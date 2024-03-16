@@ -1,5 +1,6 @@
 ﻿namespace kitbox;
 using System;
+using System.Text;
 using MySql.Data.MySqlClient;
 public class DatabaseManager
 {
@@ -224,6 +225,73 @@ public void RemoveElement(Element element){
     catch (MySqlException ex){
         Console.WriteLine("Error removing element from the database: " + ex.Message);
     }
+}
+
+
+
+public List<string> GetLatestOrder()
+{
+    List<string> latestOrder = new List<string>(); // Modifier le type de retour
+
+    try
+    {
+        this.OpenConnection();
+
+        // Sélectionner la dernière commande de la table neworder
+        string query = "SELECT * FROM neworder ORDER BY idneworder DESC LIMIT 1";
+        MySqlCommand command = new MySqlCommand(query, this.connection);
+        MySqlDataReader reader = command.ExecuteReader();
+
+        if (reader.Read())
+        {
+            // Construire une chaîne de caractères représentant la dernière commande
+            StringBuilder orderDetails = new StringBuilder();
+            orderDetails.AppendLine($"Order ID: {reader.GetInt32("idneworder")}");
+
+            // Ajouter les détails de chaque locker à la chaîne
+            for (int i = 1; i <= 7; i++)
+            {
+                string verticalBatten = reader.IsDBNull(reader.GetOrdinal($"verticalbatten{i}")) ? null : reader.GetString($"verticalbatten{i}");
+                string frontCrossbar = reader.IsDBNull(reader.GetOrdinal($"frontcrossbar{i}")) ? null : reader.GetString($"frontcrossbar{i}");
+                string backCrossbar = reader.IsDBNull(reader.GetOrdinal($"backcrossbar{i}")) ? null : reader.GetString($"backcrossbar{i}");
+                string sideCrossbar = reader.IsDBNull(reader.GetOrdinal($"sidecrossbar{i}")) ? null : reader.GetString($"sidecrossbar{i}");
+                string horizontalPanel = reader.IsDBNull(reader.GetOrdinal($"horizontalpanel{i}")) ? null : reader.GetString($"horizontalpanel{i}");
+                string sidePanel = reader.IsDBNull(reader.GetOrdinal($"sidepanel{i}")) ? null : reader.GetString($"sidepanel{i}");
+                string backPanel = reader.IsDBNull(reader.GetOrdinal($"backpanel{i}")) ? null : reader.GetString($"backpanel{i}");
+                string door = reader.IsDBNull(reader.GetOrdinal($"door{i}")) ? null : reader.GetString($"door{i}");
+
+                if (!string.IsNullOrEmpty(verticalBatten) && !string.IsNullOrEmpty(frontCrossbar) && !string.IsNullOrEmpty(backCrossbar) &&
+                    !string.IsNullOrEmpty(sideCrossbar) && !string.IsNullOrEmpty(horizontalPanel) && !string.IsNullOrEmpty(sidePanel) &&
+                    !string.IsNullOrEmpty(backPanel) && !string.IsNullOrEmpty(door))
+                {
+                    orderDetails.AppendLine($"Locker {i}:");
+                    orderDetails.AppendLine($"Vertical Batten: {verticalBatten}");
+                    orderDetails.AppendLine($"Front Crossbar: {frontCrossbar}");
+                    orderDetails.AppendLine($"Back Crossbar: {backCrossbar}");
+                    orderDetails.AppendLine($"Side Crossbar: {sideCrossbar}");
+                    orderDetails.AppendLine($"Horizontal Panel: {horizontalPanel}");
+                    orderDetails.AppendLine($"Side Panel: {sidePanel}");
+                    orderDetails.AppendLine($"Back Panel: {backPanel}");
+                    orderDetails.AppendLine($"Door: {door}");
+                    orderDetails.AppendLine();
+                }
+            }
+
+            latestOrder.Add(orderDetails.ToString()); // Ajouter la commande à la liste
+        }
+
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving the latest order from the database: " + ex.Message);
+    }
+    finally
+    {
+        this.CloseConnection();
+    }
+
+    return latestOrder;
 }
 
 }
