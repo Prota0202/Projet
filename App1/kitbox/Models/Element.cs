@@ -64,7 +64,11 @@ public class Element
             int spacesToAdd3 = 12 - Code.Length;
             string space3 = new string(' ', spacesToAdd3);
 
-            return $"{Name}{space1}{Color}{space2}{Code}{space3}{Quantity} pieces available    {Quantityordered} coming";
+            string a = Quantity.ToString();
+            int spacesToAdd4 = 7 - a.Length;
+            string space4 = new string(' ', spacesToAdd4);
+
+            return $"{Name}{space1}{Color}{space2}{Code}{space3}{Quantity} pieces available{space4}{Quantityordered} coming";
         }
     }
     public string DisplayName => $"{Name}";
