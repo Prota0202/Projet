@@ -131,7 +131,7 @@ public class DatabaseManager
 public List<Element> GetElements()
 {
     List<Element> elements = new List<Element>();
-    string query = "SELECT Name, Code, RemainingQuantity, Ordered_Quantity, Color, Length, Width, Height_real, Height_customer, Side, Depth, Diameter, LockerQuantity, KitboxQuantity FROM component";
+    string query = "SELECT Name, Code, RemainingQuantity, Ordered_Quantity, Color, Length, Width, Height_real, Height_customer, Side, Depth, Diameter, LockerQuantity, KitboxQuantity FROM kitbox.component";
 
     try
     {
