@@ -55,9 +55,9 @@ public partial class BasketPage : ContentPage
 		lockerNumber++;
 		}
 
-		//Ici il faudra changer le recap pour juste qu'il affiche n° de commande + prix total
+		//Ici le récap affiche uniquement le numéro de commande
 		int amountlocker = currentOrder.GetNumberOfLockers();
-		string recap = databaseManager.LoadOrder(idneworder, amountlocker);
+		string recap = $"Order Number: {idneworder}";
 		Console.WriteLine(recap);
 		DisplayAlert("Recap",recap,"OK");
 
@@ -66,30 +66,9 @@ public partial class BasketPage : ContentPage
 		if(ContactForm == 0)
 		{
 			await Navigation.PushAsync(new ContactPage());
-			DisplayAlert("Out of stock :","Please complete the contact form","OK");
+			await DisplayAlert("Out of stock :","Please complete the contact form","OK");
 		}
 		Console.WriteLine(ContactForm);
-
-		// Créer un nouvel objet Order avec ces valeurs
-		// Order newOrder = new Order(0, depth, width, height, panelColor, doorType, angleIronColor);
-
-		// Appeler la méthode pour enregistrer cette commande dans la base de données
-		// int orderId = databaseManager.SaveOrderWithoutId(newOrder);
-
-		// Vérifier si l'enregistrement de la commande a réussi
-		// if (orderId != -1)
-		// {
-		//     // Réinitialiser les champs après l'enregistrement de la commande
-		//     ResetFields();
-
-		//     // Appeler la méthode pour enregistrer la facture avec l'ID de la commande
-		//     SaveBill(orderId, GenerateBillList(newOrder));
-		// }
-
-		//Activer l'alerte pour le formulaire de contact
-		//string action = await DisplayActionSheet("Out of stock : Please complete the contact form", "Cancel", null, "Contact Form");
-		//Console.WriteLine(action);
-		
 		
 		// Attendre une courte période avant de réactiver le gestionnaire d'événements
 		await Task.Delay(1000);

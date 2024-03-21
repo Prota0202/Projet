@@ -9,101 +9,98 @@
         <Grid RowDefinitions="Auto, Auto, Auto, 60" ColumnDefinitions=".60*, .40*" Padding="10" RowSpacing="50" ColumnSpacing="50">
             <StackLayout x:Name="PickerStackLayout" Spacing="10" Grid.Row="1" Grid.Column="0">
 
-                  <Label Text="Depth:" />
-                  <Picker x:Name="DepthPicker">
-                      <Picker.ItemsSource>
-                          <x:Array Type="{x:Type x:String}">
-                              <x:String>32</x:String>
-                              <x:String>42</x:String>
-                              <x:String>52</x:String>
-                          </x:Array>
-                      </Picker.ItemsSource>
-                  </Picker>
+                <Label Text="Depth:" />
+                <Picker x:Name="DepthPicker">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>32</x:String>
+                            <x:String>42</x:String>
+                            <x:String>52</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
   
-                      <Label Text="Width:" />
-                      <Picker x:Name="WidthPicker">
-                          <Picker.ItemsSource>
-                              <x:Array Type="{x:Type x:String}">
-                                  <x:String>32</x:String>
-                                  <x:String>42</x:String>
-                                  <x:String>52</x:String>
-                                  <x:String>62</x:String>
-                                  <x:String>80</x:String>
-                                  <x:String>100</x:String>
-                                  <x:String>120</x:String>
-                              </x:Array>
-                          </Picker.ItemsSource>
-                      </Picker>
+                <Label Text="Width:" />
+                <Picker x:Name="WidthPicker">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>32</x:String>
+                            <x:String>42</x:String>
+                            <x:String>52</x:String>
+                            <x:String>62</x:String>
+                            <x:String>80</x:String>
+                            <x:String>100</x:String>
+                            <x:String>120</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
-                    <Button x:Name="SaveDepthWidthButton" Text="Save Depth and Width" Clicked="ShowConfirmationAlert"/>
+                <Button x:Name="SaveDepthWidthButton" Text="Save Depth and Width" Clicked="ShowConfirmationAlert"/>
             </StackLayout>
 
             <StackLayout x:Name="LabelStackLayout" Spacing="10" Grid.Row="1" Grid.Column="0" IsVisible="False">
-                    <StackLayout.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Color="#505050" Offset="0" />  <GradientStop Color="#7F7F7F" Offset="1" />  </LinearGradientBrush>
-                  </StackLayout.Background>
+                <StackLayout.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#505050" Offset="0" />  <GradientStop Color="#7F7F7F" Offset="1" />  </LinearGradientBrush>
+                </StackLayout.Background>
                 <!--Labels ici-->
                 <Label x:Name="Sentence" FontSize="18" HorizontalOptions="CenterAndExpand"/>
-
             </StackLayout>
-
-
 
 
             <StackLayout x:Name="OrderStackLayout" Spacing="10" Grid.Row="2" Grid.Column="0" IsVisible="False">
-                    <Label Text="Height:" />
-                    <Picker x:Name="HeightPicker">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>32</x:String>
-                                <x:String>42</x:String>
-                                <x:String>52</x:String>
-                                <x:String>62</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                <Label Text="Height:" />
+                <Picker x:Name="HeightPicker">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>32</x:String>
+                            <x:String>42</x:String>
+                            <x:String>52</x:String>
+                            <x:String>62</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
-                    <Label Text="Panel Color:" />
-                    <Picker x:Name="PanelColorPicker">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>White</x:String>
-                                <x:String>Marron</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                <Label Text="Panel Color:" />
+                <Picker x:Name="PanelColorPicker">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>White</x:String>
+                            <x:String>Marron</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
-                    <Label Text="Door:" />
-                    <Picker x:Name="DoorPicker">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>No Door</x:String>
-                                <x:String>White</x:String>
-                                <x:String>Marron</x:String>
-                                <x:String>Glass</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                <Label Text="Door:" />
+                <Picker x:Name="DoorPicker">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>No Door</x:String>
+                            <x:String>White</x:String>
+                            <x:String>Marron</x:String>
+                            <x:String>Glass</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
-                    <Label Text="Angle Iron Color:" />
-                    <Picker x:Name="AngleIronColorPicker">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>White</x:String>
-                                <x:String>Marron</x:String>
-                                <x:String>Black</x:String>
-                                <x:String>Galva</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                <Label Text="Angle Iron Color:" />
+                <Picker x:Name="AngleIronColorPicker">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>White</x:String>
+                            <x:String>Marron</x:String>
+                            <x:String>Black</x:String>
+                            <x:String>Galva</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
             </StackLayout>
 
-                <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Grid.Row="3">
-                    <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
-                    <!--<Button Text="Contact Page" Clicked="ContactPageclicked" /> enlèce le bouton ContactPage-->
-                    <Button x:Name="SaveButton" Text="Save" Clicked="SaveButton_Clicked" />
-                </StackLayout>
+            <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Grid.Row="3">
+                <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
+                <!--<Button Text="Contact Page" Clicked="ContactPageclicked" /> enlèce le bouton ContactPage-->
+                <Button x:Name="SaveButton" Text="Save" Clicked="SaveButton_Clicked" />
+            </StackLayout>
 
             <ScrollView Grid.Row="2" Grid.Column="1" VerticalOptions="StartAndExpand">
                 <StackLayout x:Name="RightStackLayout" Spacing="25">
