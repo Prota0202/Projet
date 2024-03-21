@@ -58,7 +58,7 @@ public class Element
             int spacesToAdd1 = 17 - Name.Length;
             string space1 = new string(' ', spacesToAdd1);
 
-            int spacesToAdd2 = 8 - Color.Length;
+            int spacesToAdd2 = 10 - Color.Length;
             string space2 = new string(' ', spacesToAdd2);
 
             int spacesToAdd3 = 12 - Code.Length;
