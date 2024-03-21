@@ -13,7 +13,7 @@ namespace Customer_app.Views
         public ObservableCollection<Customer_app.Models.Element> elementsList { get; set; } =
             new ObservableCollection<Customer_app.Models.Element>();
         private readonly DatabaseManager databaseManager;
-        private NewOrder currentOrder;
+        public NewOrder currentOrder;
         public OrderPage()
         {
             databaseManager = new DatabaseManager();
@@ -84,8 +84,6 @@ namespace Customer_app.Views
 
             }
         }
-
-
 
         private void SaveDepthWidth(){
             int depth = Convert.ToInt32(DepthPicker.SelectedItem);
@@ -224,10 +222,6 @@ namespace Customer_app.Views
         }
 
 
-
-
-
-
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
             // Désactiver le gestionnaire d'événements pour éviter les enregistrements multiples
@@ -285,7 +279,7 @@ namespace Customer_app.Views
 
 //Enleve pcq plus besoin du recap maintenant, on l'affiche qd BuyButton_Clicked
             /*int amountlocker = currentOrder.GetNumberOfLockers();
-            string recap = databaseManager.LoadOrder(idneworder, amountlocker);
+           string recap = databaseManager.LoadOrder(idneworder, amountlocker);
             Console.WriteLine(recap);
             DisplayAlert("Recap",recap,"OK");
             ResetFields();*/
@@ -299,7 +293,7 @@ namespace Customer_app.Views
             // }
             // Console.WriteLine(ContactForm);
 
-            Navigation.PushAsync(new BasketPage());
+            Navigation.PushAsync(new BasketPage(currentOrder));
 
 
 
@@ -371,8 +365,6 @@ namespace Customer_app.Views
                 databaseManager.CloseConnection();
             }
 }
-
-
 
 
         public int SaveOrderWithoutId(Order order)
