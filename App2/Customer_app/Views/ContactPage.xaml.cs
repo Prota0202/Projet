@@ -12,9 +12,9 @@ public partial class ContactPage : ContentPage
 		InitializeComponent();
 	}
 
-	private void OrderBackbuttonclicked(object sender, EventArgs e)
+	private async void OrderBackbuttonclicked(object sender, EventArgs e)
 	{
-		Navigation.PopAsync();
+		await Navigation.PushAsync(new OrderPage());
 	}
 
 	private void OnAddContactClicked(object sender, EventArgs e)

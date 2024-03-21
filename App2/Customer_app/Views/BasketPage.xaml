@@ -29,7 +29,7 @@
         <Button Grid.Row ="2"
             Grid.Column="0"
             x:Name="StartOrdering"
-            Text="Add a kitbox"
+            Text="Add another kitbox"
             Clicked="OrderBackbuttonclicked"
             HorizontalOptions="Center" />
 

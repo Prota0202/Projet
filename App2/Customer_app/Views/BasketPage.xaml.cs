@@ -7,18 +7,18 @@ namespace Customer_app.Views;
 
 public partial class BasketPage : ContentPage
 {
-	private NewOrder currentOrder;
 	private readonly DatabaseManager databaseManager;
 	public ObservableCollection<Customer_app.Models.Element> elementsList { get; set; } =
             new ObservableCollection<Customer_app.Models.Element>();
-	private int lockerCount = 0;
-	private int depth = 0;
-	private int width = 0;
+	private int lockerCount;
+	private int depth;
+	private int width;
+	private NewOrder currentOrder;
 
-	public BasketPage()
+	public BasketPage(NewOrder currentorder)
 	{
 		databaseManager = new DatabaseManager();
-		currentOrder = new NewOrder(depth, width);
+		currentOrder = currentorder;
         InitializeComponent();
 	}
 
@@ -60,6 +60,7 @@ public partial class BasketPage : ContentPage
 		string recap = databaseManager.LoadOrder(idneworder, amountlocker);
 		Console.WriteLine(recap);
 		DisplayAlert("Recap",recap,"OK");
+
 
 		int ContactForm = databaseManager.TestContact(idneworder, amountlocker);
 		if(ContactForm == 0)
