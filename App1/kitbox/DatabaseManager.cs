@@ -278,24 +278,42 @@ public Element SearchElementCode(string code)
 
 public List<string> GetLatestOrder()
 {
-    List<string> latestOrder = new List<string>(); // Modifier le type de retour
+    List<string> latestOrder = new List<string>();
 
     try
     {
         this.OpenConnection();
 
-        // Sélectionner la dernière commande de la table neworder
-        string query = "SELECT * FROM neworder ORDER BY idneworder DESC LIMIT 1";
+        // Sélectionner la dernière commande de la table neworder avec des valeurs non null
+        string query = @"
+            SELECT *
+            FROM neworder
+            WHERE 
+                COALESCE(verticalbatten1, frontcrossbar1, backcrossbar1, sidecrossbar1,
+                         horizontalpanel1, sidepanel1, backpanel1, door1,
+                         verticalbatten2, frontcrossbar2, backcrossbar2, sidecrossbar2,
+                         horizontalpanel2, sidepanel2, backpanel2, door2,
+                         verticalbatten3, frontcrossbar3, backcrossbar3, sidecrossbar3,
+                         horizontalpanel3, sidepanel3, backpanel3, door3,
+                         verticalbatten4, frontcrossbar4, backcrossbar4, sidecrossbar4,
+                         horizontalpanel4, sidepanel4, backpanel4, door4,
+                         verticalbatten5, frontcrossbar5, backcrossbar5, sidecrossbar5,
+                         horizontalpanel5, sidepanel5, backpanel5, door5,
+                         verticalbatten6, frontcrossbar6, backcrossbar6, sidecrossbar6,
+                         horizontalpanel6, sidepanel6, backpanel6, door6,
+                         verticalbatten7, frontcrossbar7, backcrossbar7, sidecrossbar7,
+                         horizontalpanel7, sidepanel7, backpanel7, door7
+                ) IS NOT NULL
+            ORDER BY idneworder DESC LIMIT 1";
+
         MySqlCommand command = new MySqlCommand(query, this.connection);
         MySqlDataReader reader = command.ExecuteReader();
 
         if (reader.Read())
         {
-            // Construire une chaîne de caractères représentant la dernière commande
             StringBuilder orderDetails = new StringBuilder();
             orderDetails.AppendLine($"Order ID: {reader.GetInt32("idneworder")}");
 
-            // Ajouter les détails de chaque locker à la chaîne
             for (int i = 1; i <= 7; i++)
             {
                 string verticalBatten = reader.IsDBNull(reader.GetOrdinal($"verticalbatten{i}")) ? null : reader.GetString($"verticalbatten{i}");
@@ -307,9 +325,10 @@ public List<string> GetLatestOrder()
                 string backPanel = reader.IsDBNull(reader.GetOrdinal($"backpanel{i}")) ? null : reader.GetString($"backpanel{i}");
                 string door = reader.IsDBNull(reader.GetOrdinal($"door{i}")) ? null : reader.GetString($"door{i}");
 
-                if (!string.IsNullOrEmpty(verticalBatten) && !string.IsNullOrEmpty(frontCrossbar) && !string.IsNullOrEmpty(backCrossbar) &&
-                    !string.IsNullOrEmpty(sideCrossbar) && !string.IsNullOrEmpty(horizontalPanel) && !string.IsNullOrEmpty(sidePanel) &&
-                    !string.IsNullOrEmpty(backPanel) && !string.IsNullOrEmpty(door))
+                // Vérifier si toutes les colonnes pour ce locker sont non-null avant de les ajouter
+                if (verticalBatten != null && frontCrossbar != null && backCrossbar != null &&
+                    sideCrossbar != null && horizontalPanel != null && sidePanel != null &&
+                    backPanel != null && door != null)
                 {
                     orderDetails.AppendLine($"Locker {i}:");
                     orderDetails.AppendLine($"Vertical Batten: {verticalBatten}");
@@ -324,7 +343,7 @@ public List<string> GetLatestOrder()
                 }
             }
 
-            latestOrder.Add(orderDetails.ToString()); // Ajouter la commande à la liste
+            latestOrder.Add(orderDetails.ToString());
         }
 
         reader.Close();
@@ -340,5 +359,112 @@ public List<string> GetLatestOrder()
 
     return latestOrder;
 }
+
+
+
+public List<string> GetColumnCodes(int number)
+{
+    List<string> columnCodes = new List<string>();
+
+    try
+    {
+        OpenConnection();
+
+        for (int i = 1; i <= 7; i++)
+        {
+            string columnName = $"verticalbatten{i},frontcrossbar{i},backcrossbar{i},sidecrossbar{i},horizontalpanel{i},sidepanel{i},backpanel{i},door{i}";
+            columnCodes.AddRange(columnName.Split(','));
+        }
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving column codes: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return columnCodes;
+}
+
+public void UpdateRemainingQuantity(string code)
+{
+    try
+    {
+        this.OpenConnection();
+        
+        Console.WriteLine("quoicboueh");
+        int lockerQuantity = GetLockerQuantity(code);
+        Console.WriteLine("quoicbouehte " + lockerQuantity.ToString());
+        int remainingQuantity = GetRemainingQuantity(code) - lockerQuantity;
+        UpdateRemainingQuantities(code, remainingQuantity);
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error updating remaining quantity: " + ex.Message);
+    }
+    finally
+    {
+        this.CloseConnection();
+    }
+}
+
+public int GetLockerQuantity(string componentCode)
+{
+    Console.WriteLine("test1");
+    int lockerQuantity = 0;
+    
+    string query = @"
+        SELECT LockerQuantity
+        FROM component
+        WHERE Code = @Code";
+
+    MySqlCommand command = new MySqlCommand(query, this.connection);
+    command.Parameters.AddWithValue("@Code", componentCode);
+    object result = command.ExecuteScalar();
+    if (result != null && result != DBNull.Value)
+    {
+        lockerQuantity = Convert.ToInt32(result);
+    }
+
+    return lockerQuantity;
+}
+
+public int GetRemainingQuantity(string componentCode)
+{
+    int remainingQuantity = 0;
+
+    Console.WriteLine("test2");
+    string query = @"
+        SELECT RemainingQuantity
+        FROM component
+        WHERE Code = @Code";
+
+    MySqlCommand command = new MySqlCommand(query, this.connection);
+    command.Parameters.AddWithValue("@Code", componentCode);
+    object result = command.ExecuteScalar();
+    if (result != null && result != DBNull.Value)
+    {
+        remainingQuantity = Convert.ToInt32(result);
+    }
+
+    return remainingQuantity;
+}
+
+public void UpdateRemainingQuantities(string componentCode, int remainingQuantity)
+{
+    string query = @"
+        UPDATE component
+        SET RemainingQuantity = @RemainingQuantity
+        WHERE Code = @Code";
+
+    Console.WriteLine("test3");
+    MySqlCommand command = new MySqlCommand(query, this.connection);
+    command.Parameters.AddWithValue("@RemainingQuantity", remainingQuantity);
+    command.Parameters.AddWithValue("@Code", componentCode);
+    command.ExecuteNonQuery();
+}
+
 
 }
