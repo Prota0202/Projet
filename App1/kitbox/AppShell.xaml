@@ -23,6 +23,11 @@
         Route="MainPage" />
 
     <ShellContent
+        Title="Research Order"
+        ContentTemplate="{DataTemplate local:researchorder}"
+        Route="MainPage" />
+
+    <ShellContent
         Title="Order"
         ContentTemplate="{DataTemplate local:order}"
         Route="MainPage" />

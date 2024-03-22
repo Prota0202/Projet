@@ -73,4 +73,5 @@ public class Element
     }
     public string DisplayName => $"{Name}";
     public string DisplayNameCode => $"{Code} : {Name}";
+    public string DisplayAll => $"{Name} ({Code}) [{Quantity} pieces available : {Quantityordered} coming] : color {Color}; length {Length}; height {HeightCustomer}; width {Width}; side {Side}; lockerquantity {LockerQuantity}";
 }
