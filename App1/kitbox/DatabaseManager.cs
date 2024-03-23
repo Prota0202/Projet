@@ -466,5 +466,63 @@ public void UpdateRemainingQuantities(string componentCode, int remainingQuantit
     command.ExecuteNonQuery();
 }
 
+public void SaveToHistoricOrder(Element element, int quantityToAdd)
+{
+    try{
+        Console.WriteLine("0");
+        OpenConnection();
+        Console.WriteLine("1");
+        string query = "INSERT INTO historicorder (code, amount) VALUES (@Code, @Amount)";      
+        Console.WriteLine("2");
+        MySqlCommand command = new MySqlCommand(query, connection);
+        Console.WriteLine("3");
+        command.Parameters.AddWithValue("@Code", element.Code);
+        command.Parameters.AddWithValue("@Amount", quantityToAdd);
+        Console.WriteLine("4");
+        command.ExecuteNonQuery();
+        Console.WriteLine("5");
+    }
+    catch (MySqlException ex){
+        Console.WriteLine("Error saving data to historicorder: " + ex.Message);
+    }
+    finally{
+        CloseConnection();
+    }
+}
+public (List<string>, List<int>) GetHistoricOrderDetails()
+{
+    List<string> columnCodes = new List<string>();
+    List<int> amounts = new List<int>();
+
+    try
+    {
+        OpenConnection();
+
+        string query = "SELECT code, amount FROM historicorder";
+        MySqlCommand command = new MySqlCommand(query, connection);
+        MySqlDataReader reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            string code = reader.GetString("code");
+            int amount = reader.GetInt32("amount");
+
+            columnCodes.Add(code);
+            amounts.Add(amount);
+        }
+
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving historic order details: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return (columnCodes, amounts);
+}
 
 }

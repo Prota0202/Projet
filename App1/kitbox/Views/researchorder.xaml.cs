@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 public partial class researchorder : ContentPage
 {
 	private DatabaseManager databaseManager;
+    private Element searchResult;
 	public researchorder()
 	{
 		InitializeComponent();
@@ -15,7 +16,7 @@ public partial class researchorder : ContentPage
 	private async void OnSearchButtonPressed(object sender, EventArgs e)
         {
             string searchTerm = searchBar.Text;
-            Element searchResult = await Task.Run(() => databaseManager.SearchElementCode(searchTerm));
+            searchResult = await Task.Run(() => databaseManager.SearchElementCode(searchTerm));
             List<Element> searchResultsList = new List<Element>(); // Convertir le résultat unique en liste pour la ListView
             if (searchResult != null)
             {
@@ -35,4 +36,45 @@ public partial class researchorder : ContentPage
             }
         }
 
+        private void OnButtonPlusClicked(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            Element element = searchResult;
+			Console.WriteLine(element.Name);
+			Console.WriteLine(element.Code);
+            if (element != null)
+            {
+				Console.WriteLine("it works");
+                int quantityToAdd = Convert.ToInt32(((Entry)button.Parent.FindByName("QuantityToChangeEntry")).Text);
+				Console.WriteLine(quantityToAdd);
+				element.OrderToSupplier(quantityToAdd);
+                databaseManager.SaveToHistoricOrder(element,quantityToAdd);
+				databaseManager.OpenConnection();
+                databaseManager.UpdateElement(element);
+                databaseManager.CloseConnection();
+                element.OrderToSupplier(quantityToAdd);
+                string added = "you just added "+quantityToAdd+" "+element.Name+" ("+element.Code+")";
+                DisplayAlert("Succesfully ordered !",added,"ok");
+                RefreshListView();
+            }
+            else
+            {
+                Console.WriteLine("Invalid quantity entered.");
+            }
+        }
+
+        private void OnSeePrevioursOrderClicked(object sender, EventArgs e){
+            Navigation.PushAsync(new HistoryOrderPage());
+        }
+
+        private void RefreshListView(){
+            string searchTerm = searchBar.Text;
+            searchResult =  databaseManager.SearchElementCode(searchTerm);
+            List<Element> searchResultsList = new List<Element>();
+            if (searchResult != null)
+            {
+                searchResultsList.Add(searchResult);
+            }
+            resultsListView.ItemsSource = searchResultsList;
+}
 }

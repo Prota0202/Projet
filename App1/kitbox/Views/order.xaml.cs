@@ -39,7 +39,6 @@ public partial class order : ContentPage
 				databaseManager.OpenConnection();
                 databaseManager.UpdateElement(element);
                 databaseManager.CloseConnection();
-                element.OrderToSupplier(quantityToAdd);
 				RefreshListView();
             }
             else
@@ -48,8 +47,7 @@ public partial class order : ContentPage
             }
         }
 
-private void RefreshListView()
-{
+private void RefreshListView(){
     elementsList.Clear();
 	databaseManager.OpenConnection();
     var ElementsFromDataBase = databaseManager.GetElements();
