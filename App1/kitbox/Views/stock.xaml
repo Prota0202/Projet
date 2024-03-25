@@ -14,6 +14,7 @@
                 HorizontalOptions="Center"/>
 
         <Label Text="List of Parts:" FontSize="22" VerticalOptions="Center" HorizontalOptions="Center" />
+        <Label Text="Component           Color       Code           Pieces available      Coming" FontSize="14" VerticalOptions="Center" HorizontalOptions="StartAndExpand" FontAttributes="Bold"/>
         <ListView x:Name="PartsQuantity" ItemsSource="{Binding elementsList}">
         <ListView.ItemTemplate>
             <DataTemplate>
