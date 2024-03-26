@@ -14,7 +14,7 @@
 
     <ShellContent
         Title="Seller"
-        ContentTemplate="{DataTemplate local:seller}"
+        ContentTemplate="{DataTemplate local:SellerSearch}"
         Route="MainPage" />
 
     <ShellContent

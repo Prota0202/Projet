@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="kitbox.SellerSearch"
+             Title="SellerSearch">
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <Entry x:Name="orderEntry"
+               Placeholder="Enter Order ID (Number)"
+               Keyboard="Numeric"
+               HorizontalOptions="FillAndExpand" />
+        <Button Text="Search"
+                Clicked="OnSearchClicked"
+                HorizontalOptions="Center"
+                VerticalOptions="CenterAndExpand" />
+    </StackLayout>
+</ContentPage>

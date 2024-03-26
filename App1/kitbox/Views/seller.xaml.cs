@@ -7,14 +7,14 @@ namespace kitbox
         private List<string> listcodes;
         
 
-        public seller()
+        public seller(int orderid)
         {
             InitializeComponent();
             databaseManager = new DatabaseManager();
             stackLayout = new StackLayout();
             scrollView.Content = stackLayout; // Utilisation de scrollView pour accéder à Content
             DisplayOrders();
-            listcodes = databaseManager.GetColumnCodes(50);
+            listcodes = databaseManager.GetColumnCodes(orderid);
         }
 
         private void DisplayOrders()

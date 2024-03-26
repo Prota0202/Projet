@@ -525,4 +525,36 @@ public (List<string>, List<int>) GetHistoricOrderDetails()
     return (columnCodes, amounts);
 }
 
+public List<int> GetNumberOfAllOrderId()
+        {
+            List<int> orderIds = new List<int>();
+
+            try
+            {
+                OpenConnection();
+
+                string query = "SELECT idneworder FROM neworder";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int orderId = reader.GetInt32("idneworder");
+                    orderIds.Add(orderId);
+                }
+
+                reader.Close();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error retrieving order IDs from the database: " + ex.Message);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return orderIds;
+        }
+
 }
