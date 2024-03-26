@@ -390,19 +390,101 @@ public List<string> GetColumnCodes(int number)
 
 public void UpdateRemainingQuantity(string code)
 {
+
+        string trimmedCode = code.Trim();
+        Console.WriteLine("on est dans update remaining");
+        int lockerQuantity = GetLockerQuantityByCode(trimmedCode);
+        Console.WriteLine("lockerQuantity found : " + lockerQuantity.ToString());
+        int remainingQuantity = GetRemainingQuantity(trimmedCode) - lockerQuantity;
+        UpdateRemainingQuantities(trimmedCode, remainingQuantity);
+}
+
+public int GetLockerQuantityByCode(string code)
+{
+    int lockerQuantity = 0;
+
     try
     {
         this.OpenConnection();
-        
-        Console.WriteLine("quoicboueh");
-        int lockerQuantity = GetLockerQuantity(code);
-        Console.WriteLine("quoicbouehte " + lockerQuantity.ToString());
-        int remainingQuantity = GetRemainingQuantity(code) - lockerQuantity;
-        UpdateRemainingQuantities(code, remainingQuantity);
+        string query = "SELECT LockerQuantity FROM component WHERE Code = @Code";
+        MySqlCommand command = new MySqlCommand(query, this.connection);
+        command.Parameters.AddWithValue("@Code", code);
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    lockerQuantity = reader.GetInt32("LockerQuantity");
+                }
+            }
     }
     catch (MySqlException ex)
     {
-        Console.WriteLine("Error updating remaining quantity: " + ex.Message);
+        Console.WriteLine("Error retrieving LockerQuantity from the database: " + ex.Message);
+    }
+    finally
+    {
+        this.CloseConnection();
+    }
+
+    return lockerQuantity;
+}
+
+public int GetRemainingQuantity(string code)
+{
+    int remainingQuantity = 0;
+
+    try
+    {
+        this.OpenConnection();
+        string query = @"
+            SELECT RemainingQuantity
+            FROM component
+            WHERE Code = @Code";
+
+        MySqlCommand command = new MySqlCommand(query, this.connection);
+        command.Parameters.AddWithValue("@Code", code);
+
+        using (MySqlDataReader reader = command.ExecuteReader())
+        {
+            if (reader.Read())
+            {
+                remainingQuantity = reader.GetInt32("RemainingQuantity");
+            }
+        }
+
+        Console.WriteLine("Code: " + code + ", Remaining Quantity: " + remainingQuantity);
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving RemainingQuantity from the database: " + ex.Message);
+    }
+    finally
+    {
+        this.CloseConnection();
+    }
+
+    return remainingQuantity;
+}
+
+public void UpdateRemainingQuantities(string code, int remainingQuantity)
+{
+    try
+    {
+        this.OpenConnection();
+        string query = @"
+            UPDATE component
+            SET RemainingQuantity = @RemainingQuantity
+            WHERE Code = @Code";
+
+        Console.WriteLine("test3");
+        MySqlCommand command = new MySqlCommand(query, this.connection);
+        command.Parameters.AddWithValue("@RemainingQuantity", remainingQuantity);
+        command.Parameters.AddWithValue("@Code", code);
+        command.ExecuteNonQuery();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error updating RemainingQuantity: " + ex.Message);
     }
     finally
     {
@@ -410,61 +492,6 @@ public void UpdateRemainingQuantity(string code)
     }
 }
 
-public int GetLockerQuantity(string componentCode)
-{
-    Console.WriteLine("test1");
-    int lockerQuantity = 0;
-    
-    string query = @"
-        SELECT LockerQuantity
-        FROM component
-        WHERE Code = @Code";
-
-    MySqlCommand command = new MySqlCommand(query, this.connection);
-    command.Parameters.AddWithValue("@Code", componentCode);
-    object result = command.ExecuteScalar();
-    if (result != null && result != DBNull.Value)
-    {
-        lockerQuantity = Convert.ToInt32(result);
-    }
-
-    return lockerQuantity;
-}
-
-public int GetRemainingQuantity(string componentCode)
-{
-    int remainingQuantity = 0;
-
-    Console.WriteLine("test2");
-    string query = @"
-        SELECT RemainingQuantity
-        FROM component
-        WHERE Code = @Code";
-
-    MySqlCommand command = new MySqlCommand(query, this.connection);
-    command.Parameters.AddWithValue("@Code", componentCode);
-    object result = command.ExecuteScalar();
-    if (result != null && result != DBNull.Value)
-    {
-        remainingQuantity = Convert.ToInt32(result);
-    }
-
-    return remainingQuantity;
-}
-
-public void UpdateRemainingQuantities(string componentCode, int remainingQuantity)
-{
-    string query = @"
-        UPDATE component
-        SET RemainingQuantity = @RemainingQuantity
-        WHERE Code = @Code";
-
-    Console.WriteLine("test3");
-    MySqlCommand command = new MySqlCommand(query, this.connection);
-    command.Parameters.AddWithValue("@RemainingQuantity", remainingQuantity);
-    command.Parameters.AddWithValue("@Code", componentCode);
-    command.ExecuteNonQuery();
-}
 
 public void SaveToHistoricOrder(Element element, int quantityToAdd)
 {
@@ -556,5 +583,74 @@ public List<int> GetNumberOfAllOrderId()
 
             return orderIds;
         }
+
+public List<string> GetOrderById(int orderId)
+{
+    List<string> orderDetailsList = new List<string>();
+
+    try
+    {
+        OpenConnection();
+
+        string query = @"
+            SELECT *
+            FROM neworder
+            WHERE idneworder = @OrderId";
+
+        MySqlCommand command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@OrderId", orderId);
+        MySqlDataReader reader = command.ExecuteReader();
+
+        if (reader.Read())
+        {
+            StringBuilder orderDetails = new StringBuilder();
+            orderDetails.AppendLine($"Order ID: {reader.GetInt32("idneworder")}");
+
+            for (int i = 1; i <= 7; i++)
+            {
+                string verticalBatten = reader.IsDBNull(reader.GetOrdinal($"verticalbatten{i}")) ? null : reader.GetString($"verticalbatten{i}");
+                string frontCrossbar = reader.IsDBNull(reader.GetOrdinal($"frontcrossbar{i}")) ? null : reader.GetString($"frontcrossbar{i}");
+                string backCrossbar = reader.IsDBNull(reader.GetOrdinal($"backcrossbar{i}")) ? null : reader.GetString($"backcrossbar{i}");
+                string sideCrossbar = reader.IsDBNull(reader.GetOrdinal($"sidecrossbar{i}")) ? null : reader.GetString($"sidecrossbar{i}");
+                string horizontalPanel = reader.IsDBNull(reader.GetOrdinal($"horizontalpanel{i}")) ? null : reader.GetString($"horizontalpanel{i}");
+                string sidePanel = reader.IsDBNull(reader.GetOrdinal($"sidepanel{i}")) ? null : reader.GetString($"sidepanel{i}");
+                string backPanel = reader.IsDBNull(reader.GetOrdinal($"backpanel{i}")) ? null : reader.GetString($"backpanel{i}");
+                string door = reader.IsDBNull(reader.GetOrdinal($"door{i}")) ? null : reader.GetString($"door{i}");
+
+                // Vérifier si toutes les colonnes pour ce locker sont non-null avant de les ajouter
+                if (verticalBatten != null && frontCrossbar != null && backCrossbar != null &&
+                    sideCrossbar != null && horizontalPanel != null && sidePanel != null &&
+                    backPanel != null && door != null)
+                {
+                    orderDetails.AppendLine($"Locker {i}:");
+                    orderDetails.AppendLine($"Vertical Batten: {verticalBatten}");
+                    orderDetails.AppendLine($"Front Crossbar: {frontCrossbar}");
+                    orderDetails.AppendLine($"Back Crossbar: {backCrossbar}");
+                    orderDetails.AppendLine($"Side Crossbar: {sideCrossbar}");
+                    orderDetails.AppendLine($"Horizontal Panel: {horizontalPanel}");
+                    orderDetails.AppendLine($"Side Panel: {sidePanel}");
+                    orderDetails.AppendLine($"Back Panel: {backPanel}");
+                    orderDetails.AppendLine($"Door: {door}");
+                    orderDetails.AppendLine();
+                }
+            }
+
+            orderDetailsList.Add(orderDetails.ToString());
+        }
+
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving order details by ID from the database: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return orderDetailsList;
+}
+
 
 }

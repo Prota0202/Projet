@@ -5,21 +5,23 @@ namespace kitbox
         private DatabaseManager databaseManager;
         private StackLayout stackLayout;
         private List<string> listcodes;
+        private int Orderid;
         
 
         public seller(int orderid)
         {
             InitializeComponent();
+            Orderid = orderid;
             databaseManager = new DatabaseManager();
             stackLayout = new StackLayout();
-            scrollView.Content = stackLayout; // Utilisation de scrollView pour accéder à Content
+            scrollView.Content = stackLayout; 
             DisplayOrders();
             listcodes = databaseManager.GetColumnCodes(orderid);
         }
 
         private void DisplayOrders()
-        {
-            List<string> orders = databaseManager.GetLatestOrder();
+{
+    List<string> orders = databaseManager.GetOrderById(Orderid);
 
     foreach (string order in orders)
     {
@@ -41,19 +43,30 @@ namespace kitbox
                 {
                     if (!line.StartsWith("Order ID")) // Vérifier si la ligne ne commence pas par "Order ID"
                     {
+                        // Create a horizontal StackLayout for each component
+                        StackLayout componentLayout = new StackLayout
+                        {
+                            Orientation = StackOrientation.Horizontal,
+                            Margin = new Thickness(0, 10, 0, 0)
+                        };
+
                         Label orderLabel = new Label
                         {
                             Text = components[0] + ": " + components[1],
-                            Margin = new Thickness(0, 10, 0, 0)
+                            HorizontalOptions = LayoutOptions.StartAndExpand
                         };
                         Button okButton = new Button
                         {
                             Text = "OK",
-                            Margin = new Thickness(5, 10, 0, 0)
+                            Margin = new Thickness(5, 0, 0, 0)
                         };
                         okButton.Clicked += (sender, e) => OnOkButtonClicked(components[1]);
-                        orderLayout.Children.Add(orderLabel);
-                        orderLayout.Children.Add(okButton);
+
+                        // Add label and button to the horizontal StackLayout
+                        componentLayout.Children.Add(orderLabel);
+                        componentLayout.Children.Add(okButton);
+                        
+                        orderLayout.Children.Add(componentLayout); // Add horizontal StackLayout to the orderLayout
                     } 
                     else
                     {
@@ -90,15 +103,22 @@ namespace kitbox
         stackLayout.Children.Add(orderLayout);
     }
 }
-        private void OnOkButtonClicked(string code)
-        {
-            DisplayAlert("coucou",code,"siuuuu");
-            Console.WriteLine("coucou aypub");
-            databaseManager.UpdateRemainingQuantity(code);
-        }
-        private void OnShowOrdersClicked(object sender, EventArgs e)
-        {
-            DisplayOrders();
-        }
+
+    private async void OnOkButtonClicked(string code)
+    {
+        // Display an alert dialog
+        await DisplayAlert("Alert", "Code: " + code, "OK");
+
+        // Perform additional actions if needed
+        Console.WriteLine("OK button clicked with code: " + code);
+        databaseManager.UpdateRemainingQuantity(code);
     }
+
+    private void OnShowOrdersClicked(object sender, EventArgs e)
+    {
+        DisplayOrders();
+    }
+
+
+}
 }
