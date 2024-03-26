@@ -388,7 +388,7 @@ public List<string> GetColumnCodes(int number)
     return columnCodes;
 }
 
-public void UpdateRemainingQuantity(string code)
+public (int lockerQuantity, int remainingQuantity) UpdateRemainingQuantity(string code)
 {
 
         string trimmedCode = code.Trim();
@@ -397,6 +397,7 @@ public void UpdateRemainingQuantity(string code)
         Console.WriteLine("lockerQuantity found : " + lockerQuantity.ToString());
         int remainingQuantity = GetRemainingQuantity(trimmedCode) - lockerQuantity;
         UpdateRemainingQuantities(trimmedCode, remainingQuantity);
+        return (lockerQuantity, remainingQuantity);
 }
 
 public int GetLockerQuantityByCode(string code)
@@ -652,5 +653,27 @@ public List<string> GetOrderById(int orderId)
     return orderDetailsList;
 }
 
+public void RemoveTheOrder(int Orderid)
+{
+    try
+    {
+        OpenConnection();
+
+        string query = "DELETE FROM neworder WHERE idneworder = @OrderId";
+        MySqlCommand command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@OrderId", Orderid);
+        command.ExecuteNonQuery();
+
+        Console.WriteLine($"Order with ID {Orderid} removed successfully from the database.");
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error removing order from the database: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+}
 
 }

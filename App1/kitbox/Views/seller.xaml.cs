@@ -6,7 +6,7 @@ namespace kitbox
         private StackLayout stackLayout;
         private List<string> listcodes;
         private int Orderid;
-        
+        StackLayout orderLayout;
 
         public seller(int orderid)
         {
@@ -25,7 +25,7 @@ namespace kitbox
 
     foreach (string order in orders)
     {
-        StackLayout orderLayout = new StackLayout();
+        orderLayout = new StackLayout();
         bool isLockerLine = false;
 
         string[] lines = order.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
@@ -60,7 +60,7 @@ namespace kitbox
                             Text = "OK",
                             Margin = new Thickness(5, 0, 0, 0)
                         };
-                        okButton.Clicked += (sender, e) => OnOkButtonClicked(components[1]);
+                        okButton.Clicked += (sender, e) => OnOkButtonClicked(components[1],orderLabel,okButton,componentLayout);
 
                         // Add label and button to the horizontal StackLayout
                         componentLayout.Children.Add(orderLabel);
@@ -88,6 +88,19 @@ namespace kitbox
                     orderLayout.Children.Add(orderLabel);
                 }
             }
+            // bool isLastLine = lines[lines.Length - 1] == line;
+            // if (isLastLine)
+            // {
+            //     // Add "Order Completed" button
+            //     Button orderCompletedButton = new Button
+            //     {
+            //         Text = "Order Completed",
+            //         BackgroundColor = Color.FromArgb("#FF0000"),
+            //         Margin = new Thickness(5, 10, 0, 0)
+            //     };
+            //     orderCompletedButton.Clicked += (sender, e) => OnOrderCompletedButtonClicked();
+            //     orderLayout.Children.Add(orderCompletedButton);
+            // }
         }
 
         if (isLockerLine)
@@ -100,24 +113,49 @@ namespace kitbox
             orderLayout.Children.Add(orderLabel);
         }
 
+        Button orderCompletedButton = new Button
+        {
+            Text = "Order Completed",
+            BackgroundColor = Color.FromArgb("#FF0000"),
+            Margin = new Thickness(5, 10, 0, 0)
+        };
+        orderCompletedButton.Clicked += (sender, e) => OnOrderCompletedButtonClicked();
+        orderLayout.Children.Add(orderCompletedButton);
+
         stackLayout.Children.Add(orderLayout);
     }
 }
 
-    private async void OnOkButtonClicked(string code)
-    {
-        // Display an alert dialog
-        await DisplayAlert("Alert", "Code: " + code, "OK");
+    private async void OnOkButtonClicked(string code,Label orderLabel,Button okButton,StackLayout componentLayout){
+    var quantities = databaseManager.UpdateRemainingQuantity(code);
+    int lockerQuantity = quantities.lockerQuantity;
+    int remainingQuantity = quantities.remainingQuantity;
+    string trimmedCode = code.Trim();
 
-        // Perform additional actions if needed
-        Console.WriteLine("OK button clicked with code: " + code);
-        databaseManager.UpdateRemainingQuantity(code);
+    string alertMessage = "You have taken " + lockerQuantity + " of : " + trimmedCode + "\nStill remaining : " + remainingQuantity;
+    await DisplayAlert("Alert", alertMessage, "OK");
+    Console.WriteLine("OK button clicked with code: " + code);
+
+    componentLayout.Children.Remove(orderLabel);
+    componentLayout.Children.Remove(okButton);
+    orderLayout.Children.Remove(componentLayout);
     }
 
     private void OnShowOrdersClicked(object sender, EventArgs e)
     {
         DisplayOrders();
     }
+
+    private async void OnOrderCompletedButtonClicked()
+{
+    bool orderCompleted = await DisplayAlert("Order Completed", "Have you completed the order?", "OK", "Cancel");
+    
+    if (orderCompleted)
+    {
+        databaseManager.RemoveTheOrder(Orderid);
+        await Navigation.PushAsync(new SellerSearch());
+    }
+}
 
 
 }
