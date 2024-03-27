@@ -226,36 +226,7 @@ namespace Customer_app.Views
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
-            // Désactiver le gestionnaire d'événements pour éviter les enregistrements multiples
             SaveButton.Clicked -= SaveButton_Clicked;
-
-            // Récupérer les valeurs sélectionnées dans l'interface utilisateur
-            // int depth = Convert.ToInt32(DepthPicker.SelectedItem);
-            // int width = Convert.ToInt32(WidthPicker.SelectedItem);
-            // int height = Convert.ToInt32(HeightPicker.SelectedItem);
-            // string panelColor = PanelColorPicker.SelectedItem.ToString();
-            // string doorType = DoorPicker.SelectedItem.ToString();
-            // string angleIronColor = AngleIronColorPicker.SelectedItem.ToString();
-
-            // // Ajoutez les instructions de débogage ici
-            // Console.WriteLine("Depth: " + depth);
-            // Console.WriteLine("Width: " + width);
-            // Console.WriteLine("Height: " + height);
-            // Console.WriteLine("PanelColor: " + panelColor);
-            // Console.WriteLine("DoorType: " + doorType);
-            // Console.WriteLine("AngleIronColor: " + angleIronColor);
-            // string verticalbatten = databaseManager.GetVerticalBattenCode(height);
-            // Console.WriteLine("VERTICAL BATTEN "+verticalbatten);
-            // string sidecrossbar = databaseManager.GetSideCrossbarCode(depth);
-            // Console.WriteLine("SIDE CROSSBAR "+sidecrossbar);
-            // string frontcrossbar = databaseManager.GetFrontCrossbarCode(width);
-            // Console.WriteLine("FRONT CROSSBAR "+frontcrossbar);
-            // string backcrossbar = databaseManager.GetBackCrossbarCode(width);
-            // Console.WriteLine("BACK CROSSBAR "+backcrossbar);
-            // string backpanel = databaseManager.GetBackPanelCode(panelColor,height,width);
-            // Console.WriteLine("BACK PANEL "+backpanel);
-            // string door = databaseManager.GetDoorCode(panelColor, height,width);
-            // Console.WriteLine("DOOR"+door);
             int depth = currentOrder.Depth;
             int width = currentOrder.Width;
             int idneworder = databaseManager.GetNextOrderId();
@@ -278,43 +249,7 @@ namespace Customer_app.Views
             }
             lockerNumber++;
             }
-
-//Enleve pcq plus besoin du recap maintenant, on l'affiche qd BuyButton_Clicked
-            /*int amountlocker = currentOrder.GetNumberOfLockers();
-           string recap = databaseManager.LoadOrder(idneworder, amountlocker);
-            Console.WriteLine(recap);
-            DisplayAlert("Recap",recap,"OK");
-            ResetFields();*/
-
-// A mettre dans l'action du bouton Buy
-            // int ContactForm = databaseManager.TestContact(idneworder, amountlocker);
-            // if(ContactForm == 0)
-            // {
-            //     await Navigation.PushAsync(new ContactPage());
-            //     DisplayAlert("Out of stock :","Please complete the contact form","OK");
-            // }
-            // Console.WriteLine(ContactForm);
-
             Navigation.PushAsync(new BasketPage(currentOrder, idClient));
-
-
-
-            // Créer un nouvel objet Order avec ces valeurs
-            // Order newOrder = new Order(0, depth, width, height, panelColor, doorType, angleIronColor);
-
-            // Appeler la méthode pour enregistrer cette commande dans la base de données
-            // int orderId = databaseManager.SaveOrderWithoutId(newOrder);
-
-            // Vérifier si l'enregistrement de la commande a réussi
-            // if (orderId != -1)
-            // {
-            //     // Réinitialiser les champs après l'enregistrement de la commande
-            //     ResetFields();
-
-            //     // Appeler la méthode pour enregistrer la facture avec l'ID de la commande
-            //     SaveBill(orderId, GenerateBillList(newOrder));
-            // }
-
             //Activer l'alerte pour le formulaire de contact
             //string action = await DisplayActionSheet("Out of stock : Please complete the contact form", "Cancel", null, "Contact Form");
             //Console.WriteLine(action);
@@ -325,6 +260,9 @@ namespace Customer_app.Views
 
             // Réactiver le gestionnaire d'événements après une courte période
             SaveButton.Clicked += SaveButton_Clicked;
+
+            //function dans databaseManager qui ajoute le idneworder dans la table totalorder attention
+            //quand on fait le query faut dire "mettre dans armoire1" puis après ce sera "armoire2"
         }
 
 
