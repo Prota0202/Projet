@@ -63,4 +63,47 @@ public partial class stock : ContentPage
         elementsList.Add(elem);
     }
 }
+
+private void OnShowAvailableElementsClicked(object sender, EventArgs e)
+{
+   
+    DisplayElements(true); // true pour afficher les éléments disponibles
+}
+
+private void OnShowUnavailableElementsClicked(object sender, EventArgs e)
+{
+ 
+    DisplayElements(false); // false pour afficher les éléments indisponibles
+}
+
+
+private async void DisplayElements(bool showAvailable)
+{
+    await Device.InvokeOnMainThreadAsync(async () =>
+    {
+        databaseManager.OpenConnection();
+        var elements = showAvailable ? databaseManager.GetAvailableElements() : databaseManager.GetUnavailableElements();
+        databaseManager.CloseConnection();
+
+        if (elements.Count == 0)
+        {
+            await DisplayAlert("Aucun élément", "Aucun élément à afficher.", "OK");
+        }
+        
+        elementsList.Clear();
+        
+        foreach (var element in elements)
+        {
+            elementsList.Add(element);
+        }
+    });
+}
+
+
+
+
+
+
+
+
 }
