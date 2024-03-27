@@ -452,6 +452,35 @@ public int GetNextOrderId()
     return orderId;
 }
 
+public int GetNextIdclient()
+{
+    int orderId = -1;
+    string query = "SELECT MAX(idclient) FROM totalorder";
+
+    try
+    {
+        OpenConnection();
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        object result = command.ExecuteScalar();
+
+        if (result != null && result != DBNull.Value)
+        {
+            orderId = Convert.ToInt32(result);
+        }
+        orderId++; // Increment to get the next available order ID
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving next order ID: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return orderId;
+}
+
 public void SaveLockerComponents(int orderId, int lockerNumber, string verticalBatten, string frontCrossbar, string backCrossbar, string sideCrossbar, string horizontalPanel, string sidePanel, string backPanel, string door)
 {
     try

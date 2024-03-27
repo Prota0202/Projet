@@ -14,10 +14,12 @@ namespace Customer_app.Views
             new ObservableCollection<Customer_app.Models.Element>();
         private readonly DatabaseManager databaseManager;
         public NewOrder currentOrder;
-        public OrderPage()
+        public int idClient;
+        public OrderPage(int idclient)
         {
             databaseManager = new DatabaseManager();
             InitializeComponent();
+            idClient = idclient;
             //MainGrid = this.FindByName<Grid>("MainGrid");
         }
         public void LoadElementsFromDatabase()
@@ -293,7 +295,7 @@ namespace Customer_app.Views
             // }
             // Console.WriteLine(ContactForm);
 
-            Navigation.PushAsync(new BasketPage(currentOrder));
+            Navigation.PushAsync(new BasketPage(currentOrder, idClient));
 
 
 
@@ -407,7 +409,7 @@ namespace Customer_app.Views
         //Modifie la fonction pour que le bouton renvoie vers la page de contact (modif aussi le nom du bouton dans xaml)
         private void ContactPageclicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ContactPage());
+            Navigation.PushAsync(new ContactPage(idClient));
         }
     }
 }

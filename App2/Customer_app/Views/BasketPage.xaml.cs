@@ -14,11 +14,13 @@ public partial class BasketPage : ContentPage
 	private int depth;
 	private int width;
 	private NewOrder currentOrder;
+	public int idClient;
 
-	public BasketPage(NewOrder currentorder)
+	public BasketPage(NewOrder currentorder, int idclient)
 	{
 		databaseManager = new DatabaseManager();
 		currentOrder = currentorder;
+		idClient = idclient;
         InitializeComponent();
 	}
 
@@ -34,7 +36,8 @@ public partial class BasketPage : ContentPage
 
 		int depth = currentOrder.Depth;
 		int width = currentOrder.Width;
-		int idneworder = databaseManager.GetNextOrderId();
+		int idneworder = databaseManager.GetNextOrderId()+1;
+		Console.WriteLine("next order id : ");
 
 		int lockerNumber = 1; //Ici ca le fait pour chaque locker mais faudra surement changer pour que ça le fasse pour chaque kitbox
 		foreach (var locker in currentOrder.Lockers){
@@ -47,7 +50,9 @@ public partial class BasketPage : ContentPage
 		string backpanel = databaseManager.GetBackPanelCode(locker.PanelColor, locker.Height, width);
 		string door = databaseManager.GetDoorCode(locker.PanelColor, locker.Height, width);
 		if(lockerNumber==1){
-				databaseManager.SaveLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
+				Console.WriteLine("avant");
+				//databaseManager.SaveLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
+				Console.WriteLine("après");
 		}
 		else{
 				databaseManager.UpdateLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
@@ -65,7 +70,7 @@ public partial class BasketPage : ContentPage
 		int ContactForm = databaseManager.TestContact(idneworder, amountlocker);
 		if(ContactForm == 0)
 		{
-			await Navigation.PushAsync(new ContactPage());
+			await Navigation.PushAsync(new ContactPage(idClient));
 			await DisplayAlert("Out of stock :","Please complete the contact form","OK");
 		}
 		Console.WriteLine(ContactForm);
