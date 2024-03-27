@@ -55,22 +55,23 @@ public class Element
     {
         get
         {
-            int spacesToAdd1 = 17 - Name.Length;
+            int spacesToAdd1 = 20 - Name.Length;
             string space1 = new string(' ', spacesToAdd1);
 
-            int spacesToAdd2 = 10 - Color.Length;
+            int spacesToAdd2 = 15 - Color.Length;
             string space2 = new string(' ', spacesToAdd2);
 
-            int spacesToAdd3 = 12 - Code.Length;
+            int spacesToAdd3 = 25 - Code.Length;
             string space3 = new string(' ', spacesToAdd3);
 
             string a = Quantity.ToString();
-            int spacesToAdd4 = 7 - a.Length;
+            int spacesToAdd4 = 30 - a.Length;
             string space4 = new string(' ', spacesToAdd4);
 
-            return $"{Name}{space1}{Color}{space2}{Code}{space3}{Quantity} pieces available{space4}{Quantityordered} coming";
+            return $"{Name}{space1}{Color}{space2}{Code}{space3}{Quantity}{space4}{Quantityordered}";
         }
     }
     public string DisplayName => $"{Name}";
     public string DisplayNameCode => $"{Code} : {Name}";
+    public string DisplayAll => $"{Name} ({Code}) [{Quantity} pieces available : {Quantityordered} coming] : color {Color}; length {Length}; height {HeightCustomer}; width {Width}; side {Side}; lockerquantity {LockerQuantity}";
 }

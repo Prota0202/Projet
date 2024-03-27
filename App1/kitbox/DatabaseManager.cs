@@ -226,29 +226,94 @@ public void RemoveElement(Element element){
         Console.WriteLine("Error removing element from the database: " + ex.Message);
     }
 }
+public Element SearchElementCode(string code)
+{
+    Element element = null;
+
+    try
+    {
+        OpenConnection(); 
+
+        string query = "SELECT Name, Code, RemainingQuantity, Ordered_Quantity, Color, Length, Width, Height_real, Height_customer, Side, Depth, Diameter, LockerQuantity, KitboxQuantity FROM component WHERE Code = @Code";
+
+        MySqlCommand command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@Code", code);
+        MySqlDataReader reader = command.ExecuteReader();
+
+        if (reader.Read())
+        {
+            string name = reader.GetString("Name");
+            string elementCode = reader.GetString("Code");
+            int quantity = reader.IsDBNull(reader.GetOrdinal("RemainingQuantity")) ? 0 : reader.GetInt32("RemainingQuantity");
+            int quantityOrdered = reader.IsDBNull(reader.GetOrdinal("Ordered_Quantity")) ? 0 : reader.GetInt32("Ordered_Quantity");
+            string color = reader.IsDBNull(reader.GetOrdinal("Color")) ? "" : reader.GetString("Color");
+            int length = reader.IsDBNull(reader.GetOrdinal("Length")) ? 0 : reader.GetInt32("Length");
+            int width = reader.IsDBNull(reader.GetOrdinal("Width")) ? 0 : reader.GetInt32("Width");
+            int heightReal = reader.IsDBNull(reader.GetOrdinal("Height_real")) ? 0 : reader.GetInt32("Height_real");
+            int heightCustomer = reader.IsDBNull(reader.GetOrdinal("Height_customer")) ? 0 : reader.GetInt32("Height_customer");
+            string side = reader.IsDBNull(reader.GetOrdinal("Side")) ? "" : reader.GetString("Side");
+            int depth = reader.IsDBNull(reader.GetOrdinal("Depth")) ? 0 : reader.GetInt32("Depth");
+            int diameter = reader.IsDBNull(reader.GetOrdinal("Diameter")) ? 0 : reader.GetInt32("Diameter");
+            int lockerQuantity = reader.IsDBNull(reader.GetOrdinal("LockerQuantity")) ? 0 : reader.GetInt32("LockerQuantity");
+            int kitboxQuantity = reader.IsDBNull(reader.GetOrdinal("KitboxQuantity")) ? 0 : reader.GetInt32("KitboxQuantity");
+
+            element = new Element(name, elementCode, color, length, width, heightReal, heightCustomer, quantity, side, depth, diameter, lockerQuantity, quantityOrdered, kitboxQuantity);
+        }
+
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving element by code from the database: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection(); 
+    }
+
+    return element;
+}
 
 
 
 public List<string> GetLatestOrder()
 {
-    List<string> latestOrder = new List<string>(); // Modifier le type de retour
+    List<string> latestOrder = new List<string>();
 
     try
     {
         this.OpenConnection();
 
-        // Sélectionner la dernière commande de la table neworder
-        string query = "SELECT * FROM neworder ORDER BY idneworder DESC LIMIT 1";
+        // Sélectionner la dernière commande de la table neworder avec des valeurs non null
+        string query = @"
+            SELECT *
+            FROM neworder
+            WHERE 
+                COALESCE(verticalbatten1, frontcrossbar1, backcrossbar1, sidecrossbar1,
+                         horizontalpanel1, sidepanel1, backpanel1, door1,
+                         verticalbatten2, frontcrossbar2, backcrossbar2, sidecrossbar2,
+                         horizontalpanel2, sidepanel2, backpanel2, door2,
+                         verticalbatten3, frontcrossbar3, backcrossbar3, sidecrossbar3,
+                         horizontalpanel3, sidepanel3, backpanel3, door3,
+                         verticalbatten4, frontcrossbar4, backcrossbar4, sidecrossbar4,
+                         horizontalpanel4, sidepanel4, backpanel4, door4,
+                         verticalbatten5, frontcrossbar5, backcrossbar5, sidecrossbar5,
+                         horizontalpanel5, sidepanel5, backpanel5, door5,
+                         verticalbatten6, frontcrossbar6, backcrossbar6, sidecrossbar6,
+                         horizontalpanel6, sidepanel6, backpanel6, door6,
+                         verticalbatten7, frontcrossbar7, backcrossbar7, sidecrossbar7,
+                         horizontalpanel7, sidepanel7, backpanel7, door7
+                ) IS NOT NULL
+            ORDER BY idneworder DESC LIMIT 1";
+
         MySqlCommand command = new MySqlCommand(query, this.connection);
         MySqlDataReader reader = command.ExecuteReader();
 
         if (reader.Read())
         {
-            // Construire une chaîne de caractères représentant la dernière commande
             StringBuilder orderDetails = new StringBuilder();
             orderDetails.AppendLine($"Order ID: {reader.GetInt32("idneworder")}");
 
-            // Ajouter les détails de chaque locker à la chaîne
             for (int i = 1; i <= 7; i++)
             {
                 string verticalBatten = reader.IsDBNull(reader.GetOrdinal($"verticalbatten{i}")) ? null : reader.GetString($"verticalbatten{i}");
@@ -260,9 +325,10 @@ public List<string> GetLatestOrder()
                 string backPanel = reader.IsDBNull(reader.GetOrdinal($"backpanel{i}")) ? null : reader.GetString($"backpanel{i}");
                 string door = reader.IsDBNull(reader.GetOrdinal($"door{i}")) ? null : reader.GetString($"door{i}");
 
-                if (!string.IsNullOrEmpty(verticalBatten) && !string.IsNullOrEmpty(frontCrossbar) && !string.IsNullOrEmpty(backCrossbar) &&
-                    !string.IsNullOrEmpty(sideCrossbar) && !string.IsNullOrEmpty(horizontalPanel) && !string.IsNullOrEmpty(sidePanel) &&
-                    !string.IsNullOrEmpty(backPanel) && !string.IsNullOrEmpty(door))
+                // Vérifier si toutes les colonnes pour ce locker sont non-null avant de les ajouter
+                if (verticalBatten != null && frontCrossbar != null && backCrossbar != null &&
+                    sideCrossbar != null && horizontalPanel != null && sidePanel != null &&
+                    backPanel != null && door != null)
                 {
                     orderDetails.AppendLine($"Locker {i}:");
                     orderDetails.AppendLine($"Vertical Batten: {verticalBatten}");
@@ -277,7 +343,7 @@ public List<string> GetLatestOrder()
                 }
             }
 
-            latestOrder.Add(orderDetails.ToString()); // Ajouter la commande à la liste
+            latestOrder.Add(orderDetails.ToString());
         }
 
         reader.Close();
@@ -292,6 +358,406 @@ public List<string> GetLatestOrder()
     }
 
     return latestOrder;
+}
+
+
+
+public List<string> GetColumnCodes(int number)
+{
+    List<string> columnCodes = new List<string>();
+
+    try
+    {
+        OpenConnection();
+
+        for (int i = 1; i <= 7; i++)
+        {
+            string columnName = $"verticalbatten{i},frontcrossbar{i},backcrossbar{i},sidecrossbar{i},horizontalpanel{i},sidepanel{i},backpanel{i},door{i}";
+            columnCodes.AddRange(columnName.Split(','));
+        }
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving column codes: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return columnCodes;
+}
+
+public (int lockerQuantity, int remainingQuantity) UpdateRemainingQuantity(string code)
+{
+
+        string trimmedCode = code.Trim();
+        Console.WriteLine("on est dans update remaining");
+        int lockerQuantity = GetLockerQuantityByCode(trimmedCode);
+        Console.WriteLine("lockerQuantity found : " + lockerQuantity.ToString());
+        int remainingQuantity = GetRemainingQuantity(trimmedCode) - lockerQuantity;
+        UpdateRemainingQuantities(trimmedCode, remainingQuantity);
+        return (lockerQuantity, remainingQuantity);
+}
+
+public int GetLockerQuantityByCode(string code)
+{
+    int lockerQuantity = 0;
+
+    try
+    {
+        this.OpenConnection();
+        string query = "SELECT LockerQuantity FROM component WHERE Code = @Code";
+        MySqlCommand command = new MySqlCommand(query, this.connection);
+        command.Parameters.AddWithValue("@Code", code);
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    lockerQuantity = reader.GetInt32("LockerQuantity");
+                }
+            }
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving LockerQuantity from the database: " + ex.Message);
+    }
+    finally
+    {
+        this.CloseConnection();
+    }
+
+    return lockerQuantity;
+}
+
+public int GetRemainingQuantity(string code)
+{
+    int remainingQuantity = 0;
+
+    try
+    {
+        this.OpenConnection();
+        string query = @"
+            SELECT RemainingQuantity
+            FROM component
+            WHERE Code = @Code";
+
+        MySqlCommand command = new MySqlCommand(query, this.connection);
+        command.Parameters.AddWithValue("@Code", code);
+
+        using (MySqlDataReader reader = command.ExecuteReader())
+        {
+            if (reader.Read())
+            {
+                remainingQuantity = reader.GetInt32("RemainingQuantity");
+            }
+        }
+
+        Console.WriteLine("Code: " + code + ", Remaining Quantity: " + remainingQuantity);
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving RemainingQuantity from the database: " + ex.Message);
+    }
+    finally
+    {
+        this.CloseConnection();
+    }
+
+    return remainingQuantity;
+}
+
+public void UpdateRemainingQuantities(string code, int remainingQuantity)
+{
+    try
+    {
+        this.OpenConnection();
+        string query = @"
+            UPDATE component
+            SET RemainingQuantity = @RemainingQuantity
+            WHERE Code = @Code";
+
+        Console.WriteLine("test3");
+        MySqlCommand command = new MySqlCommand(query, this.connection);
+        command.Parameters.AddWithValue("@RemainingQuantity", remainingQuantity);
+        command.Parameters.AddWithValue("@Code", code);
+        command.ExecuteNonQuery();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error updating RemainingQuantity: " + ex.Message);
+    }
+    finally
+    {
+        this.CloseConnection();
+    }
+}
+
+
+public void SaveToHistoricOrder(Element element, int quantityToAdd)
+{
+    try{
+        Console.WriteLine("0");
+        OpenConnection();
+        Console.WriteLine("1");
+        string query = "INSERT INTO historicorder (code, amount) VALUES (@Code, @Amount)";      
+        Console.WriteLine("2");
+        MySqlCommand command = new MySqlCommand(query, connection);
+        Console.WriteLine("3");
+        command.Parameters.AddWithValue("@Code", element.Code);
+        command.Parameters.AddWithValue("@Amount", quantityToAdd);
+        Console.WriteLine("4");
+        command.ExecuteNonQuery();
+        Console.WriteLine("5");
+    }
+    catch (MySqlException ex){
+        Console.WriteLine("Error saving data to historicorder: " + ex.Message);
+    }
+    finally{
+        CloseConnection();
+    }
+}
+public (List<string>, List<int>) GetHistoricOrderDetails()
+{
+    List<string> columnCodes = new List<string>();
+    List<int> amounts = new List<int>();
+
+    try
+    {
+        OpenConnection();
+
+        string query = "SELECT code, amount FROM historicorder";
+        MySqlCommand command = new MySqlCommand(query, connection);
+        MySqlDataReader reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            string code = reader.GetString("code");
+            int amount = reader.GetInt32("amount");
+
+            columnCodes.Add(code);
+            amounts.Add(amount);
+        }
+
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving historic order details: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return (columnCodes, amounts);
+}
+
+public List<int> GetNumberOfAllOrderId()
+        {
+            List<int> orderIds = new List<int>();
+
+            try
+            {
+                OpenConnection();
+
+                string query = "SELECT idneworder FROM neworder";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int orderId = reader.GetInt32("idneworder");
+                    orderIds.Add(orderId);
+                }
+
+                reader.Close();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error retrieving order IDs from the database: " + ex.Message);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return orderIds;
+        }
+
+public List<string> GetOrderById(int orderId)
+{
+    List<string> orderDetailsList = new List<string>();
+
+    try
+    {
+        OpenConnection();
+
+        string query = @"
+            SELECT *
+            FROM neworder
+            WHERE idneworder = @OrderId";
+
+        MySqlCommand command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@OrderId", orderId);
+        MySqlDataReader reader = command.ExecuteReader();
+
+        if (reader.Read())
+        {
+            StringBuilder orderDetails = new StringBuilder();
+            orderDetails.AppendLine($"Order ID: {reader.GetInt32("idneworder")}");
+
+            for (int i = 1; i <= 7; i++)
+            {
+                string verticalBatten = reader.IsDBNull(reader.GetOrdinal($"verticalbatten{i}")) ? null : reader.GetString($"verticalbatten{i}");
+                string frontCrossbar = reader.IsDBNull(reader.GetOrdinal($"frontcrossbar{i}")) ? null : reader.GetString($"frontcrossbar{i}");
+                string backCrossbar = reader.IsDBNull(reader.GetOrdinal($"backcrossbar{i}")) ? null : reader.GetString($"backcrossbar{i}");
+                string sideCrossbar = reader.IsDBNull(reader.GetOrdinal($"sidecrossbar{i}")) ? null : reader.GetString($"sidecrossbar{i}");
+                string horizontalPanel = reader.IsDBNull(reader.GetOrdinal($"horizontalpanel{i}")) ? null : reader.GetString($"horizontalpanel{i}");
+                string sidePanel = reader.IsDBNull(reader.GetOrdinal($"sidepanel{i}")) ? null : reader.GetString($"sidepanel{i}");
+                string backPanel = reader.IsDBNull(reader.GetOrdinal($"backpanel{i}")) ? null : reader.GetString($"backpanel{i}");
+                string door = reader.IsDBNull(reader.GetOrdinal($"door{i}")) ? null : reader.GetString($"door{i}");
+
+                // Vérifier si toutes les colonnes pour ce locker sont non-null avant de les ajouter
+                if (verticalBatten != null && frontCrossbar != null && backCrossbar != null &&
+                    sideCrossbar != null && horizontalPanel != null && sidePanel != null &&
+                    backPanel != null && door != null)
+                {
+                    orderDetails.AppendLine($"Locker {i}:");
+                    orderDetails.AppendLine($"Vertical Batten: {verticalBatten}");
+                    orderDetails.AppendLine($"Front Crossbar: {frontCrossbar}");
+                    orderDetails.AppendLine($"Back Crossbar: {backCrossbar}");
+                    orderDetails.AppendLine($"Side Crossbar: {sideCrossbar}");
+                    orderDetails.AppendLine($"Horizontal Panel: {horizontalPanel}");
+                    orderDetails.AppendLine($"Side Panel: {sidePanel}");
+                    orderDetails.AppendLine($"Back Panel: {backPanel}");
+                    orderDetails.AppendLine($"Door: {door}");
+                    orderDetails.AppendLine();
+                }
+            }
+
+            orderDetailsList.Add(orderDetails.ToString());
+        }
+
+        reader.Close();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving order details by ID from the database: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return orderDetailsList;
+}
+
+public void RemoveTheOrder(int Orderid)
+{
+    try
+    {
+        OpenConnection();
+
+        string query = "DELETE FROM neworder WHERE idneworder = @OrderId";
+        MySqlCommand command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@OrderId", Orderid);
+        command.ExecuteNonQuery();
+
+        Console.WriteLine($"Order with ID {Orderid} removed successfully from the database.");
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error removing order from the database: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+}
+
+public List<Element> GetUnavailableElements()
+{
+    List<Element> elements = new List<Element>();
+    // Modifier la condition WHERE pour filtrer les éléments avec RemainingQuantity = 0
+    string query = "SELECT Name, Code, RemainingQuantity, Ordered_Quantity, Color, Length, Width, Height_real, Height_customer, Side, Depth, Diameter, LockerQuantity, KitboxQuantity FROM kitbox.component WHERE RemainingQuantity = 0";
+
+    try
+    {
+        MySqlCommand command = new MySqlCommand(query, connection);
+        MySqlDataReader reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            string name = reader.GetString("Name");
+            string code = reader.GetString("Code");
+            int quantity = reader.IsDBNull(reader.GetOrdinal("RemainingQuantity")) ? 0 : reader.GetInt32("RemainingQuantity");
+            int quantityOrdered = reader.IsDBNull(reader.GetOrdinal("Ordered_Quantity")) ? 0 : reader.GetInt32("Ordered_Quantity");
+            string color = reader.IsDBNull(reader.GetOrdinal("Color")) ? "" : reader.GetString("Color");
+            int length = reader.IsDBNull(reader.GetOrdinal("Length")) ? 0 : reader.GetInt32("Length");
+            int width = reader.IsDBNull(reader.GetOrdinal("Width")) ? 0 : reader.GetInt32("Width");
+            int heightReal = reader.IsDBNull(reader.GetOrdinal("Height_real")) ? 0 : reader.GetInt32("Height_real");
+            int heightCustomer = reader.IsDBNull(reader.GetOrdinal("Height_customer")) ? 0 : reader.GetInt32("Height_customer");
+            string side = reader.IsDBNull(reader.GetOrdinal("Side")) ? "" : reader.GetString("Side");
+            int depth = reader.IsDBNull(reader.GetOrdinal("Depth")) ? 0 : reader.GetInt32("Depth");
+            int diameter = reader.IsDBNull(reader.GetOrdinal("Diameter")) ? 0 : reader.GetInt32("Diameter");
+            int lockerQuantity = reader.IsDBNull(reader.GetOrdinal("LockerQuantity")) ? 0 : reader.GetInt32("LockerQuantity");
+            int kitboxQuantity = reader.IsDBNull(reader.GetOrdinal("KitboxQuantity")) ? 0 : reader.GetInt32("KitboxQuantity");
+
+            // Création d'un nouvel élément avec les données récupérées et ajout à la liste
+            Element element = new Element(name, code, color, length, width, heightReal, heightCustomer, quantity, side, depth, diameter, lockerQuantity, quantityOrdered, kitboxQuantity);
+            elements.Add(element);
+        }
+        reader.Close(); // Fermeture du MySqlDataReader
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving unavailable elements from the database: " + ex.Message);
+    }
+    return elements;
+}
+
+
+// Récupère les éléments disponibles (quantité > 0)
+public List<Element> GetAvailableElements()
+{
+    List<Element> elements = new List<Element>();
+    // Ajout de la condition WHERE pour filtrer les éléments avec RemainingQuantity > 0
+    string query = "SELECT Name, Code, RemainingQuantity, Ordered_Quantity, Color, Length, Width, Height_real, Height_customer, Side, Depth, Diameter, LockerQuantity, KitboxQuantity FROM kitbox.component WHERE RemainingQuantity > 0";
+
+    try
+    {
+        MySqlCommand command = new MySqlCommand(query, connection);
+        MySqlDataReader reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            string name = reader.GetString("Name");
+            string code = reader.GetString("Code");
+            int quantity = reader.IsDBNull(reader.GetOrdinal("RemainingQuantity")) ? 0 : reader.GetInt32("RemainingQuantity");
+            int quantityOrdered = reader.IsDBNull(reader.GetOrdinal("Ordered_Quantity")) ? 0 : reader.GetInt32("Ordered_Quantity");
+            string color = reader.IsDBNull(reader.GetOrdinal("Color")) ? "" : reader.GetString("Color");
+            int length = reader.IsDBNull(reader.GetOrdinal("Length")) ? 0 : reader.GetInt32("Length");
+            int width = reader.IsDBNull(reader.GetOrdinal("Width")) ? 0 : reader.GetInt32("Width");
+            int heightReal = reader.IsDBNull(reader.GetOrdinal("Height_real")) ? 0 : reader.GetInt32("Height_real");
+            int heightCustomer = reader.IsDBNull(reader.GetOrdinal("Height_customer")) ? 0 : reader.GetInt32("Height_customer");
+            string side = reader.IsDBNull(reader.GetOrdinal("Side")) ? "" : reader.GetString("Side");
+            int depth = reader.IsDBNull(reader.GetOrdinal("Depth")) ? 0 : reader.GetInt32("Depth");
+            int diameter = reader.IsDBNull(reader.GetOrdinal("Diameter")) ? 0 : reader.GetInt32("Diameter");
+            int lockerQuantity = reader.IsDBNull(reader.GetOrdinal("LockerQuantity")) ? 0 : reader.GetInt32("LockerQuantity");
+            int kitboxQuantity = reader.IsDBNull(reader.GetOrdinal("KitboxQuantity")) ? 0 : reader.GetInt32("KitboxQuantity");
+
+            // Création d'un nouvel élément avec les données récupérées et ajout à la liste
+            Element element = new Element(name, code, color, length, width, heightReal, heightCustomer, quantity, side, depth, diameter, lockerQuantity, quantityOrdered, kitboxQuantity);
+            elements.Add(element);
+        }
+        reader.Close(); // Fermeture du MySqlDataReader
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving elements from the database: " + ex.Message);
+    }
+    return elements;
 }
 
 }

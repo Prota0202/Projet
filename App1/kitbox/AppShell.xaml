@@ -14,12 +14,17 @@
 
     <ShellContent
         Title="Seller"
-        ContentTemplate="{DataTemplate local:seller}"
+        ContentTemplate="{DataTemplate local:SellerSearch}"
         Route="MainPage" />
 
     <ShellContent
         Title="Stock"
         ContentTemplate="{DataTemplate local:stock}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Research Order"
+        ContentTemplate="{DataTemplate local:researchorder}"
         Route="MainPage" />
 
     <ShellContent

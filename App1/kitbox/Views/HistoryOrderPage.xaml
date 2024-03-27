@@ -1,0 +1,54 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:kitbox"
+             x:Class="kitbox.HistoryOrderPage"
+             Title="HistoryOrderPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:AmountConverter x:Key="AmountConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ListView x:Name="elementsListView" ItemsSource="{Binding Elements}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Label Text="{Binding DisplayAll}" Grid.Row="0" Margin="0,0,0,10" />
+                                <Button Text="Select" Clicked="OnElementSelected"
+                                        CommandParameter="{Binding .}"
+                                        HorizontalOptions="EndAndExpand"
+                                        Grid.Row="1" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView x:Name="amountsListView" ItemsSource="{Binding Amounts}" Grid.Column="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid VerticalOptions="CenterAndExpand">
+                                <Label Text="{Binding Value, Converter={StaticResource AmountConverter}}"
+                                       HorizontalOptions="CenterAndExpand"
+                                       VerticalOptions="CenterAndExpand" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
