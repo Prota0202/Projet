@@ -128,6 +128,61 @@ public class DatabaseManager
     }
 }
 
+
+
+
+public void UpdateSupplier(int idSupplier, string newSupplierName, string newAddress, string newMail, int newPhoneNumber){
+    string query = "UPDATE supplier SET SuplierName = @NewSupplierName, Adress = @NewAddress, Mail = @NewMail, PhoneNumber = @NewPhoneNumber WHERE id_supplier = @IdSupplier";
+
+    try{
+        MySqlCommand command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@NewSupplierName", newSupplierName);
+        command.Parameters.AddWithValue("@NewAddress", newAddress);
+        command.Parameters.AddWithValue("@NewMail", newMail);
+        command.Parameters.AddWithValue("@NewPhoneNumber", newPhoneNumber);
+        command.Parameters.AddWithValue("@IdSupplier", idSupplier);
+        int rowsAffected = command.ExecuteNonQuery();
+    
+        if(rowsAffected > 0){
+            Console.WriteLine("Supplier updated successfully in the database.");
+        } else {
+            Console.WriteLine("Supplier with id " + idSupplier + " not found in the database.");
+        }
+    }
+    catch (MySqlException ex){
+        Console.WriteLine("Error updating supplier in the database: " + ex.Message);
+    }
+}
+
+
+public int FindSupplierId(Supplier supplier)
+{
+    int supplierId = -1; // Valeur par défaut si le fournisseur n'est pas trouvé
+
+    try
+    {
+        string query = "SELECT id_supplier FROM supplier WHERE SuplierName = @SupplierName AND Adress = @Address AND Mail = @Mail AND PhoneNumber = @PhoneNumber";
+        MySqlCommand command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@SupplierName", supplier.suppliername);
+        command.Parameters.AddWithValue("@Address", supplier.adress);
+        command.Parameters.AddWithValue("@Mail", supplier.mail);
+        command.Parameters.AddWithValue("@PhoneNumber", supplier.phonenumber);
+
+        object result = command.ExecuteScalar();
+        if (result != null && result != DBNull.Value)
+        {
+            supplierId = Convert.ToInt32(result);
+        }
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error finding supplier in the database: " + ex.Message);
+    }
+
+    return supplierId;
+}
+
+
 public List<Element> GetElements()
 {
     List<Element> elements = new List<Element>();
