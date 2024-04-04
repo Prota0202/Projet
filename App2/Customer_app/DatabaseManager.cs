@@ -454,7 +454,7 @@ public int GetNextOrderId()
 
 public int GetNextIdclient()
 {
-    int orderId = -1;
+    int Idclient = -1;
     string query = "SELECT MAX(idclient) FROM totalorder";
 
     try
@@ -465,9 +465,9 @@ public int GetNextIdclient()
 
         if (result != null && result != DBNull.Value)
         {
-            orderId = Convert.ToInt32(result);
+            Idclient = Convert.ToInt32(result);
         }
-        orderId++; // Increment to get the next available order ID
+        Idclient++; // Increment to get the next available order ID
     }
     catch (MySqlException ex)
     {
@@ -478,7 +478,71 @@ public int GetNextIdclient()
         CloseConnection();
     }
 
-    return orderId;
+    return Idclient;
+}
+
+public void AddIdNewOrderToTotalOrder(int idneworder)
+{
+    try
+    {
+        // Ouvrez la connexion à la base de données
+        OpenConnection();
+
+        // Recherchez la prochaine colonne disponible en vérifiant l'existence de chaque colonne 'armoireX'
+        int nextArmoireIndex = 1;
+        while (ColumnExists($"armoire{nextArmoireIndex}"))
+        {
+            nextArmoireIndex++;
+        }
+
+        // Construisez votre requête SQL pour ajouter une nouvelle colonne 'armoireX' à la table totalorder
+        string addColumnQuery = $"ALTER TABLE totalorder ADD armoire{nextArmoireIndex} INT";
+
+        // Créez une commande MySQL avec la requête SQL pour ajouter la nouvelle colonne
+        MySqlCommand addColumnCommand = new MySqlCommand(addColumnQuery, Connection);
+
+        // Exécutez la commande pour ajouter la nouvelle colonne
+        addColumnCommand.ExecuteNonQuery();
+
+        // Construisez votre requête SQL pour insérer idneworder dans la colonne nouvellement ajoutée
+        string insertIdQuery = $"UPDATE totalorder SET armoire{nextArmoireIndex} = @IdNewOrder WHERE id = 1";
+
+        // Créez une commande MySQL avec la requête SQL pour insérer idneworder
+        MySqlCommand insertIdCommand = new MySqlCommand(insertIdQuery, Connection);
+
+        // Ajoutez le paramètre idneworder à la commande
+        insertIdCommand.Parameters.AddWithValue("@IdNewOrder", idneworder);
+
+        // Exécutez la commande pour insérer idneworder dans la nouvelle colonne
+        insertIdCommand.ExecuteNonQuery();
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error adding idneworder to totalorder: " + ex.Message);
+    }
+    finally
+    {
+        // Fermez la connexion à la base de données
+        CloseConnection();
+    }
+}
+
+// Méthode pour vérifier l'existence d'une colonne dans une table
+private bool ColumnExists(string columnName)
+{
+    // Construire la requête SQL pour vérifier si la colonne existe dans la table
+    string query = "SELECT COUNT(*) FROM information_schema.columns " +
+                   "WHERE table_schema = 'kitbox' AND table_name = 'totalorder' " +
+                   $"AND column_name = '{columnName}'";
+
+    // Créer une commande MySQL avec la requête SQL et la connexion à la base de données
+    MySqlCommand command = new MySqlCommand(query, Connection);
+
+    // Exécuter la commande et obtenir le nombre de colonnes correspondantes
+    int columnCount = Convert.ToInt32(command.ExecuteScalar());
+
+    // Si le nombre de colonnes correspondantes est supérieur à zéro, la colonne existe
+    return columnCount > 0;
 }
 
 public void SaveLockerComponents(int orderId, int lockerNumber, string verticalBatten, string frontCrossbar, string backCrossbar, string sideCrossbar, string horizontalPanel, string sidePanel, string backPanel, string door)

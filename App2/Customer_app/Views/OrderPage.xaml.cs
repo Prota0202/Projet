@@ -223,7 +223,6 @@ namespace Customer_app.Views
             }
         }
 
-
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
             SaveButton.Clicked -= SaveButton_Clicked;
@@ -249,6 +248,7 @@ namespace Customer_app.Views
             }
             lockerNumber++;
             }
+            databaseManager.AddIdNewOrderToTotalOrder(idneworder);
             Navigation.PushAsync(new BasketPage(currentOrder, idClient));
             //Activer l'alerte pour le formulaire de contact
             //string action = await DisplayActionSheet("Out of stock : Please complete the contact form", "Cancel", null, "Contact Form");
