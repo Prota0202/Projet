@@ -8,7 +8,7 @@
     <VerticalStackLayout Spacing="20">
         <Label Text="Supplier Page" FontSize="42" VerticalOptions="Center" HorizontalOptions="Center" />
         <Label 
-            Text="Add a new supplier :"
+            Text="Caracteristic supplier :"
             VerticalOptions="Center" 
             HorizontalOptions="Start" />
 
@@ -26,21 +26,28 @@
 
         <Label Text="List of Suppliers:" VerticalOptions="Center" HorizontalOptions="Center" />
         <ListView ItemsSource="{Binding supplierList}">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout Orientation="Horizontal" Padding="0,0,20,0">
-                        <Label Text="{Binding DisplaySupplier}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
-                        <Label Text="Remove" TextColor="#F95B09" TextDecorations="Underline" VerticalOptions="Center" HorizontalOptions="End" Margin="0,0,10,0">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnRemoveTapped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="0,0,20,0">
+                            <Label Text="{Binding DisplaySupplier}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                            <Label Text="Edit" TextColor="Red" TextDecorations="Underline" VerticalOptions="CenterAndExpand" HorizontalOptions="End" Margin="0,0,10,0">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEditTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="Remove" TextColor="#F95B09" TextDecorations="Underline" VerticalOptions="Center" HorizontalOptions="End" Margin="0,0,10,0">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnRemoveTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    
     </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
