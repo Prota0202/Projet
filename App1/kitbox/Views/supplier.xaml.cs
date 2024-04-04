@@ -29,6 +29,12 @@ public partial class supplier : ContentPage
 			int phonenumber2add = Convert.ToInt32(NewSupplierPhoneNumber.Text);
 			Supplier newsupplier = new Supplier(supplier2add, adress2add, mail2add, phonenumber2add);
 			supplierList.Add(newsupplier);
+			// Nettoyer les champs d'entrée
+			NewSupplierEntry.Text = "";
+			NewSupplierAdress.Text = "";
+			NewSupplierMail.Text = "";
+			NewSupplierPhoneNumber.Text = "";
+
 			databaseManager.OpenConnection();
 			databaseManager.AddSupplier(newsupplier);
 			databaseManager.CloseConnection();
@@ -44,4 +50,41 @@ public partial class supplier : ContentPage
     databaseManager.RemoveSupplier(supplier.DisplayName);
     databaseManager.CloseConnection();
 }
+
+	private void OnEditTapped(object sender, EventArgs e)
+	{
+		var label = (Label)sender;
+		Supplier supplier = (Supplier)label.BindingContext;
+		databaseManager.OpenConnection();
+		int id = databaseManager.FindSupplierId(supplier);
+		databaseManager.CloseConnection();
+		string supplier2add = NewSupplierEntry.Text;
+		string adress2add = NewSupplierAdress.Text;
+		string mail2add = NewSupplierMail.Text;
+		int phonenumber2add = Convert.ToInt32(NewSupplierPhoneNumber.Text);
+		Supplier supplier2update = new Supplier(supplier2add,adress2add,mail2add,phonenumber2add);
+		
+		
+		
+		int index = supplierList.IndexOf(supplier);
+		if (index != -1)
+		{
+			supplierList[index] = supplier2update;
+		}
+		
+		NewSupplierEntry.Text = "";
+		NewSupplierAdress.Text = "";
+		NewSupplierMail.Text = "";
+		NewSupplierPhoneNumber.Text = "";
+		
+		
+		databaseManager.OpenConnection();
+		databaseManager.UpdateSupplier(id, supplier2update.suppliername, supplier2update.adress, supplier2update.mail, supplier2update.phonenumber);
+		databaseManager.CloseConnection();
+	}
+
+
+
 }
+
+
