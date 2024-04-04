@@ -1,3 +1,3 @@
 # Projet
 
-test
+Nous somme le groupe 1.
