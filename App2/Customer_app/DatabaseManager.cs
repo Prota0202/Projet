@@ -481,44 +481,41 @@ public int GetNextIdclient()
     return Idclient;
 }
 
-public void AddIdNewOrderToTotalOrder(int idneworder)
+public void AddIdNewOrderToTotalOrder(int idclient, int idNewOrder, int armoireNumber)
 {
     try
     {
         // Ouvrez la connexion à la base de données
         OpenConnection();
 
-        // Recherchez la prochaine colonne disponible en vérifiant l'existence de chaque colonne 'armoireX'
-        int nextArmoireIndex = 1;
-        while (ColumnExists($"armoire{nextArmoireIndex}"))
+        // Vérifiez d'abord si une ligne existe déjà pour ce client dans la table totalorder
+        string checkQuery = "SELECT COUNT(*) FROM totalorder WHERE idclient = @idclient";
+        MySqlCommand checkCommand = new MySqlCommand(checkQuery, Connection);
+        checkCommand.Parameters.AddWithValue("@idclient", idclient);
+        int rowCount = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+        if (rowCount == 0)
         {
-            nextArmoireIndex++;
+            // Si aucune ligne n'existe pour ce client, insérez une nouvelle ligne
+            string insertQuery = "INSERT INTO totalorder (idclient, armoire1) VALUES (@idclient, @IdNewOrder)";
+            MySqlCommand insertCommand = new MySqlCommand(insertQuery, Connection);
+            insertCommand.Parameters.AddWithValue("@idclient", idclient);
+            insertCommand.Parameters.AddWithValue("@IdNewOrder", idNewOrder);
+            insertCommand.ExecuteNonQuery();
         }
-
-        // Construisez votre requête SQL pour ajouter une nouvelle colonne 'armoireX' à la table totalorder
-        string addColumnQuery = $"ALTER TABLE totalorder ADD armoire{nextArmoireIndex} INT";
-
-        // Créez une commande MySQL avec la requête SQL pour ajouter la nouvelle colonne
-        MySqlCommand addColumnCommand = new MySqlCommand(addColumnQuery, Connection);
-
-        // Exécutez la commande pour ajouter la nouvelle colonne
-        addColumnCommand.ExecuteNonQuery();
-
-        // Construisez votre requête SQL pour insérer idneworder dans la colonne nouvellement ajoutée
-        string insertIdQuery = $"UPDATE totalorder SET armoire{nextArmoireIndex} = @IdNewOrder WHERE id = 1";
-
-        // Créez une commande MySQL avec la requête SQL pour insérer idneworder
-        MySqlCommand insertIdCommand = new MySqlCommand(insertIdQuery, Connection);
-
-        // Ajoutez le paramètre idneworder à la commande
-        insertIdCommand.Parameters.AddWithValue("@IdNewOrder", idneworder);
-
-        // Exécutez la commande pour insérer idneworder dans la nouvelle colonne
-        insertIdCommand.ExecuteNonQuery();
+        else
+        {
+            // Si une ligne existe déjà pour ce client, mettez à jour la colonne appropriée (armoire1, armoire2, etc.)
+            string updateQuery = $"UPDATE totalorder SET armoire{armoireNumber} = @IdNewOrder WHERE idclient = @idclient";
+            MySqlCommand updateCommand = new MySqlCommand(updateQuery, Connection);
+            updateCommand.Parameters.AddWithValue("@idclient", idclient);
+            updateCommand.Parameters.AddWithValue("@IdNewOrder", idNewOrder);
+            updateCommand.ExecuteNonQuery();
+        }
     }
     catch (MySqlException ex)
     {
-        Console.WriteLine("Error adding idneworder to totalorder: " + ex.Message);
+        Console.WriteLine("Error updating totalorder: " + ex.Message);
     }
     finally
     {
@@ -526,7 +523,6 @@ public void AddIdNewOrderToTotalOrder(int idneworder)
         CloseConnection();
     }
 }
-
 // Méthode pour vérifier l'existence d'une colonne dans une table
 private bool ColumnExists(string columnName)
 {

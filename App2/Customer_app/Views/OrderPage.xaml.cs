@@ -15,6 +15,8 @@ namespace Customer_app.Views
         private readonly DatabaseManager databaseManager;
         public NewOrder currentOrder;
         public int idClient;
+
+        public int armoireNumber;
         public OrderPage(int idclient)
         {
             databaseManager = new DatabaseManager();
@@ -231,40 +233,36 @@ namespace Customer_app.Views
             int idneworder = databaseManager.GetNextOrderId();
 
             int lockerNumber = 1;
-            foreach (var locker in currentOrder.Lockers){
-            string verticalbatten = databaseManager.GetVerticalBattenCode(locker.Height);
-            string sidecrossbar = databaseManager.GetSideCrossbarCode(depth);
-            string frontcrossbar = databaseManager.GetFrontCrossbarCode(width);
-            string backcrossbar = databaseManager.GetBackCrossbarCode(width);
-            string horizontalpanel = databaseManager.GetHorizontalPanelCode(locker.PanelColor,width,depth);
-            string sidepanel = databaseManager.GetSidePanelCode(locker.PanelColor,locker.Height,depth);
-            string backpanel = databaseManager.GetBackPanelCode(locker.PanelColor, locker.Height, width);
-            string door = databaseManager.GetDoorCode(locker.PanelColor, locker.Height, width);
-            if(lockerNumber==1){
-                    databaseManager.SaveLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
+            foreach (var locker in currentOrder.Lockers)
+            {
+                string verticalbatten = databaseManager.GetVerticalBattenCode(locker.Height);
+                string sidecrossbar = databaseManager.GetSideCrossbarCode(depth);
+                string frontcrossbar = databaseManager.GetFrontCrossbarCode(width);
+                string backcrossbar = databaseManager.GetBackCrossbarCode(width);
+                string horizontalpanel = databaseManager.GetHorizontalPanelCode(locker.PanelColor, width, depth);
+                string sidepanel = databaseManager.GetSidePanelCode(locker.PanelColor, locker.Height, depth);
+                string backpanel = databaseManager.GetBackPanelCode(locker.PanelColor, locker.Height, width);
+                string door = databaseManager.GetDoorCode(locker.PanelColor, locker.Height, width);
+                if (lockerNumber == 1)
+                {
+                    databaseManager.SaveLockerComponents(idneworder, lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
+                }
+                else
+                {
+                    databaseManager.UpdateLockerComponents(idneworder, lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
+                }
+                lockerNumber++;
             }
-            else{
-                    databaseManager.UpdateLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
-            }
-            lockerNumber++;
-            }
-            databaseManager.AddIdNewOrderToTotalOrder(idneworder);
+            armoireNumber++; // Incrémenter ici pour éviter l'écrasement
+            databaseManager.AddIdNewOrderToTotalOrder(idClient, idneworder, armoireNumber);
             Navigation.PushAsync(new BasketPage(currentOrder, idClient));
-            //Activer l'alerte pour le formulaire de contact
-            //string action = await DisplayActionSheet("Out of stock : Please complete the contact form", "Cancel", null, "Contact Form");
-            //Console.WriteLine(action);
-            
-            
+
             // Attendre une courte période avant de réactiver le gestionnaire d'événements
             await Task.Delay(1000);
 
             // Réactiver le gestionnaire d'événements après une courte période
             SaveButton.Clicked += SaveButton_Clicked;
-
-            //function dans databaseManager qui ajoute le idneworder dans la table totalorder attention
-            //quand on fait le query faut dire "mettre dans armoire1" puis après ce sera "armoire2"
         }
-
 
 
         private void ResetFields(){
