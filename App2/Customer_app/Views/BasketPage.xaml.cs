@@ -15,14 +15,39 @@ public partial class BasketPage : ContentPage
 	private int width;
 	private NewOrder currentOrder;
 	public int idClient;
+	public int armoireNumber;
 
-	public BasketPage(NewOrder currentorder, int idclient)
+	public BasketPage(NewOrder currentorder, int idclient, int armoirenumber)
 	{
 		databaseManager = new DatabaseManager();
 		currentOrder = currentorder;
 		idClient = idclient;
+		armoireNumber= armoirenumber;
         InitializeComponent();
+
+		// Après avoir sauvegardé la commande dans SaveButton_Clicked
+		string recap = databaseManager.Loadkitb(armoireNumber, idClient);
+		Console.WriteLine(recap);
+
+		// Splitter le recap en lignes
+		string[] lines = recap.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+		// Créer un StringBuilder pour le nouveau texte
+		StringBuilder labelText = new StringBuilder();
+		labelText.AppendLine($"Kitbox number #{armoireNumber}");
+
+		// Ajouter chaque ligne du recap au texte
+		foreach (string line in lines)
+		{
+			labelText.AppendLine(line);
+		}
+
+		// Définir le texte final dans YourKitboxLabel
+		YourKitboxLabel.Text = labelText.ToString();
+
 	}
+
+
 
 	private void OrderBackbuttonclicked(object sender, EventArgs e)
 	{

@@ -184,6 +184,7 @@ namespace Customer_app.Views
             }
         }
 
+
         private void RemoveButton_Clicked(object sender, EventArgs e)
         {
             var button = sender as Button;
@@ -255,7 +256,7 @@ namespace Customer_app.Views
             }
             armoireNumber++; // Incrémenter ici pour éviter l'écrasement
             databaseManager.AddIdNewOrderToTotalOrder(idClient, idneworder, armoireNumber);
-            Navigation.PushAsync(new BasketPage(currentOrder, idClient));
+            await Navigation.PushAsync(new BasketPage(currentOrder, idClient, armoireNumber));
 
             // Attendre une courte période avant de réactiver le gestionnaire d'événements
             await Task.Delay(1000);
