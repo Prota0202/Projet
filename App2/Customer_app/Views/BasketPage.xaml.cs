@@ -16,6 +16,9 @@ public partial class BasketPage : ContentPage
 	private NewOrder currentOrder;
 	public int idClient;
 	public int armoireNumber;
+	private int armoireCount = 0;
+	private List<Label> armoireLabels = new List<Label>();
+
 
 	public BasketPage(NewOrder currentorder, int idclient, int armoirenumber)
 	{
@@ -25,25 +28,90 @@ public partial class BasketPage : ContentPage
 		armoireNumber= armoirenumber;
         InitializeComponent();
 
+		// Dans le constructeur BasketPage
+		// string previousArmoireDetails = databaseManager.LoadPreviousArmoireDetails(idClient);
+		// YourKitboxLabel.Text += previousArmoireDetails;
+
+		// // Après avoir sauvegardé la commande dans SaveButton_Clicked
+		// string recap = databaseManager.Loadkitb(armoireNumber, idClient);
+		// Console.WriteLine(recap);
+
+		// // Splitter le recap en lignes
+		// string[] lines = recap.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+		// // Créer un StringBuilder pour le nouveau texte
+		// StringBuilder labelText = new StringBuilder();
+		// labelText.AppendLine($"Kitbox number #{armoireNumber}");
+
+		// // Ajouter chaque ligne du recap au texte
+		// foreach (string line in lines)
+		// {
+		// 	labelText.AppendLine(line);
+		// }
+
+		// // Définir le texte final dans YourKitboxLabel
+		// YourKitboxLabel.Text = labelText.ToString();
+
 		// Après avoir sauvegardé la commande dans SaveButton_Clicked
-		string recap = databaseManager.Loadkitb(armoireNumber, idClient);
-		Console.WriteLine(recap);
+        string recap = databaseManager.Loadkitb(armoirenumber, idclient);
+        Console.WriteLine(recap);
 
-		// Splitter le recap en lignes
-		string[] lines = recap.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+        // Splitter le recap en lignes
+        string[] lines = recap.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
-		// Créer un StringBuilder pour le nouveau texte
-		StringBuilder labelText = new StringBuilder();
-		labelText.AppendLine($"Kitbox number #{armoireNumber}");
+        // Créer un StringBuilder pour le nouveau texte
+        StringBuilder labelText = new StringBuilder();
+        labelText.AppendLine($"Kitbox number #{armoirenumber}");
 
-		// Ajouter chaque ligne du recap au texte
-		foreach (string line in lines)
+		
+
+        // // Ajouter chaque ligne du recap au texte
+        // foreach (string line in lines)
+        // {
+        //     labelText.AppendLine(line);
+        // }
+
+        // // Créer un label pour afficher les détails de l'armoire
+        // var armoireLabel = new Label
+        // {
+        //     Text = labelText.ToString(),
+        //     FontSize = 18,
+        //     // TextDecorations = TextDecorations.Underline
+        // };
+
+		// // Ajouter le label à la liste des labels d'armoire
+    	// armoireLabels.Add(armoireLabel);
+
+		// // Ajouter chaque label d'armoire à ArmoireStackLayout.Children
+		// foreach (var label in armoireLabels)
+		// {
+		// 	ArmoireStackLayout.Children.Add(label);
+		// 	armoireCount++;
+		// }
+
+		// Charger les détails des armoires précédentes
+		string previousArmoireDetails = databaseManager.LoadPreviousArmoireDetails(idClient,armoireNumber);
+
+		// Créer un tableau de lignes en divisant la chaîne précédemment chargée
+		string[] previousArmoireLines = previousArmoireDetails.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+		// Parcourir chaque ligne pour traiter les détails des armoires précédentes
+		foreach (string line in previousArmoireLines)
 		{
-			labelText.AppendLine(line);
+			// Créer un label pour chaque ligne de détails d'armoire
+			var armoireLabel = new Label
+			{
+				Text = line,
+				FontSize = 18
+			};
+
+			// Ajouter le label à ArmoireStackLayout.Children
+			ArmoireStackLayout.Children.Add(armoireLabel);
 		}
 
-		// Définir le texte final dans YourKitboxLabel
-		YourKitboxLabel.Text = labelText.ToString();
+
+
+
 
 	}
 
@@ -106,5 +174,6 @@ public partial class BasketPage : ContentPage
 		// Réactiver le gestionnaire d'événements après une courte période
 		//BuyButton.Clicked += BuyButton_Clicked;
 	}
+	
 
 }

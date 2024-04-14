@@ -868,7 +868,112 @@ public int GetIdNewOrderFromArmoireNumber(int armoireNumber, int idClient)
 
 //     return armoireNumbers;
 // }
+// public List<int> GetPreviousArmoireNumbers(int idClient,int armoireNumber)
+// {
+//     List<int> armoireNumbers = new List<int>();
 
+//     try
+//     {
+//         OpenConnection();
+
+//         // Construire la requête SQL pour récupérer les numéros d'armoire précédents
+//         string query = $"SELECT DISTINCT armoire{armoireNumber} FROM totalorder WHERE idClient = @IdClient";
+//         MySqlCommand command = new MySqlCommand(query, Connection);
+//         command.Parameters.AddWithValue("@IdClient", idClient);
+
+//         using (MySqlDataReader reader = command.ExecuteReader())
+//         {
+//             while (reader.Read())
+//             {
+//                 armoireNumbers.Add(reader.GetInt32($"{armoireNumber}"));
+//             }
+//         }
+//     }
+//     catch (MySqlException ex)
+//     {
+//         Console.WriteLine("Error getting previous armoire numbers: " + ex.Message);
+//     }
+//     finally
+//     {
+//         CloseConnection();
+//     }
+
+//     return armoireNumbers;
+// }
+public List<int> GetPreviousArmoireOrders(int idClient, int armoireNumber)
+{
+    List<int> armoireOrders = new List<int>();
+
+    try
+    {
+        OpenConnection();
+
+        // Construire la requête SQL pour récupérer les commandes associées à chaque numéro d'armoire précédent
+        string columnName = $"armoire{armoireNumber}";
+        string query = $"SELECT DISTINCT {columnName} FROM totalorder WHERE idClient = @IdClient";
+        MySqlCommand command = new MySqlCommand(query, Connection);
+        command.Parameters.AddWithValue("@IdClient", idClient);
+
+        using (MySqlDataReader reader = command.ExecuteReader())
+        {
+            while (reader.Read())
+            {
+                int idneworder = reader.GetInt32("idneworder");
+                Console.WriteLine($"Contenu de l'armoire pour l'idneworder {idneworder}:");
+                
+                for (armoireNumber = 1; armoireNumber <= 14; armoireNumber++)
+                {
+                    // string columnName = $"armoire{armoireNumber}";
+                    int value = reader.GetInt32(columnName);
+                    Console.WriteLine($"Armoire {armoireNumber}: {value}");
+                }
+            }
+        }
+
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error getting previous armoire orders: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return armoireOrders;
+}
+
+
+public string LoadPreviousArmoireDetails(int idClient,int armoireNumber)
+{
+    StringBuilder allArmoireDetails = new StringBuilder();
+
+    try
+    {
+        OpenConnection();
+
+        // Récupérer tous les numéros d'armoire pour le client donné
+        List<int> previousArmoireNumbers = GetPreviousArmoireOrders(idClient,armoireNumber);
+
+        // Parcourir tous les numéros d'armoire et récupérer leurs détails
+        foreach (int armoireNuumber in previousArmoireNumbers)
+        {
+            // Récupérer les détails de l'armoire pour ce numéro et ajouter à la chaîne
+            string armoireDetails = Loadkitb(armoireNuumber, idClient);
+            allArmoireDetails.AppendLine(armoireDetails);
+        }
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error loading previous armoire details: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return allArmoireDetails.ToString();
+}
 
 
 private int GetComponentQuantity(string componentCode)

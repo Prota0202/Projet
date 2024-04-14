@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Customer_app.Views.BasketPage"
              Title="Basket Page">
-    <Grid  Padding="10">
+
+    <Grid Padding="10">
         <Grid.RowDefinitions >
             <RowDefinition Height= "*" />
             <RowDefinition Height= "*" />
@@ -17,16 +18,17 @@
 
 
 
-        <ScrollView Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="StartAndExpand">
-            <StackLayout Spacing="25">
-                <StackLayout.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Color="#505050" Offset="0" />  <GradientStop Color="#7F7F7F" Offset="1" />  </LinearGradientBrush>
-                </StackLayout.Background>
-                <Label Text="Your kitboxes " FontSize="18" HorizontalOptions="CenterAndExpand" TextDecorations="Underline" />
-                <Label x:Name="YourKitboxLabel" FontSize="18" HorizontalOptions="CenterAndExpand" TextDecorations="Underline" />
-            </StackLayout>
-        </ScrollView>
+            <ScrollView Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="StartAndExpand">
+                <StackLayout x:Name="ArmoireStackLayout" Spacing="25">
+                    <StackLayout.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#505050" Offset="0" />  <GradientStop Color="#7F7F7F" Offset="1" />  </LinearGradientBrush>
+                    </StackLayout.Background>
+                    <Label Text="Your kitboxes " FontSize="18" HorizontalOptions="CenterAndExpand" TextDecorations="Underline" />
+                    <Label x:Name="YourKitboxLabel" FontSize="18" HorizontalOptions="CenterAndExpand" TextDecorations="Underline" />
+                </StackLayout>
+            </ScrollView>
+
 
         <Label Grid.Row ="1" Grid.Column = "1"
             Text="Prix"
