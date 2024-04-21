@@ -20,100 +20,157 @@ public partial class BasketPage : ContentPage
 	private List<Label> armoireLabels = new List<Label>();
 
 
+	// public BasketPage(NewOrder currentorder, int idclient, int armoirenumber)
+	// {
+	// 	databaseManager = new DatabaseManager();
+	// 	currentOrder = currentorder;
+	// 	idClient = idclient;
+	// 	armoireNumber= armoirenumber;
+    //     InitializeComponent();
+
+	// 	// Dans le constructeur BasketPage
+	// 	// string previousArmoireDetails = databaseManager.LoadPreviousArmoireDetails(idClient);
+	// 	// YourKitboxLabel.Text += previousArmoireDetails;
+
+	// 	// // Après avoir sauvegardé la commande dans SaveButton_Clicked
+	// 	// string recap = databaseManager.Loadkitb(armoireNumber, idClient);
+	// 	// Console.WriteLine(recap);
+
+	// 	// // Splitter le recap en lignes
+	// 	// string[] lines = recap.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+	// 	// // Créer un StringBuilder pour le nouveau texte
+	// 	// StringBuilder labelText = new StringBuilder();
+	// 	// labelText.AppendLine($"Kitbox number #{armoireNumber}");
+
+	// 	// // Ajouter chaque ligne du recap au texte
+	// 	// foreach (string line in lines)
+	// 	// {
+	// 	// 	labelText.AppendLine(line);
+	// 	// }
+
+	// 	// // Définir le texte final dans YourKitboxLabel
+	// 	// YourKitboxLabel.Text = labelText.ToString();
+
+	// 	// Après avoir sauvegardé la commande dans SaveButton_Clicked
+    //     string recap = databaseManager.Loadkitb(armoirenumber, idclient);
+    //     Console.WriteLine(recap);
+
+    //     // Splitter le recap en lignes
+    //     string[] lines = recap.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+    //     // Créer un StringBuilder pour le nouveau texte
+    //     StringBuilder labelText = new StringBuilder();
+    //     labelText.AppendLine($"Kitbox number #{armoirenumber}");
+
+		
+
+    //     // // Ajouter chaque ligne du recap au texte
+    //     // foreach (string line in lines)
+    //     // {
+    //     //     labelText.AppendLine(line);
+    //     // }
+
+    //     // // Créer un label pour afficher les détails de l'armoire
+    //     // var armoireLabel = new Label
+    //     // {
+    //     //     Text = labelText.ToString(),
+    //     //     FontSize = 18,
+    //     //     // TextDecorations = TextDecorations.Underline
+    //     // };
+
+	// 	// // Ajouter le label à la liste des labels d'armoire
+    // 	// armoireLabels.Add(armoireLabel);
+
+	// 	// // Ajouter chaque label d'armoire à ArmoireStackLayout.Children
+	// 	// foreach (var label in armoireLabels)
+	// 	// {
+	// 	// 	ArmoireStackLayout.Children.Add(label);
+	// 	// 	armoireCount++;
+	// 	// }
+
+	// 	// Charger les détails des armoires précédentes
+	// 	string previousArmoireDetails = databaseManager.LoadPreviousArmoireDetails(idClient, armoireNumber);
+
+	// 	// Créer un tableau de lignes en divisant la chaîne précédemment chargée
+	// 	string[] previousArmoireLines = previousArmoireDetails.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+	// 	// Parcourir chaque ligne pour traiter les détails des armoires précédentes
+	// 	foreach (string line in previousArmoireLines)
+	// 	{
+	// 		// Créer un label pour chaque ligne de détails d'armoire
+	// 		var armoireLabel = new Label
+	// 		{
+	// 			Text = line,
+	// 			FontSize = 18
+	// 		};
+
+	// 		// Ajouter le label à ArmoireStackLayout.Children
+	// 		ArmoireStackLayout.Children.Add(armoireLabel);
+	// 	}
+
+	// 	// Ajouter une colonne pour chaque armoire
+	// 	for (int i = 0; i < previousArmoireLines.Length; i++)
+	// 	{
+	// 		ArmoireGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+	// 	}
+
+	// 	// Ajouter le contenu de chaque armoire dans la colonne correspondante
+	// 	for (int i = 0; i < previousArmoireLines.Length; i++)
+	// 	{
+	// 		// Créer un label pour afficher le contenu de l'armoire
+	// 		var armoireContentLabel = new Label
+	// 		{
+	// 			Text = previousArmoireLines[i], // Contenu de l'armoire
+	// 			FontSize = 18
+	// 		};
+
+	// 		// Ajouter le label à la colonne correspondante dans la grille
+	// 		Grid.SetColumn(armoireContentLabel, i);
+	// 		ArmoireGrid.Children.Add(armoireContentLabel);
+	// 	}
+	// }
+
 	public BasketPage(NewOrder currentorder, int idclient, int armoirenumber)
 	{
 		databaseManager = new DatabaseManager();
 		currentOrder = currentorder;
 		idClient = idclient;
-		armoireNumber= armoirenumber;
-        InitializeComponent();
-
-		// Dans le constructeur BasketPage
-		// string previousArmoireDetails = databaseManager.LoadPreviousArmoireDetails(idClient);
-		// YourKitboxLabel.Text += previousArmoireDetails;
-
-		// // Après avoir sauvegardé la commande dans SaveButton_Clicked
-		// string recap = databaseManager.Loadkitb(armoireNumber, idClient);
-		// Console.WriteLine(recap);
-
-		// // Splitter le recap en lignes
-		// string[] lines = recap.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-		// // Créer un StringBuilder pour le nouveau texte
-		// StringBuilder labelText = new StringBuilder();
-		// labelText.AppendLine($"Kitbox number #{armoireNumber}");
-
-		// // Ajouter chaque ligne du recap au texte
-		// foreach (string line in lines)
-		// {
-		// 	labelText.AppendLine(line);
-		// }
-
-		// // Définir le texte final dans YourKitboxLabel
-		// YourKitboxLabel.Text = labelText.ToString();
+		armoireNumber = armoirenumber;
+		InitializeComponent();
 
 		// Après avoir sauvegardé la commande dans SaveButton_Clicked
-        string recap = databaseManager.Loadkitb(armoirenumber, idclient);
-        Console.WriteLine(recap);
+		List<List<string>> armoireDetailsList = databaseManager.Loadkitb(armoireNumber,idClient);
 
-        // Splitter le recap en lignes
-        string[] lines = recap.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-        // Créer un StringBuilder pour le nouveau texte
-        StringBuilder labelText = new StringBuilder();
-        labelText.AppendLine($"Kitbox number #{armoirenumber}");
-
-		
-
-        // // Ajouter chaque ligne du recap au texte
-        // foreach (string line in lines)
-        // {
-        //     labelText.AppendLine(line);
-        // }
-
-        // // Créer un label pour afficher les détails de l'armoire
-        // var armoireLabel = new Label
-        // {
-        //     Text = labelText.ToString(),
-        //     FontSize = 18,
-        //     // TextDecorations = TextDecorations.Underline
-        // };
-
-		// // Ajouter le label à la liste des labels d'armoire
-    	// armoireLabels.Add(armoireLabel);
-
-		// // Ajouter chaque label d'armoire à ArmoireStackLayout.Children
-		// foreach (var label in armoireLabels)
-		// {
-		// 	ArmoireStackLayout.Children.Add(label);
-		// 	armoireCount++;
-		// }
-
-		// Charger les détails des armoires précédentes
-		string previousArmoireDetails = databaseManager.LoadPreviousArmoireDetails(idClient,armoireNumber);
-
-		// Créer un tableau de lignes en divisant la chaîne précédemment chargée
-		string[] previousArmoireLines = previousArmoireDetails.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-		// Parcourir chaque ligne pour traiter les détails des armoires précédentes
-		foreach (string line in previousArmoireLines)
+		// Ajouter une colonne pour chaque armoire dans la grille
+		for (int i = 0; i < armoireDetailsList.Count; i++)
 		{
-			// Créer un label pour chaque ligne de détails d'armoire
-			var armoireLabel = new Label
-			{
-				Text = line,
-				FontSize = 18
-			};
-
-			// Ajouter le label à ArmoireStackLayout.Children
-			ArmoireStackLayout.Children.Add(armoireLabel);
+			ArmoireGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 		}
 
+		// Ajouter le contenu de chaque armoire dans la colonne correspondante
+		for (int i = 0; i < armoireDetailsList.Count; i++)
+		{
+			// Créer un ScrollView pour cette colonne
+			var scrollView = new ScrollView();
+			Grid.SetColumn(scrollView, i); // Définir la colonne pour ce ScrollView
+			ArmoireGrid.Children.Add(scrollView); // Ajouter le ScrollView à la grille
 
+			// Créer un StackLayout pour contenir le contenu de l'armoire
+			var stackLayout = new StackLayout();
+			scrollView.Content = stackLayout; // Définir le StackLayout comme contenu du ScrollView
 
-
-
+			// Enregistrer le contenu de l'armoire
+			foreach (var armoireDetails in armoireDetailsList[i])
+			{
+				stackLayout.Children.Add(new Label { Text = armoireDetails, FontSize = 18 });
+			}
+		}
 	}
+
+
+
+
 
 
 
