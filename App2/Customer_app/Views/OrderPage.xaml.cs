@@ -3,6 +3,11 @@ using Customer_app.Models;
 using System.Text;
 using MySql.Data.MySqlClient;
 using System.Net.Cache;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
+using System.IO;
 namespace Customer_app.Views
 
     
@@ -226,43 +231,141 @@ namespace Customer_app.Views
             }
         }
 
+        // Modifier pour test fichier JSON
+        // private async void SaveButton_Clicked(object sender, EventArgs e)
+        // {
+        //     SaveButton.Clicked -= SaveButton_Clicked;
+        //     int depth = currentOrder.Depth;
+        //     int width = currentOrder.Width;
+        //     int idneworder = databaseManager.GetNextOrderId();
+
+        //     int lockerNumber = 1;
+        //     foreach (var locker in currentOrder.Lockers)
+        //     {
+        //         string verticalbatten = databaseManager.GetVerticalBattenCode(locker.Height);
+        //         string sidecrossbar = databaseManager.GetSideCrossbarCode(depth);
+        //         string frontcrossbar = databaseManager.GetFrontCrossbarCode(width);
+        //         string backcrossbar = databaseManager.GetBackCrossbarCode(width);
+        //         string horizontalpanel = databaseManager.GetHorizontalPanelCode(locker.PanelColor, width, depth);
+        //         string sidepanel = databaseManager.GetSidePanelCode(locker.PanelColor, locker.Height, depth);
+        //         string backpanel = databaseManager.GetBackPanelCode(locker.PanelColor, locker.Height, width);
+        //         string door = databaseManager.GetDoorCode(locker.PanelColor, locker.Height, width);
+        //         if (lockerNumber == 1)
+        //         {
+        //             databaseManager.SaveLockerComponents(idneworder, lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
+        //         }
+        //         else
+        //         {
+        //             databaseManager.UpdateLockerComponents(idneworder, lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
+        //         }
+        //         lockerNumber++;
+        //     }
+        //     armoireNumber++; // Incrémenter ici pour éviter l'écrasement
+        //     databaseManager.AddIdNewOrderToTotalOrder(idClient, idneworder, armoireNumber);
+        //     //  await Navigation.PushAsync(new BasketPage(currentOrder, idClient, armoireNumber));
+
+        //     // Attendre une courte période avant de réactiver le gestionnaire d'événements
+        //     await Task.Delay(1000);
+
+        //     // Réactiver le gestionnaire d'événements après une courte période
+        //     SaveButton.Clicked += SaveButton_Clicked;
+        // }
+
+        //TEST fichier JSON
+        public class LockerContent
+        {
+            public string VerticalBatten { get; set; }
+            public string FrontCrossbar { get; set; }
+            public string BackCrossbar { get; set; }
+            public string SideCrossbar { get; set; }
+            public string HorizontalPanel { get; set; }
+            public string SidePanel { get; set; }
+            public string BackPanel { get; set; }
+            public string Door { get; set; }
+        }
+
+        public class ArmoireContent
+        {
+            public int ArmoireNumber { get; set; }
+            public List<LockerContent> Lockers { get; set; }
+        }
+
+        public class BasketContent
+        {
+            public List<ArmoireContent> Armoires { get; set; }
+        }
+
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
             SaveButton.Clicked -= SaveButton_Clicked;
+
+            BasketContent basketContent = null;
+
+            // Vérifier si le fichier JSON existe déjà
+            string filePath = "basket_content.json";
+            if (File.Exists(filePath))
+            {
+                // Charger le contenu actuel du fichier JSON
+                string jsonContent = await File.ReadAllTextAsync(filePath);
+
+                // Désérialiser le contenu JSON en objet BasketContent
+                basketContent = JsonSerializer.Deserialize<BasketContent>(jsonContent);
+            }
+            else
+            {
+                // Créer un nouvel objet BasketContent s'il n'existe pas déjà de fichier JSON
+                basketContent = new BasketContent();
+                basketContent.Armoires = new List<ArmoireContent>();
+            }
+
+            // Créer un nouvel objet ArmoireContent pour la nouvelle entrée
+            ArmoireContent currentArmoire = new ArmoireContent();
+            currentArmoire.ArmoireNumber = armoireNumber;
+            currentArmoire.Lockers = new List<LockerContent>();
+
             int depth = currentOrder.Depth;
             int width = currentOrder.Width;
-            int idneworder = databaseManager.GetNextOrderId();
 
-            int lockerNumber = 1;
             foreach (var locker in currentOrder.Lockers)
             {
-                string verticalbatten = databaseManager.GetVerticalBattenCode(locker.Height);
-                string sidecrossbar = databaseManager.GetSideCrossbarCode(depth);
-                string frontcrossbar = databaseManager.GetFrontCrossbarCode(width);
-                string backcrossbar = databaseManager.GetBackCrossbarCode(width);
-                string horizontalpanel = databaseManager.GetHorizontalPanelCode(locker.PanelColor, width, depth);
-                string sidepanel = databaseManager.GetSidePanelCode(locker.PanelColor, locker.Height, depth);
-                string backpanel = databaseManager.GetBackPanelCode(locker.PanelColor, locker.Height, width);
-                string door = databaseManager.GetDoorCode(locker.PanelColor, locker.Height, width);
-                if (lockerNumber == 1)
+                LockerContent lockerContent = new LockerContent
                 {
-                    databaseManager.SaveLockerComponents(idneworder, lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
-                }
-                else
-                {
-                    databaseManager.UpdateLockerComponents(idneworder, lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
-                }
-                lockerNumber++;
+                    VerticalBatten = databaseManager.GetVerticalBattenCode(locker.Height),
+                    SideCrossbar = databaseManager.GetSideCrossbarCode(depth),
+                    FrontCrossbar = databaseManager.GetFrontCrossbarCode(width),
+                    BackCrossbar = databaseManager.GetBackCrossbarCode(width),
+                    HorizontalPanel = databaseManager.GetHorizontalPanelCode(locker.PanelColor, width, depth),
+                    SidePanel = databaseManager.GetSidePanelCode(locker.PanelColor, locker.Height, depth),
+                    BackPanel = databaseManager.GetBackPanelCode(locker.PanelColor, locker.Height, width),
+                    Door = databaseManager.GetDoorCode(locker.PanelColor, locker.Height, width)
+                };
+
+                currentArmoire.Lockers.Add(lockerContent);
             }
-            armoireNumber++; // Incrémenter ici pour éviter l'écrasement
-            databaseManager.AddIdNewOrderToTotalOrder(idClient, idneworder, armoireNumber);
-            await Navigation.PushAsync(new BasketPage(currentOrder, idClient, armoireNumber));
+
+            // Ajouter le nouvel objet ArmoireContent à la liste des armoires dans BasketContent
+            basketContent.Armoires.Add(currentArmoire);
+
+            // Incrémenter le numéro d'armoire
+            armoireNumber++;
+
+            // Convertir le contenu mis à jour en JSON
+            string updatedJsonContent = JsonSerializer.Serialize(basketContent);
+
+            // Enregistrer le contenu mis à jour dans le fichier JSON
+            await File.WriteAllTextAsync(filePath, updatedJsonContent);
 
             // Attendre une courte période avant de réactiver le gestionnaire d'événements
             await Task.Delay(1000);
 
             // Réactiver le gestionnaire d'événements après une courte période
             SaveButton.Clicked += SaveButton_Clicked;
+        }
+        
+        
+        private async void SeeBasket_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BasketPage(currentOrder, idClient, armoireNumber));
         }
 
 

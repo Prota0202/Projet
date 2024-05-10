@@ -169,11 +169,6 @@ public partial class BasketPage : ContentPage
 	}
 
 
-
-
-
-
-
 	private void OrderBackbuttonclicked(object sender, EventArgs e)
 	{
 		Navigation.PopAsync();

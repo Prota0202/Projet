@@ -100,6 +100,7 @@
                 <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
                 <!--<Button Text="Contact Page" Clicked="ContactPageclicked" /> enlèce le bouton ContactPage-->
                 <Button x:Name="SaveButton" Text="Save" Clicked="SaveButton_Clicked" />
+                <Button x:Name="SeeBasket" Text="See basket" Clicked="SeeBasket_Clicked"/>
             </StackLayout>
 
             <ScrollView Grid.Row="2" Grid.Column="1" VerticalOptions="StartAndExpand">
