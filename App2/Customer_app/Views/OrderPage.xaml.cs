@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 namespace Customer_app.Views
 
     
@@ -316,6 +317,9 @@ namespace Customer_app.Views
                 // Créer un nouvel objet BasketContent s'il n'existe pas déjà de fichier JSON
                 basketContent = new BasketContent();
                 basketContent.Armoires = new List<ArmoireContent>();
+
+                // Créer le fichier JSON s'il n'existe pas
+                await File.WriteAllTextAsync(filePath, "");
             }
 
             // Créer un nouvel objet ArmoireContent pour la nouvelle entrée
@@ -350,7 +354,12 @@ namespace Customer_app.Views
             armoireNumber++;
 
             // Convertir le contenu mis à jour en JSON
-            string updatedJsonContent = JsonSerializer.Serialize(basketContent);
+            /////////string updatedJsonContent = JsonSerializer.Serialize(basketContent);
+
+            // Ajouter un saut de ligne après chaque virgule qui sépare les objets ArmoireContent
+           // updatedJsonContent = Regex.Replace(updatedJsonContent, @"},\s*{""ArmoireNumber""", "},\n{\"ArmoireNumber\"");
+            string updatedJsonContent = JsonSerializer.Serialize(basketContent, new JsonSerializerOptions { WriteIndented = true });
+
 
             // Enregistrer le contenu mis à jour dans le fichier JSON
             await File.WriteAllTextAsync(filePath, updatedJsonContent);
