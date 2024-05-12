@@ -341,10 +341,10 @@ public partial class BasketPage : ContentPage
 						basketContent.Armoires.RemoveAt(i);
 						
 						// Décrémenter les numéros d'armoire pour les armoires suivantes
-						foreach (var armoire in basketContent.Armoires.Where(a => a.ArmoireNumber > armoireNumberToDelete))
-						{
-							armoire.ArmoireNumber--;
-						}
+						// foreach (var armoire in basketContent.Armoires.Where(a => a.ArmoireNumber > armoireNumberToDelete))
+						// {
+						// 	armoire.ArmoireNumber--;
+						// } -> Finalemement non comment ca on ca rajoute et c tout on s'en fout de l'ordre on sait juste que c une autre armoire
 
 						// Mettre à jour le contenu du fichier JSON après la suppression
 						string updatedJsonContent = JsonSerializer.Serialize(basketContent);

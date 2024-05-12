@@ -385,6 +385,7 @@ namespace Customer_app.Views
 
             // Réactiver le gestionnaire d'événements après une courte période
             SaveButton.Clicked += SaveButton_Clicked;
+            // ResetFields();
         }
         
         
@@ -394,14 +395,19 @@ namespace Customer_app.Views
         }
 
 
-        private void ResetFields(){
-            DepthPicker.SelectedItem = null;
-            WidthPicker.SelectedItem = null;
-            HeightPicker.SelectedItem = null;
-            PanelColorPicker.SelectedItem = null;
-            DoorPicker.SelectedItem = null;
-            AngleIronColorPicker.SelectedItem = null;
-        }
+        // private void ResetFields()
+        // {
+        //     DepthPicker.SelectedItem = null;
+        //     WidthPicker.SelectedItem = null;
+        //     HeightPicker.SelectedItem = null;
+        //     PanelColorPicker.SelectedItem = null;
+        //     DoorPicker.SelectedItem = null;
+        //     AngleIronColorPicker.SelectedItem = null;
+
+        //     // Effacer le contenu de RightStackLayout
+        //     RightStackLayout.Children.Clear();
+        // }
+
 
         private string GenerateBillList(Order order)
         {
