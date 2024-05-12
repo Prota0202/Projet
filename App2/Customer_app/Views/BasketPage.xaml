@@ -14,11 +14,12 @@
         <Grid.ColumnDefinitions >
             <ColumnDefinition Width= "*" />
             <ColumnDefinition Width= "*" />
+            <ColumnDefinition Width= "*" />
         </Grid.ColumnDefinitions>
 
 
 
-            <ScrollView Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="StartAndExpand">
+            <ScrollView Grid.Row="0" Grid.ColumnSpan="3" VerticalOptions="StartAndExpand">
                 <StackLayout x:Name="ArmoireStackLayout" Spacing="25">
                     <Grid.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -31,7 +32,7 @@
                 </StackLayout>
             </ScrollView>
 
-            <ScrollView Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="StartAndExpand">
+            <ScrollView Grid.Row="0" Grid.ColumnSpan="3" VerticalOptions="StartAndExpand">
                 <Grid x:Name="ArmoireGrid" Padding="10">
 
                     <Grid.RowDefinitions>
@@ -46,7 +47,7 @@
 
 
 
-        <Label Grid.Row ="1" Grid.Column = "1"
+        <Label Grid.Row ="1" Grid.Column = "2"
             Text="Prix : "
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
@@ -57,8 +58,14 @@
             Text="Add another kitbox"
             Clicked="OrderBackbuttonclicked"
             HorizontalOptions="Center" />
+        <Button Grid.Row ="2"
+            Grid.Column="1"
+            x:Name="Supprimeakitbox"
+            Text="Delete a kitbox"
+            Clicked="Deleteakitbox"
+            HorizontalOptions="Center" />
 
-        <Button Grid.Row ="2" Grid.Column = "1"
+        <Button Grid.Row ="2" Grid.Column = "2"
             x:Name="BuyButton"
             Text="Buy"
             Clicked="BuyButton_Clicked"

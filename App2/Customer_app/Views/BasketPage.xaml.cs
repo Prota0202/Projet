@@ -298,12 +298,87 @@ public partial class BasketPage : ContentPage
             lockerLayout.Children.Add(propertyLabel);
         }
 
-
-
 	private void OrderBackbuttonclicked(object sender, EventArgs e)
 	{
 		Navigation.PopAsync();
 	}
+
+	// private int GetLastArmoireNumber(BasketContent basketContent)
+	// {
+	// 	int lastArmoireNumber = 0;
+	// 	foreach (var armoire in basketContent.Armoires)
+	// 	{
+	// 		if (armoire.ArmoireNumber > lastArmoireNumber)
+	// 		{
+	// 			lastArmoireNumber = armoire.ArmoireNumber;
+	// 		}
+	// 	}
+	// 	return lastArmoireNumber;
+	// }
+
+
+	private async void Deleteakitbox(object sender, EventArgs e)
+	{
+		// Demander à l'utilisateur le numéro de l'armoire à supprimer
+		string armoireNumberInput = await DisplayPromptAsync("Delete a kitbox", "Enter the kitbox number:");
+
+		if (!string.IsNullOrEmpty(armoireNumberInput))
+		{
+			int armoireNumberToDelete;
+			if (int.TryParse(armoireNumberInput, out armoireNumberToDelete))
+			{
+				// Lire le contenu du fichier JSON
+				string filePath = "basket_content.json";
+				string jsonContent = File.ReadAllText(filePath);
+				BasketContent basketContent = JsonSerializer.Deserialize<BasketContent>(jsonContent);
+
+				// Parcourir la liste à l'envers pour pouvoir supprimer l'élément en toute sécurité
+				for (int i = basketContent.Armoires.Count - 1; i >= 0; i--)
+				{
+					if (basketContent.Armoires[i].ArmoireNumber == armoireNumberToDelete)
+					{
+						// Supprimer l'armoire de la liste
+						basketContent.Armoires.RemoveAt(i);
+						
+						// Décrémenter les numéros d'armoire pour les armoires suivantes
+						foreach (var armoire in basketContent.Armoires.Where(a => a.ArmoireNumber > armoireNumberToDelete))
+						{
+							armoire.ArmoireNumber--;
+						}
+
+						// Mettre à jour le contenu du fichier JSON après la suppression
+						string updatedJsonContent = JsonSerializer.Serialize(basketContent);
+						File.WriteAllText(filePath, updatedJsonContent);
+
+						// Mettre à jour l'affichage après la suppression
+						RefreshBasketDisplay();
+
+						return; // Sortir de la méthode après la suppression
+					}
+				}
+
+				// Si l'armoire n'est pas trouvée
+				await DisplayAlert("Error", "Kitbox not found.", "OK");
+			}
+			else
+			{
+				await DisplayAlert("Error", "Invalid input. Please enter a valid kitbox number.", "OK");
+			}
+		}
+	}
+
+
+	private void RefreshBasketDisplay()
+	{
+		// Effacer le contenu actuel de l'affichage
+		ArmoireStackLayout.Children.Clear();
+
+		// Afficher à nouveau le contenu mis à jour
+		//DisplayBasketContent();
+
+		Navigation.PopAsync();
+	}
+
 
 	private async void BuyButton_Clicked(object sender, EventArgs e) //Vient de la fonction SaveButton_Clicked
 	{
@@ -355,7 +430,7 @@ public partial class BasketPage : ContentPage
 		await Task.Delay(1000);
 
 		// Réactiver le gestionnaire d'événements après une courte période
-		//BuyButton.Clicked += BuyButton_Clicked;
+		BuyButton.Clicked += BuyButton_Clicked;
 	}
 	
 
