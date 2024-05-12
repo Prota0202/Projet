@@ -322,9 +322,10 @@ namespace Customer_app.Views
                 await File.WriteAllTextAsync(filePath, "");
             }
 
+            
             // Créer un nouvel objet ArmoireContent pour la nouvelle entrée
             ArmoireContent currentArmoire = new ArmoireContent();
-            currentArmoire.ArmoireNumber = armoireNumber;
+            currentArmoire.ArmoireNumber = armoireNumber + 1 ;
             currentArmoire.Lockers = new List<LockerContent>();
 
             int depth = currentOrder.Depth;

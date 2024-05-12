@@ -1,70 +1,15 @@
 {
   "Armoires": [
     {
-      "ArmoireNumber": 0,
-      "Lockers": [
-        {
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG52",
-          "HorizontalPanel": "PAH5262BR",
-          "SidePanel": "PAG5252BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        },
-        {
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG52",
-          "HorizontalPanel": "PAH5262BR",
-          "SidePanel": "PAG5252BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        }
-      ]
-    },
-    {
       "ArmoireNumber": 1,
       "Lockers": [
         {
           "VerticalBatten": "TAS47",
           "FrontCrossbar": "TRF62",
           "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG52",
-          "HorizontalPanel": "PAH5262BR",
-          "SidePanel": "PAG5252BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        },
-        {
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG52",
-          "HorizontalPanel": "PAH5262BR",
-          "SidePanel": "PAG5252BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        },
-        {
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG52",
-          "HorizontalPanel": "PAH5262BR",
-          "SidePanel": "PAG5252BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        },
-        {
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG52",
-          "HorizontalPanel": "PAH5262BR",
-          "SidePanel": "PAG5252BR",
+          "SideCrossbar": "TRG42",
+          "HorizontalPanel": "PAH4262BR",
+          "SidePanel": "PAG5242BR",
           "BackPanel": "PAR5262BR",
           "Door": "POR5262BR"
         }
@@ -77,9 +22,9 @@
           "VerticalBatten": "TAS47",
           "FrontCrossbar": "TRF62",
           "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG52",
-          "HorizontalPanel": "PAH5262BR",
-          "SidePanel": "PAG5252BR",
+          "SideCrossbar": "TRG42",
+          "HorizontalPanel": "PAH4262BR",
+          "SidePanel": "PAG5242BR",
           "BackPanel": "PAR5262BR",
           "Door": "POR5262BR"
         },
@@ -87,19 +32,9 @@
           "VerticalBatten": "TAS47",
           "FrontCrossbar": "TRF62",
           "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG52",
-          "HorizontalPanel": "PAH5262BR",
-          "SidePanel": "PAG5252BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        },
-        {
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG52",
-          "HorizontalPanel": "PAH5262BR",
-          "SidePanel": "PAG5252BR",
+          "SideCrossbar": "TRG42",
+          "HorizontalPanel": "PAH4262BR",
+          "SidePanel": "PAG5242BR",
           "BackPanel": "PAR5262BR",
           "Door": "POR5262BR"
         }
