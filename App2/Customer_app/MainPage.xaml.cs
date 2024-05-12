@@ -20,5 +20,11 @@ public partial class MainPage : ContentPage
 		Navigation.PushAsync(new OrderPage(idClient)); 
 	}
 
+	// Méthode pour afficher l'alerte
+    // public async void ShowPurchaseConfirmation(string message)
+    // {
+    //     await DisplayAlert("See you soon", message, "OK");
+    // }
+
 }
 

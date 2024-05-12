@@ -429,6 +429,20 @@ public partial class BasketPage : ContentPage
 		// Attendre une courte période avant de réactiver le gestionnaire d'événements
 		await Task.Delay(1000);
 
+		string filePath = "basket_content.json";
+
+		// Vérifier si le fichier existe
+		if (File.Exists(filePath))
+		{
+			// Supprimer le fichier
+			File.Delete(filePath);
+		}
+
+		// Afficher un message d'alerte et renvoyer l'utilisateur à la page d'accueil
+		await DisplayAlert("See you soon", "Thank you for your purchase!", "OK");
+		await Navigation.PopToRootAsync(); // Renvoyer à la page d'accueil
+
+
 		// Réactiver le gestionnaire d'événements après une courte période
 		BuyButton.Clicked += BuyButton_Clicked;
 	}
