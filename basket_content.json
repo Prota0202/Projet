@@ -4,16 +4,16 @@
       "ArmoireNumber": 1,
       "Lockers": [
         {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
           "VerticalBatten": "TAS47",
           "FrontCrossbar": "TRF62",
           "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": "PAG5242BR",
+          "SideCrossbar": "TRG52",
+          "HorizontalPanel": "PAH5262BR",
+          "SidePanel": "PAG5252BR",
           "BackPanel": "PAR5262BR",
           "Door": "POR5262BR"
         }
@@ -23,30 +23,16 @@
       "ArmoireNumber": 2,
       "Lockers": [
         {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
           "VerticalBatten": "TAS47",
           "FrontCrossbar": "TRF62",
           "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": "PAG5242BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": "PAG5242BR",
+          "SideCrossbar": "TRG52",
+          "HorizontalPanel": "PAH5262BR",
+          "SidePanel": "PAG5252BR",
           "BackPanel": "PAR5262BR",
           "Door": "POR5262BR"
         }
@@ -56,44 +42,16 @@
       "ArmoireNumber": 3,
       "Lockers": [
         {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
           "VerticalBatten": "TAS47",
           "FrontCrossbar": "TRF62",
           "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": "PAG5242BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": "PAG5242BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": "PAG5242BR",
+          "SideCrossbar": "TRG52",
+          "HorizontalPanel": "PAH5262BR",
+          "SidePanel": "PAG5252BR",
           "BackPanel": "PAR5262BR",
           "Door": "POR5262BR"
         }
@@ -103,366 +61,32 @@
       "ArmoireNumber": 4,
       "Lockers": [
         {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": "PAG5242BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        }
-      ]
-    },
-    {
-      "ArmoireNumber": 1,
-      "Lockers": [
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": "PAG5242BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        }
-      ]
-    },
-    {
-      "ArmoireNumber": 2,
-      "Lockers": [
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": "TAS47",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": "PAG5242BR",
-          "BackPanel": "PAR5262BR",
-          "Door": "POR5262BR"
-        }
-      ]
-    },
-    {
-      "ArmoireNumber": 1,
-      "Lockers": [
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        }
-      ]
-    },
-    {
-      "ArmoireNumber": 2,
-      "Lockers": [
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        }
-      ]
-    },
-    {
-      "ArmoireNumber": 3,
-      "Lockers": [
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        }
-      ]
-    },
-    {
-      "ArmoireNumber": 4,
-      "Lockers": [
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        }
-      ]
-    },
-    {
-      "ArmoireNumber": 5,
-      "Lockers": [
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        },
-        {
-          "Height": 0,
-          "PanelColor": null,
-          "DoorType": null,
-          "AngleIronColor": null,
-          "VerticalBatten": " ",
-          "FrontCrossbar": "TRF62",
-          "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
-        }
-      ]
-    },
-    {
-      "ArmoireNumber": 1,
-      "Lockers": [
-        {
-          "Height": 62,
+          "Height": 52,
           "PanelColor": "Marron",
           "DoorType": "Marron",
           "AngleIronColor": "Black",
-          "VerticalBatten": " ",
+          "VerticalBatten": "TAS47",
           "FrontCrossbar": "TRF62",
           "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
+          "SideCrossbar": "TRG52",
+          "HorizontalPanel": "PAH5262BR",
+          "SidePanel": "PAG5252BR",
+          "BackPanel": "PAR5262BR",
+          "Door": "POR5262BR"
         },
         {
-          "Height": 62,
-          "PanelColor": "Marron",
-          "DoorType": "Marron",
-          "AngleIronColor": "Black",
-          "VerticalBatten": " ",
+          "Height": 42,
+          "PanelColor": "White",
+          "DoorType": "No Door",
+          "AngleIronColor": "Marron",
+          "VerticalBatten": "TAS37",
           "FrontCrossbar": "TRF62",
           "BackCrossbar": "TRR62",
-          "SideCrossbar": "TRG42",
-          "HorizontalPanel": "PAH4262BR",
-          "SidePanel": " ",
-          "BackPanel": " ",
-          "Door": " "
+          "SideCrossbar": "TRG52",
+          "HorizontalPanel": "PAH5262BL",
+          "SidePanel": "PAG4252BL",
+          "BackPanel": "PAR4262BL",
+          "Door": "POR4262BL"
         }
       ]
     },
@@ -501,6 +125,20 @@
           "SidePanel": "PAG5242BR",
           "BackPanel": "PAR5262BR",
           "Door": "POR5262BR"
+        },
+        {
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
+          "VerticalBatten": "TAS47",
+          "FrontCrossbar": "TRF62",
+          "BackCrossbar": "TRR62",
+          "SideCrossbar": "TRG42",
+          "HorizontalPanel": "PAH4262BR",
+          "SidePanel": "PAG5242BR",
+          "BackPanel": "PAR5262BR",
+          "Door": "POR5262BR"
         }
       ]
     },
@@ -518,6 +156,157 @@
           "SideCrossbar": "TRG42",
           "HorizontalPanel": "PAH4262BR",
           "SidePanel": "PAG5242BR",
+          "BackPanel": "PAR5262BR",
+          "Door": "POR5262BR"
+        },
+        {
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
+          "VerticalBatten": "TAS47",
+          "FrontCrossbar": "TRF62",
+          "BackCrossbar": "TRR62",
+          "SideCrossbar": "TRG42",
+          "HorizontalPanel": "PAH4262BR",
+          "SidePanel": "PAG5242BR",
+          "BackPanel": "PAR5262BR",
+          "Door": "POR5262BR"
+        }
+      ]
+    },
+    {
+      "ArmoireNumber": 1,
+      "Lockers": [
+        {
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
+          "VerticalBatten": "TAS47",
+          "FrontCrossbar": "TRF62",
+          "BackCrossbar": "TRR62",
+          "SideCrossbar": "TRG52",
+          "HorizontalPanel": "PAH5262BR",
+          "SidePanel": "PAG5252BR",
+          "BackPanel": "PAR5262BR",
+          "Door": "POR5262BR"
+        },
+        {
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
+          "VerticalBatten": "TAS47",
+          "FrontCrossbar": "TRF62",
+          "BackCrossbar": "TRR62",
+          "SideCrossbar": "TRG52",
+          "HorizontalPanel": "PAH5262BR",
+          "SidePanel": "PAG5252BR",
+          "BackPanel": "PAR5262BR",
+          "Door": "POR5262BR"
+        }
+      ]
+    },
+    {
+      "ArmoireNumber": 2,
+      "Lockers": [
+        {
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
+          "VerticalBatten": "TAS47",
+          "FrontCrossbar": "TRF62",
+          "BackCrossbar": "TRR62",
+          "SideCrossbar": "TRG52",
+          "HorizontalPanel": "PAH5262BR",
+          "SidePanel": "PAG5252BR",
+          "BackPanel": "PAR5262BR",
+          "Door": "POR5262BR"
+        },
+        {
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
+          "VerticalBatten": "TAS47",
+          "FrontCrossbar": "TRF62",
+          "BackCrossbar": "TRR62",
+          "SideCrossbar": "TRG52",
+          "HorizontalPanel": "PAH5262BR",
+          "SidePanel": "PAG5252BR",
+          "BackPanel": "PAR5262BR",
+          "Door": "POR5262BR"
+        },
+        {
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
+          "VerticalBatten": "TAS47",
+          "FrontCrossbar": "TRF62",
+          "BackCrossbar": "TRR62",
+          "SideCrossbar": "TRG52",
+          "HorizontalPanel": "PAH5262BR",
+          "SidePanel": "PAG5252BR",
+          "BackPanel": "PAR5262BR",
+          "Door": "POR5262BR"
+        }
+      ]
+    },
+    {
+      "ArmoireNumber": 1,
+      "Lockers": [
+        {
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
+          "VerticalBatten": "TAS47",
+          "FrontCrossbar": "TRF62",
+          "BackCrossbar": "TRR62",
+          "SideCrossbar": "TRG42",
+          "HorizontalPanel": "PAH4262BR",
+          "SidePanel": "PAG5242BR",
+          "BackPanel": "PAR5262BR",
+          "Door": "POR5262BR"
+        }
+      ]
+    },
+    {
+      "ArmoireNumber": 1,
+      "Lockers": [
+        {
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
+          "VerticalBatten": "TAS47",
+          "FrontCrossbar": "TRF62",
+          "BackCrossbar": "TRR62",
+          "SideCrossbar": "TRG42",
+          "HorizontalPanel": "PAH4262BR",
+          "SidePanel": "PAG5242BR",
+          "BackPanel": "PAR5262BR",
+          "Door": "POR5262BR"
+        }
+      ]
+    },
+    {
+      "ArmoireNumber": 1,
+      "Lockers": [
+        {
+          "Height": 52,
+          "PanelColor": "Marron",
+          "DoorType": "Marron",
+          "AngleIronColor": "Black",
+          "VerticalBatten": "TAS47",
+          "FrontCrossbar": "TRF62",
+          "BackCrossbar": "TRR62",
+          "SideCrossbar": "TRG52",
+          "HorizontalPanel": "PAH5262BR",
+          "SidePanel": "PAG5252BR",
           "BackPanel": "PAR5262BR",
           "Door": "POR5262BR"
         }

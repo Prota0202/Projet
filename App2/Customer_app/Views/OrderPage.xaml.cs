@@ -277,6 +277,8 @@ namespace Customer_app.Views
         {
 
             public int Height { get; set; }
+
+            // public int lockerCount { get; set;}
             public string PanelColor { get; set; }
             public string DoorType { get; set; }
             public string AngleIronColor { get; set; }
@@ -333,7 +335,7 @@ namespace Customer_app.Views
             
             // Créer un nouvel objet ArmoireContent pour la nouvelle entrée
             ArmoireContent currentArmoire = new ArmoireContent();
-            currentArmoire.ArmoireNumber = armoireNumber + 1 ;
+            currentArmoire.ArmoireNumber = armoireNumber + 1 ; // pour ne pas commencer à 0, j'ai mis +1
             currentArmoire.Lockers = new List<LockerContent>();
 
             int depth = currentOrder.Depth;
@@ -344,6 +346,7 @@ namespace Customer_app.Views
                 LockerContent lockerContent = new LockerContent
                 {
                     Height = locker.Height,
+                    //lockerCount = locker.lockerCount,
                     PanelColor = locker.PanelColor,
                     DoorType = locker.DoorType,
                     AngleIronColor = locker.AngleIronColor,

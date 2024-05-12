@@ -179,6 +179,7 @@ public partial class BasketPage : ContentPage
         {
 
 			public int Height { get; set; }
+			public int LockerCounted { get; set; }
             public string PanelColor { get; set; }
             public string DoorType { get; set; }
             public string AngleIronColor { get; set; }
@@ -215,18 +216,23 @@ public partial class BasketPage : ContentPage
                 {
                     Label armoireLabel = new Label
                     {
-                        Text = $"Armoire {armoire.ArmoireNumber}",
+                        Text = $"Kitbox n° {armoire.ArmoireNumber}",
                         FontSize = 20,
 						BackgroundColor = Color.FromRgb(53, 52, 55), 
 						TextColor = Color.FromRgb(144, 102, 242),
                         HorizontalOptions = LayoutOptions.Center,
-						WidthRequest = Application.Current.MainPage.Width, // Définit la largeur sur celle de la fenêtre
+						WidthRequest = 2000 // Définit la largeur sur celle de la fenêtre
                     };
 
                     ArmoireStackLayout.Children.Add(armoireLabel);
 
+					int lockerCounted = 1; // Initialisation du compteur de casier			
                     foreach (var locker in armoire.Lockers)
                     {
+						locker.LockerCounted = lockerCounted; // Affectez le numéro du casier au casier actuel
+    					lockerCounted++; // Incrémentation du compteur pour le prochain casier
+
+						
                         StackLayout lockerLayout = new StackLayout
                         {
                             Orientation = StackOrientation.Vertical,
@@ -237,18 +243,19 @@ public partial class BasketPage : ContentPage
 
 
                         // Ajouter chaque propriété du locker à une label
+						AddLockerProperty(lockerLayout, "Locker n°", locker.LockerCounted.ToString());
 						AddLockerProperty(lockerLayout, "Height", locker.Height.ToString());
                         AddLockerProperty(lockerLayout, "PanelColor", locker.PanelColor);
                         AddLockerProperty(lockerLayout, "DoorType", locker.DoorType);
                         AddLockerProperty(lockerLayout, "AngleIronColor", locker.AngleIronColor);
-                        AddLockerProperty(lockerLayout, "Vertical Batten", locker.VerticalBatten);
-                        AddLockerProperty(lockerLayout, "Front Crossbar", locker.FrontCrossbar);
-                        AddLockerProperty(lockerLayout, "Back Crossbar", locker.BackCrossbar);
-                        AddLockerProperty(lockerLayout, "Side Crossbar", locker.SideCrossbar);
-                        AddLockerProperty(lockerLayout, "Horizontal Panel", locker.HorizontalPanel);
-                        AddLockerProperty(lockerLayout, "Side Panel", locker.SidePanel);
-                        AddLockerProperty(lockerLayout, "Back Panel", locker.BackPanel);
-                        AddLockerProperty(lockerLayout, "Door", locker.Door);
+                        // AddLockerProperty(lockerLayout, "Vertical Batten", locker.VerticalBatten);
+                        // AddLockerProperty(lockerLayout, "Front Crossbar", locker.FrontCrossbar);
+                        // AddLockerProperty(lockerLayout, "Back Crossbar", locker.BackCrossbar);
+                        // AddLockerProperty(lockerLayout, "Side Crossbar", locker.SideCrossbar);
+                        // AddLockerProperty(lockerLayout, "Horizontal Panel", locker.HorizontalPanel);
+                        // AddLockerProperty(lockerLayout, "Side Panel", locker.SidePanel);
+                        // AddLockerProperty(lockerLayout, "Back Panel", locker.BackPanel);
+                        // AddLockerProperty(lockerLayout, "Door", locker.Door);
 
                         ArmoireStackLayout.Children.Add(lockerLayout);
                     }
@@ -274,10 +281,19 @@ public partial class BasketPage : ContentPage
         {
             Label propertyLabel = new Label
             {
-                Text = $"{propertyName}: {propertyValue}",
+                Text = $"{propertyName} : {propertyValue}",
                 FontSize = 16,
                 //TextColor = Color.Black
             };
+
+			    if (propertyName == "Locker n°")
+			{
+				propertyLabel.FontSize = 20;
+				propertyLabel.FontAttributes = FontAttributes.Bold;
+				propertyLabel.Text = $"{propertyName} {propertyValue} :";
+				propertyLabel.TextDecorations = TextDecorations.Underline;
+				//TextColor = Color.FromRgb(144, 102, 242),
+			}
 
             lockerLayout.Children.Add(propertyLabel);
         }
@@ -292,7 +308,7 @@ public partial class BasketPage : ContentPage
 	private async void BuyButton_Clicked(object sender, EventArgs e) //Vient de la fonction SaveButton_Clicked
 	{
 		// Désactiver le gestionnaire d'événements pour éviter les enregistrements multiples
-		//BuyButton.Clicked -= BuyButton_Clicked;
+		BuyButton.Clicked -= BuyButton_Clicked;
 
 		int depth = currentOrder.Depth;
 		int width = currentOrder.Width;

@@ -6,7 +6,7 @@
 
     <Grid Padding="10">
         <Grid.RowDefinitions >
-            <RowDefinition Height= "*" />
+            <RowDefinition Height= "525" />
             <RowDefinition Height= "*" />
             <RowDefinition Height= "50" />
         </Grid.RowDefinitions>
@@ -47,7 +47,7 @@
 
 
         <Label Grid.Row ="1" Grid.Column = "1"
-            Text="Prix"
+            Text="Prix : "
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
