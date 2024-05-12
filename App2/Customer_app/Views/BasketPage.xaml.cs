@@ -3,6 +3,8 @@ using Customer_app.Models;
 using System.Text;
 using MySql.Data.MySqlClient;
 using System.Net.Cache;
+using System.IO; // Pour la manipulation des fichiers
+using System.Text.Json; // Pour la désérialisation JSON
 namespace Customer_app.Views;
 
 public partial class BasketPage : ContentPage
@@ -131,42 +133,143 @@ public partial class BasketPage : ContentPage
 	// 	}
 	// }
 
-	public BasketPage(NewOrder currentorder, int idclient, int armoirenumber)
-	{
-		databaseManager = new DatabaseManager();
-		currentOrder = currentorder;
-		idClient = idclient;
-		armoireNumber = armoirenumber;
-		InitializeComponent();
+							public BasketPage(NewOrder currentorder, int idclient, int armoirenumber)
+							{
+								databaseManager = new DatabaseManager();
+								currentOrder = currentorder;
+								idClient = idclient;
+								armoireNumber = armoirenumber;
+								InitializeComponent();
 
-		// Après avoir sauvegardé la commande dans SaveButton_Clicked
-		List<List<string>> armoireDetailsList = databaseManager.Loadkitb(armoireNumber,idClient);
+								// Appel à la méthode DisplayBasketContent pour afficher le contenu du fichier JSON
+    							DisplayBasketContent();
 
-		// Ajouter une colonne pour chaque armoire dans la grille
-		for (int i = 0; i < armoireDetailsList.Count; i++)
-		{
-			ArmoireGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-		}
+								// Après avoir sauvegardé la commande dans SaveButton_Clicked
+								List<List<string>> armoireDetailsList = databaseManager.Loadkitb(armoireNumber,idClient);
 
-		// Ajouter le contenu de chaque armoire dans la colonne correspondante
-		for (int i = 0; i < armoireDetailsList.Count; i++)
-		{
-			// Créer un ScrollView pour cette colonne
-			var scrollView = new ScrollView();
-			Grid.SetColumn(scrollView, i); // Définir la colonne pour ce ScrollView
-			ArmoireGrid.Children.Add(scrollView); // Ajouter le ScrollView à la grille
+								// Ajouter une colonne pour chaque armoire dans la grille
+								for (int i = 0; i < armoireDetailsList.Count; i++)
+								{
+									ArmoireGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+								}
 
-			// Créer un StackLayout pour contenir le contenu de l'armoire
-			var stackLayout = new StackLayout();
-			scrollView.Content = stackLayout; // Définir le StackLayout comme contenu du ScrollView
+								// Ajouter le contenu de chaque armoire dans la colonne correspondante
+								for (int i = 0; i < armoireDetailsList.Count; i++)
+								{
+									// Créer un ScrollView pour cette colonne
+									var scrollView = new ScrollView();
+									Grid.SetColumn(scrollView, i); // Définir la colonne pour ce ScrollView
+									ArmoireGrid.Children.Add(scrollView); // Ajouter le ScrollView à la grille
 
-			// Enregistrer le contenu de l'armoire
-			foreach (var armoireDetails in armoireDetailsList[i])
-			{
-				stackLayout.Children.Add(new Label { Text = armoireDetails, FontSize = 18 });
-			}
-		}
-	}
+									// Créer un StackLayout pour contenir le contenu de l'armoire
+									var stackLayout = new StackLayout();
+									scrollView.Content = stackLayout; // Définir le StackLayout comme contenu du ScrollView
+
+									// Enregistrer le contenu de l'armoire
+									foreach (var armoireDetails in armoireDetailsList[i])
+									{
+										stackLayout.Children.Add(new Label { Text = armoireDetails, FontSize = 18 });
+									}
+								}
+							}
+
+
+
+        public class LockerContent
+        {
+            public string VerticalBatten { get; set; }
+            public string FrontCrossbar { get; set; }
+            public string BackCrossbar { get; set; }
+            public string SideCrossbar { get; set; }
+            public string HorizontalPanel { get; set; }
+            public string SidePanel { get; set; }
+            public string BackPanel { get; set; }
+            public string Door { get; set; }
+        }
+
+        public class ArmoireContent
+        {
+            public int ArmoireNumber { get; set; }
+            public List<LockerContent> Lockers { get; set; }
+        }
+
+        public class BasketContent
+        {
+            public List<ArmoireContent> Armoires { get; set; }
+        }
+        private void DisplayBasketContent()
+        {
+            string filePath = "basket_content.json";
+            if (File.Exists(filePath))
+            {
+                string jsonContent = File.ReadAllText(filePath);
+                BasketContent basketContent = JsonSerializer.Deserialize<BasketContent>(jsonContent);
+
+                // Parcourir chaque armoire dans le contenu du panier
+                foreach (var armoire in basketContent.Armoires)
+                {
+                    Label armoireLabel = new Label
+                    {
+                        Text = $"Armoire {armoire.ArmoireNumber}",
+                        FontSize = 20,
+                        //TextColor = Color.White,
+                        HorizontalOptions = LayoutOptions.Center
+                    };
+
+                    ArmoireStackLayout.Children.Add(armoireLabel);
+
+                    foreach (var locker in armoire.Lockers)
+                    {
+                        StackLayout lockerLayout = new StackLayout
+                        {
+                            Orientation = StackOrientation.Vertical,
+                            Padding = new Thickness(10),
+                            //BackgroundColor = Color.LightGray,
+                            Spacing = 5
+                        };
+
+                        // Ajouter chaque propriété du locker à une label
+                        AddLockerProperty(lockerLayout, "Vertical Batten", locker.VerticalBatten);
+                        AddLockerProperty(lockerLayout, "Front Crossbar", locker.FrontCrossbar);
+                        AddLockerProperty(lockerLayout, "Back Crossbar", locker.BackCrossbar);
+                        AddLockerProperty(lockerLayout, "Side Crossbar", locker.SideCrossbar);
+                        AddLockerProperty(lockerLayout, "Horizontal Panel", locker.HorizontalPanel);
+                        AddLockerProperty(lockerLayout, "Side Panel", locker.SidePanel);
+                        AddLockerProperty(lockerLayout, "Back Panel", locker.BackPanel);
+                        AddLockerProperty(lockerLayout, "Door", locker.Door);
+
+                        ArmoireStackLayout.Children.Add(lockerLayout);
+                    }
+                }
+            }
+            else
+            {
+                // Afficher un message si le fichier JSON n'existe pas
+                Label noContentLabel = new Label
+                {
+                    Text = "Le contenu du panier est vide.",
+                    FontSize = 20,
+                    //TextColor = Color.Black,
+                    HorizontalOptions = LayoutOptions.Center
+                };
+
+                ArmoireStackLayout.Children.Add(noContentLabel);
+            }
+        }
+
+        // Méthode pour ajouter une propriété du locker à une label
+        private void AddLockerProperty(StackLayout lockerLayout, string propertyName, string propertyValue)
+        {
+            Label propertyLabel = new Label
+            {
+                Text = $"{propertyName}: {propertyValue}",
+                FontSize = 16,
+                //TextColor = Color.Black
+            };
+
+            lockerLayout.Children.Add(propertyLabel);
+        }
+
 
 
 	private void OrderBackbuttonclicked(object sender, EventArgs e)

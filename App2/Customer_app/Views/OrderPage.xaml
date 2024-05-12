@@ -99,7 +99,7 @@
             <StackLayout x:Name="MainStackLayout" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Grid.Row="3">
                 <Button Text="Add Locker" Clicked="AddLockerButton_Clicked"/>
                 <!--<Button Text="Contact Page" Clicked="ContactPageclicked" /> enlèce le bouton ContactPage-->
-                <Button x:Name="SaveButton" Text="Save" Clicked="SaveButton_Clicked" />
+                <Button x:Name="SaveButton" Text="Save donc next armoire" Clicked="SaveButton_Clicked" />
                 <Button x:Name="SeeBasket" Text="See basket" Clicked="SeeBasket_Clicked"/>
             </StackLayout>
 
