@@ -275,6 +275,13 @@ namespace Customer_app.Views
         //TEST fichier JSON
         public class LockerContent
         {
+
+            public int Height { get; set; }
+            public string PanelColor { get; set; }
+            public string DoorType { get; set; }
+            public string AngleIronColor { get; set; }
+
+
             public string VerticalBatten { get; set; }
             public string FrontCrossbar { get; set; }
             public string BackCrossbar { get; set; }
@@ -283,6 +290,7 @@ namespace Customer_app.Views
             public string SidePanel { get; set; }
             public string BackPanel { get; set; }
             public string Door { get; set; }
+            
         }
 
         public class ArmoireContent
@@ -335,6 +343,10 @@ namespace Customer_app.Views
             {
                 LockerContent lockerContent = new LockerContent
                 {
+                    Height = locker.Height,
+                    PanelColor = locker.PanelColor,
+                    DoorType = locker.DoorType,
+                    AngleIronColor = locker.AngleIronColor,
                     VerticalBatten = databaseManager.GetVerticalBattenCode(locker.Height),
                     SideCrossbar = databaseManager.GetSideCrossbarCode(depth),
                     FrontCrossbar = databaseManager.GetFrontCrossbarCode(width),

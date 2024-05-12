@@ -177,6 +177,11 @@ public partial class BasketPage : ContentPage
 
         public class LockerContent
         {
+
+			public int Height { get; set; }
+            public string PanelColor { get; set; }
+            public string DoorType { get; set; }
+            public string AngleIronColor { get; set; }
             public string VerticalBatten { get; set; }
             public string FrontCrossbar { get; set; }
             public string BackCrossbar { get; set; }
@@ -212,8 +217,10 @@ public partial class BasketPage : ContentPage
                     {
                         Text = $"Armoire {armoire.ArmoireNumber}",
                         FontSize = 20,
-                        //TextColor = Color.White,
-                        HorizontalOptions = LayoutOptions.Center
+						BackgroundColor = Color.FromRgb(53, 52, 55), 
+						TextColor = Color.FromRgb(144, 102, 242),
+                        HorizontalOptions = LayoutOptions.Center,
+						WidthRequest = Application.Current.MainPage.Width, // Définit la largeur sur celle de la fenêtre
                     };
 
                     ArmoireStackLayout.Children.Add(armoireLabel);
@@ -224,11 +231,16 @@ public partial class BasketPage : ContentPage
                         {
                             Orientation = StackOrientation.Vertical,
                             Padding = new Thickness(10),
-                            //BackgroundColor = Color.LightGray,
+                            //BackgroundColor = Color.FromRgb(200, 0, 0),
                             Spacing = 5
                         };
 
+
                         // Ajouter chaque propriété du locker à une label
+						AddLockerProperty(lockerLayout, "Height", locker.Height.ToString());
+                        AddLockerProperty(lockerLayout, "PanelColor", locker.PanelColor);
+                        AddLockerProperty(lockerLayout, "DoorType", locker.DoorType);
+                        AddLockerProperty(lockerLayout, "AngleIronColor", locker.AngleIronColor);
                         AddLockerProperty(lockerLayout, "Vertical Batten", locker.VerticalBatten);
                         AddLockerProperty(lockerLayout, "Front Crossbar", locker.FrontCrossbar);
                         AddLockerProperty(lockerLayout, "Back Crossbar", locker.BackCrossbar);
