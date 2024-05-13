@@ -300,7 +300,7 @@ public partial class BasketPage : ContentPage
 
 	private void OrderBackbuttonclicked(object sender, EventArgs e)
 	{
-		Navigation.PopAsync();
+		Navigation.PushAsync(new OrderPage(idClient, armoireNumber));
 	}
 
 	// private int GetLastArmoireNumber(BasketContent basketContent)
@@ -340,11 +340,11 @@ public partial class BasketPage : ContentPage
 						// Supprimer l'armoire de la liste
 						basketContent.Armoires.RemoveAt(i);
 						
-						// Décrémenter les numéros d'armoire pour les armoires suivantes
-						// foreach (var armoire in basketContent.Armoires.Where(a => a.ArmoireNumber > armoireNumberToDelete))
-						// {
-						// 	armoire.ArmoireNumber--;
-						// } -> Finalemement non comment ca on ca rajoute et c tout on s'en fout de l'ordre on sait juste que c une autre armoire
+						//Décrémenter les numéros d'armoire pour les armoires suivantes
+						foreach (var armoire in basketContent.Armoires.Where(a => a.ArmoireNumber > armoireNumberToDelete))
+						{
+							armoire.ArmoireNumber--;
+						} //-> Finalemement non comment ca on ca rajoute et c tout on s'en fout de l'ordre on sait juste que c une autre armoire
 
 						// Mettre à jour le contenu du fichier JSON après la suppression
 						string updatedJsonContent = JsonSerializer.Serialize(basketContent);
@@ -408,8 +408,13 @@ public partial class BasketPage : ContentPage
 		else{
 				databaseManager.UpdateLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
 		}
+		//databaseManager.AddIdNewOrderToTotalOrder(idClient, idneworder, armoireNumber);
 		lockerNumber++;
 		}
+
+		//Il faut enregistrer dans NewOrder de la database les codes qu'il y a dans lockers
+		//Ensuite une fois qu'une armoire à été enregistré il faut enregistré dans TotalOrder dans la db
+		//LE numéro de l'armoire qui vient d'être créer (= le num du idNewOrder)
 
 		//Ici le récap affiche uniquement le numéro de commande
 		int amountlocker = currentOrder.GetNumberOfLockers();

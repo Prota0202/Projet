@@ -16,7 +16,7 @@ public partial class ContactPage : ContentPage
 
 	private async void OrderBackbuttonclicked(object sender, EventArgs e)
 	{
-		await Navigation.PushAsync(new OrderPage(0));
+		await Navigation.PushAsync(new OrderPage(0,0));
 	}
 
 	private void OnAddContactClicked(object sender, EventArgs e)

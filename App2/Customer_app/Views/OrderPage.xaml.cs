@@ -22,12 +22,13 @@ namespace Customer_app.Views
         public NewOrder currentOrder;
         public int idClient;
 
-        public int armoireNumber;
-        public OrderPage(int idclient)
+        public int armoireNumber2;
+        public OrderPage(int idclient, int armoireNumber)
         {
             databaseManager = new DatabaseManager();
             InitializeComponent();
             idClient = idclient;
+            armoireNumber2 += armoireNumber;
             //MainGrid = this.FindByName<Grid>("MainGrid");
         }
         public void LoadElementsFromDatabase()
@@ -335,7 +336,7 @@ namespace Customer_app.Views
             
             // Créer un nouvel objet ArmoireContent pour la nouvelle entrée
             ArmoireContent currentArmoire = new ArmoireContent();
-            currentArmoire.ArmoireNumber = armoireNumber + 1 ; // pour ne pas commencer à 0, j'ai mis +1
+            currentArmoire.ArmoireNumber = armoireNumber2 + 1 ; // pour ne pas commencer à 0, j'ai mis +1
             currentArmoire.Lockers = new List<LockerContent>();
 
             int depth = currentOrder.Depth;
@@ -367,7 +368,8 @@ namespace Customer_app.Views
             basketContent.Armoires.Add(currentArmoire);
 
             // Incrémenter le numéro d'armoire
-            armoireNumber++;
+            armoireNumber2++;
+            
 
             // Convertir le contenu mis à jour en JSON
             /////////string updatedJsonContent = JsonSerializer.Serialize(basketContent);
@@ -391,7 +393,7 @@ namespace Customer_app.Views
         
         private async void SeeBasket_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new BasketPage(currentOrder, idClient, armoireNumber));
+            await Navigation.PushAsync(new BasketPage(currentOrder, idClient, armoireNumber2));
         }
 
 
