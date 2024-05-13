@@ -177,7 +177,8 @@ public partial class BasketPage : ContentPage
 
         public class LockerContent
         {
-
+			public int Depth { get; set; }
+			public int Width { get; set; }
 			public int Height { get; set; }
 			public int LockerCounted { get; set; }
             public string PanelColor { get; set; }
@@ -214,9 +215,12 @@ public partial class BasketPage : ContentPage
                 // Parcourir chaque armoire dans le contenu du panier
                 foreach (var armoire in basketContent.Armoires)
                 {
+					int depth = armoire.Lockers.FirstOrDefault()?.Depth ?? 0;
+					int width = armoire.Lockers.FirstOrDefault()?.Width ?? 0;
+
                     Label armoireLabel = new Label
                     {
-                        Text = $"Kitbox n° {armoire.ArmoireNumber}",
+                        Text = $"Kitbox n° {armoire.ArmoireNumber} [Depth : {depth} cm - Width : {width} cm]",
                         FontSize = 20,
 						BackgroundColor = Color.FromRgb(53, 52, 55), 
 						TextColor = Color.FromRgb(144, 102, 242),
@@ -444,7 +448,7 @@ public partial class BasketPage : ContentPage
 		}
 
 		// Afficher un message d'alerte et renvoyer l'utilisateur à la page d'accueil
-		await DisplayAlert("See you soon", "Thank you for your purchase!", "OK");
+		await DisplayAlert("See you soon", "Thank you for your purchase!", "BYE");
 		await Navigation.PopToRootAsync(); // Renvoyer à la page d'accueil
 
 

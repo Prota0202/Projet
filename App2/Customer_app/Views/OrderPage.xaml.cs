@@ -276,6 +276,8 @@ namespace Customer_app.Views
         //TEST fichier JSON
         public class LockerContent
         {
+            public int Depth { get; set; }
+            public int Width { get; set; }
 
             public int Height { get; set; }
 
@@ -346,6 +348,8 @@ namespace Customer_app.Views
             {
                 LockerContent lockerContent = new LockerContent
                 {
+                    Depth = depth,
+                    Width = width,
                     Height = locker.Height,
                     //lockerCount = locker.lockerCount,
                     PanelColor = locker.PanelColor,
