@@ -31,12 +31,12 @@
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" Padding="0,0,20,0">
                             <Label Text="{Binding DisplaySupplier}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
-                            <Label Text="Edit" TextColor="Red" TextDecorations="Underline" VerticalOptions="CenterAndExpand" HorizontalOptions="End" Margin="0,0,10,0">
+                            <Label Text="Edit" TextColor="#F95B09" TextDecorations="Underline" VerticalOptions="CenterAndExpand" HorizontalOptions="End" Margin="0,0,10,0">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="OnEditTapped"/>
                                 </Label.GestureRecognizers>
                             </Label>
-                            <Label Text="Remove" TextColor="#F95B09" TextDecorations="Underline" VerticalOptions="Center" HorizontalOptions="End" Margin="0,0,10,0">
+                            <Label Text="Remove" TextColor="Red" TextDecorations="Underline" VerticalOptions="Center" HorizontalOptions="End" Margin="0,0,10,0">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="OnRemoveTapped"/>
                                 </Label.GestureRecognizers>

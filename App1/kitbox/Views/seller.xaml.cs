@@ -43,6 +43,11 @@ namespace kitbox
                 {
                     if (!line.StartsWith("Order ID")) // Vérifier si la ligne ne commence pas par "Order ID"
                     {
+                        Button okButton = new Button
+                        {
+                            Text = "OK",
+                            Margin = new Thickness(0, 10, 0, 0)
+                        };
                         // Create a horizontal StackLayout for each component
                         StackLayout componentLayout = new StackLayout
                         {
@@ -55,17 +60,11 @@ namespace kitbox
                             Text = components[0] + ": " + components[1],
                             HorizontalOptions = LayoutOptions.StartAndExpand
                         };
-                        Button okButton = new Button
-                        {
-                            Text = "OK",
-                            Margin = new Thickness(5, 0, 0, 0)
-                        };
                         okButton.Clicked += (sender, e) => OnOkButtonClicked(components[1],orderLabel,okButton,componentLayout);
 
                         // Add label and button to the horizontal StackLayout
                         componentLayout.Children.Add(orderLabel);
                         componentLayout.Children.Add(okButton);
-                        
                         orderLayout.Children.Add(componentLayout); // Add horizontal StackLayout to the orderLayout
                     } 
                     else
