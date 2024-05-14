@@ -20,7 +20,7 @@
 
 
             <ScrollView Grid.Row="0" Grid.ColumnSpan="3" VerticalOptions="StartAndExpand">
-                <StackLayout x:Name="ArmoireStackLayout" Spacing="25">
+                <StackLayout x:Name="Kit_boxStackLayout" Spacing="25">
                     <Grid.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                             <GradientStop Color="#505050" Offset="0" />
@@ -33,13 +33,13 @@
             </ScrollView>
 
             <ScrollView Grid.Row="0" Grid.ColumnSpan="3" VerticalOptions="StartAndExpand">
-                <Grid x:Name="ArmoireGrid" Padding="10">
+                <Grid x:Name="Kit_boxGrid" Padding="10">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <!-- Colonne pour chaque armoire -->
+                        <!-- Colonne pour chaque kit_box -->
                     </Grid.ColumnDefinitions>
                 </Grid>
             </ScrollView>

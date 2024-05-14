@@ -7,8 +7,6 @@ public partial class MainPage : ContentPage
 	private DatabaseManager databaseManager;
 	public int idClient;
 
-
-
 	public MainPage()
 	{
 		InitializeComponent();
@@ -21,12 +19,6 @@ public partial class MainPage : ContentPage
 	{
 		Navigation.PushAsync(new OrderPage(idClient, 0)); 
 	}
-
-	// Méthode pour afficher l'alerte
-    // public async void ShowPurchaseConfirmation(string message)
-    // {
-    //     await DisplayAlert("See you soon", message, "OK");
-    // }
 
 }
 

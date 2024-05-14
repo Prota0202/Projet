@@ -22,13 +22,13 @@ namespace Customer_app.Views
         public NewOrder currentOrder;
         public int idClient;
 
-        public int armoireNumber2;
-        public OrderPage(int idclient, int armoireNumber)
+        public int kit_boxNumber2;
+        public OrderPage(int idclient, int kit_boxNumber)
         {
             databaseManager = new DatabaseManager();
             InitializeComponent();
             idClient = idclient;
-            armoireNumber2 += armoireNumber;
+            kit_boxNumber2 += kit_boxNumber;
             //MainGrid = this.FindByName<Grid>("MainGrid");
         }
         public void LoadElementsFromDatabase()
@@ -41,24 +41,7 @@ namespace Customer_app.Views
                 elementsList.Add(elem);
             }
         }
-        // private async void ShowConfirmationAlert(object sender, EventArgs e)
-        // {
-        //     var result = await DisplayAlert("Confirmation", "the depth and width will be the same for every locker", "OK", "CANCEL");
 
-        //     if (result)
-        //     {
-        //         SaveDepthWidth();
-        //         // Si l'utilisateur clique sur OK, masquez les Picker
-        //         DepthPicker.IsVisible = false;
-        //         WidthPicker.IsVisible = false;
-        //     }
-        //     else
-        //     {
-        //         // Si l'utilisateur clique sur ANNULER, laissez les Picker visibles
-        //         DepthPicker.IsVisible = true;
-        //         WidthPicker.IsVisible = true;
-        //     }
-        // }
         public string ChoiceText { get; set; }
         public bool IsChoiceTextVisible { get; set; }
 
@@ -102,52 +85,6 @@ namespace Customer_app.Views
             currentOrder = new NewOrder(depth,width);
             Console.WriteLine(currentOrder.DisplayName);
         }
-        // private void AddLockerButton_Clicked(object sender, EventArgs e)
-        // {
-        //     if (lockerCount < 7)
-        //     {
-        //         lockerCount++;
-        //         int height = Convert.ToInt32(HeightPicker.SelectedItem);
-        //         string panelColor = PanelColorPicker.SelectedItem.ToString();
-        //         string doorType = DoorPicker.SelectedItem.ToString();
-        //         string angleIronColor = AngleIronColorPicker.SelectedItem.ToString();
-        //         currentOrder.AddLocker(height,panelColor,doorType,angleIronColor);
-        //         Console.WriteLine(currentOrder.DisplayText);
-
-
-        //         var newLockerLabel = new Label
-        //         {
-        //             Text = "Locker " + lockerCount + "\nHeight : " + height + "cm" + "\nPanel Color : " + panelColor + "\nDoor : " + doorType + "\n Angle Iron : " + angleIronColor,
-        //             // HorizontalOptions = LayoutOptions.Center
-        //         };
-        //         // //Grid.SetRow(newLockerLabel, 6);
-        //         // //Grid.SetColumn(newLockerLabel, 13);
-        //         // MainStackLayout.Children.Add(newLockerLabel);
-        //         //RightStackLayout.Children.Add(newLockerLabel);
-
-        //         var removeButton = new Button
-        //         {
-        //             Text = "Remove",
-        //             CommandParameter = lockerCount,
-        //         };
-        //         removeButton.CommandParameter = currentOrder.Lockers.Last(); // Utilisez le dernier casier ajouté comme paramètre de commande
-
-
-        //         var lockerLayout = new StackLayout
-        //         {
-        //             Children = { newLockerLabel, removeButton }
-        //         };
-
-        //         RightStackLayout.Children.Add(lockerLayout);
-                
-        //         // Actualisez l'affichage
-        //         UpdateLockerLabels();
-        //     }
-        //     else
-        //     {
-        //         DisplayAlert("Limit reached", "You cannot add more than 7 lockers.", "OK");
-        //     }
-        // }
 
         private void AddLockerButton_Clicked(object sender, EventArgs e)
         {
@@ -233,47 +170,6 @@ namespace Customer_app.Views
             }
         }
 
-        // Modifier pour test fichier JSON
-        // private async void SaveButton_Clicked(object sender, EventArgs e)
-        // {
-        //     SaveButton.Clicked -= SaveButton_Clicked;
-        //     int depth = currentOrder.Depth;
-        //     int width = currentOrder.Width;
-        //     int idneworder = databaseManager.GetNextOrderId();
-
-        //     int lockerNumber = 1;
-        //     foreach (var locker in currentOrder.Lockers)
-        //     {
-        //         string verticalbatten = databaseManager.GetVerticalBattenCode(locker.Height);
-        //         string sidecrossbar = databaseManager.GetSideCrossbarCode(depth);
-        //         string frontcrossbar = databaseManager.GetFrontCrossbarCode(width);
-        //         string backcrossbar = databaseManager.GetBackCrossbarCode(width);
-        //         string horizontalpanel = databaseManager.GetHorizontalPanelCode(locker.PanelColor, width, depth);
-        //         string sidepanel = databaseManager.GetSidePanelCode(locker.PanelColor, locker.Height, depth);
-        //         string backpanel = databaseManager.GetBackPanelCode(locker.PanelColor, locker.Height, width);
-        //         string door = databaseManager.GetDoorCode(locker.PanelColor, locker.Height, width);
-        //         if (lockerNumber == 1)
-        //         {
-        //             databaseManager.SaveLockerComponents(idneworder, lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
-        //         }
-        //         else
-        //         {
-        //             databaseManager.UpdateLockerComponents(idneworder, lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
-        //         }
-        //         lockerNumber++;
-        //     }
-        //     armoireNumber++; // Incrémenter ici pour éviter l'écrasement
-        //     databaseManager.AddIdNewOrderToTotalOrder(idClient, idneworder, armoireNumber);
-        //     //  await Navigation.PushAsync(new BasketPage(currentOrder, idClient, armoireNumber));
-
-        //     // Attendre une courte période avant de réactiver le gestionnaire d'événements
-        //     await Task.Delay(1000);
-
-        //     // Réactiver le gestionnaire d'événements après une courte période
-        //     SaveButton.Clicked += SaveButton_Clicked;
-        // }
-
-        //TEST fichier JSON
         public class LockerContent
         {
             public int Depth { get; set; }
@@ -298,15 +194,15 @@ namespace Customer_app.Views
             
         }
 
-        public class ArmoireContent
+        public class Kit_boxContent
         {
-            public int ArmoireNumber { get; set; }
+            public int Kit_boxNumber { get; set; }
             public List<LockerContent> Lockers { get; set; }
         }
 
         public class BasketContent
         {
-            public List<ArmoireContent> Armoires { get; set; }
+            public List<Kit_boxContent> Kit_boxs { get; set; }
         }
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
@@ -329,17 +225,17 @@ namespace Customer_app.Views
             {
                 // Créer un nouvel objet BasketContent s'il n'existe pas déjà de fichier JSON
                 basketContent = new BasketContent();
-                basketContent.Armoires = new List<ArmoireContent>();
+                basketContent.Kit_boxs = new List<Kit_boxContent>();
 
                 // Créer le fichier JSON s'il n'existe pas
                 await File.WriteAllTextAsync(filePath, "");
             }
 
             
-            // Créer un nouvel objet ArmoireContent pour la nouvelle entrée
-            ArmoireContent currentArmoire = new ArmoireContent();
-            currentArmoire.ArmoireNumber = armoireNumber2 + 1 ; // pour ne pas commencer à 0, j'ai mis +1
-            currentArmoire.Lockers = new List<LockerContent>();
+            // Créer un nouvel objet Kit_boxContent pour la nouvelle entrée
+            Kit_boxContent currentKit_box = new Kit_boxContent();
+            currentKit_box.Kit_boxNumber = kit_boxNumber2 + 1 ; // pour ne pas commencer à 0, j'ai mis +1
+            currentKit_box.Lockers = new List<LockerContent>();
 
             int depth = currentOrder.Depth;
             int width = currentOrder.Width;
@@ -365,23 +261,16 @@ namespace Customer_app.Views
                     Door = databaseManager.GetDoorCode(locker.PanelColor, locker.Height, width)
                 };
 
-                currentArmoire.Lockers.Add(lockerContent);
+                currentKit_box.Lockers.Add(lockerContent);
             }
 
-            // Ajouter le nouvel objet ArmoireContent à la liste des armoires dans BasketContent
-            basketContent.Armoires.Add(currentArmoire);
+            // Ajouter le nouvel objet Kit_boxContent à la liste des kit_boxs dans BasketContent
+            basketContent.Kit_boxs.Add(currentKit_box);
 
-            // Incrémenter le numéro d'armoire
-            armoireNumber2++;
-            
+            // Incrémenter le numéro d'kit_box
+            kit_boxNumber2++;
 
-            // Convertir le contenu mis à jour en JSON
-            /////////string updatedJsonContent = JsonSerializer.Serialize(basketContent);
-
-            // Ajouter un saut de ligne après chaque virgule qui sépare les objets ArmoireContent
-           // updatedJsonContent = Regex.Replace(updatedJsonContent, @"},\s*{""ArmoireNumber""", "},\n{\"ArmoireNumber\"");
             string updatedJsonContent = JsonSerializer.Serialize(basketContent, new JsonSerializerOptions { WriteIndented = true });
-
 
             // Enregistrer le contenu mis à jour dans le fichier JSON
             await File.WriteAllTextAsync(filePath, updatedJsonContent);
@@ -392,33 +281,16 @@ namespace Customer_app.Views
             // Réactiver le gestionnaire d'événements après une courte période
             SaveButton.Clicked += SaveButton_Clicked;
             
-            Navigation.PushAsync(new OrderPage(idClient, armoireNumber2));
+            Navigation.PushAsync(new OrderPage(idClient, kit_boxNumber2));
         }
         
         
         private async void SeeBasket_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new BasketPage(currentOrder, idClient, armoireNumber2));
+            await Navigation.PushAsync(new BasketPage(currentOrder, idClient, kit_boxNumber2));
         }
-
-
-        // private void ResetFields()
-        // {
-        //     DepthPicker.SelectedItem = null;
-        //     WidthPicker.SelectedItem = null;
-        //     HeightPicker.SelectedItem = null;
-        //     PanelColorPicker.SelectedItem = null;
-        //     DoorPicker.SelectedItem = null;
-        //     AngleIronColorPicker.SelectedItem = null;
-
-        //     // Effacer le contenu de RightStackLayout
-        //     RightStackLayout.Children.Clear();
-        // }
-
-
         private string GenerateBillList(Order order)
         {
-            // Générer la liste des commandes pour la facture
             // Par exemple, vous pouvez concaténer les détails de la commande dans une chaîne
             // Retourner la chaîne générée
             return $"{order.Depth}x{order.Width}x{order.Height}, Panel Color: {order.PanelColor}, Door Type: {order.Door}, Angle Iron Color: {order.AngleIronColor}";

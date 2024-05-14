@@ -481,7 +481,7 @@ public int GetNextIdclient()
     return Idclient;
 }
 
-public void AddIdNewOrderToTotalOrder(int idclient, int idNewOrder, int armoireNumber)
+public void AddIdNewOrderToTotalOrder(int idclient, int idNewOrder, int kit_boxNumber)
 {
     try
     {
@@ -497,7 +497,7 @@ public void AddIdNewOrderToTotalOrder(int idclient, int idNewOrder, int armoireN
         if (rowCount == 0)
         {
             // Si aucune ligne n'existe pour ce client, insérez une nouvelle ligne
-            string insertQuery = "INSERT INTO totalorder (idclient, armoire1) VALUES (@idclient, @IdNewOrder)";
+            string insertQuery = "INSERT INTO totalorder (idclient, kit_box1) VALUES (@idclient, @IdNewOrder)";
             MySqlCommand insertCommand = new MySqlCommand(insertQuery, Connection);
             insertCommand.Parameters.AddWithValue("@idclient", idclient);
             insertCommand.Parameters.AddWithValue("@IdNewOrder", idNewOrder);
@@ -505,8 +505,8 @@ public void AddIdNewOrderToTotalOrder(int idclient, int idNewOrder, int armoireN
         }
         else
         {
-            // Si une ligne existe déjà pour ce client, mettez à jour la colonne appropriée (armoire1, armoire2, etc.)
-            string updateQuery = $"UPDATE totalorder SET armoire{armoireNumber} = @IdNewOrder WHERE idclient = @idclient";
+            // Si une ligne existe déjà pour ce client, mettez à jour la colonne appropriée (kit_box1, kit_box2, etc.)
+            string updateQuery = $"UPDATE totalorder SET kit_box{kit_boxNumber} = @IdNewOrder WHERE idclient = @idclient";
             MySqlCommand updateCommand = new MySqlCommand(updateQuery, Connection);
             updateCommand.Parameters.AddWithValue("@idclient", idclient);
             updateCommand.Parameters.AddWithValue("@IdNewOrder", idNewOrder);
@@ -660,89 +660,23 @@ public string LoadOrder(int orderId, int amountlocker)
     return orderDetails.ToString();
 }
 
-// public string Loadkitb(int armoireNumber, int idClient)
-// {
-//     StringBuilder orderDetails = new StringBuilder();
-
-//     try
-//     {
-//         OpenConnection();
-
-//         // Récupérer l'idneworder correspondant à l'armoireNumber
-//         int idneworder = GetIdNewOrderFromArmoireNumber(armoireNumber, idClient);
-
-//         // Vérifier si l'idneworder est valide
-//         if (idneworder != -1)
-//         {
-//             int lockerCount = 1; // Déclarer lockerCount ici
-
-//             using (MySqlCommand cmd = Connection.CreateCommand())
-//             {
-//                 // Assurez-vous que la connexion est ouverte
-//                 if (Connection.State != ConnectionState.Open)
-//                 {
-//                     Connection.Open();
-//                 }
-
-//                 // Construire la requête SQL pour récupérer les données des casiers
-//                 cmd.CommandText = "SELECT * FROM neworder WHERE idneworder = @OrderId";
-//                 cmd.Parameters.AddWithValue("@OrderId", idneworder);
-
-//                 using (MySqlDataReader reader = cmd.ExecuteReader())
-//                 {
-//                     // Traitement des résultats de la requête
-//                     while (reader.Read())
-//                     {
-//                         // Ajouter les détails du casier à la chaîne
-//                         orderDetails.AppendLine($"Locker {armoireNumber}-{lockerCount}:");
-//                         orderDetails.AppendLine($"- Vertical Batten: {GetComponentQuantity(reader.GetString($"verticalbatten{lockerCount}"))}");
-//                         orderDetails.AppendLine($"- Front Crossbar: {GetComponentQuantity(reader.GetString($"frontcrossbar{lockerCount}"))}");
-//                         orderDetails.AppendLine($"- Back Crossbar: {GetComponentQuantity(reader.GetString($"backcrossbar{lockerCount}"))}");
-//                         orderDetails.AppendLine($"- Side Crossbar: {GetComponentQuantity(reader.GetString($"sidecrossbar{lockerCount}"))}");
-//                         orderDetails.AppendLine($"- Horizontal Panel: {GetComponentQuantity(reader.GetString($"horizontalpanel{lockerCount}"))}");
-//                         orderDetails.AppendLine($"- Side Panel: {GetComponentQuantity(reader.GetString($"sidepanel{lockerCount}"))}");
-//                         orderDetails.AppendLine($"- Back Panel: {GetComponentQuantity(reader.GetString($"backpanel{lockerCount}"))}");
-//                         orderDetails.AppendLine($"- Door: {GetComponentQuantity(reader.GetString($"door{lockerCount}"))}");
-//                         orderDetails.AppendLine();
-
-//                         lockerCount++; // Incrémenter lockerCount pour le prochain casier
-//                     }
-//                 }
-//             }
-//         }
-//         else
-//         {
-//             Console.WriteLine("No idneworder found for armoireNumber: " + armoireNumber);
-//         }
-//     }
-//     catch (MySqlException ex)
-//     {
-//         Console.WriteLine("Error loading order details: " + ex.Message);
-//     }
-//     finally
-//     {
-//         CloseConnection();
-//     }
-
-//     return orderDetails.ToString();
-// }
-public List<List<string>> Loadkitb(int armoireNumber, int idClient)
+public List<List<string>> Loadkitb(int kit_boxNumber, int idClient)
 {
-    List<List<string>> armoiresDetailsList = new List<List<string>>();
+    List<List<string>> kit_boxsDetailsList = new List<List<string>>();
 
     try
     {
         OpenConnection();
 
         // Récupérer les idneworder correspondant à l'idClient
-        List<int> idneworders = GetIdNewOrderFromArmoireNumber(armoireNumber, idClient);
+        List<int> idneworders = GetIdNewOrderFromKit_boxNumber(kit_boxNumber, idClient);
 
         // Vérifier si des idneworders ont été trouvés
         if (idneworders.Count > 0)
         {
             foreach (int idneworder in idneworders)
             {
-                List<string> armoireDetails = new List<string>();
+                List<string> kit_boxDetails = new List<string>();
 
                 // Construire la requête SQL pour récupérer les données des casiers
                 using (MySqlCommand cmd = Connection.CreateCommand())
@@ -784,14 +718,14 @@ public List<List<string>> Loadkitb(int armoireNumber, int idClient)
                                     lockerDetails.AppendLine($"- Back Panel: {GetComponentQuantity(reader.GetString($"backpanel{lockerCount}"))}");
                                     lockerDetails.AppendLine($"- Door: {GetComponentQuantity(reader.GetString($"door{lockerCount}"))}");
                                     lockerDetails.AppendLine();
-                                    armoireDetails.Add(lockerDetails.ToString());
+                                    kit_boxDetails.Add(lockerDetails.ToString());
                                 }
                             }
                         }
                     }
                 }
 
-                armoiresDetailsList.Add(armoireDetails);
+                kit_boxsDetailsList.Add(kit_boxDetails);
             }
         }
         else
@@ -808,48 +742,11 @@ public List<List<string>> Loadkitb(int armoireNumber, int idClient)
         CloseConnection();
     }
 
-    return armoiresDetailsList;
+    return kit_boxsDetailsList;
 }
 
 
-
-
-
-
-// //Méthode pour récupérer l'idneworder correspondant à l'armoireNumber
-// public int GetIdNewOrderFromArmoireNumber(int armoireNumber, int idClient)
-// {
-//     int idneworder = -1;
-    
-//     try
-//     {
-//         OpenConnection();
-
-//         // Construire la requête SQL pour récupérer l'idneworder correspondant à l'armoireNumber
-//         string query = $"SELECT armoire{armoireNumber} FROM totalorder WHERE idclient = @IdClient";
-//         MySqlCommand command = new MySqlCommand(query, Connection);
-//         command.Parameters.AddWithValue("@IdClient", idClient); // Assurez-vous de définir idClient correctement
-//         object result = command.ExecuteScalar();
-        
-//         if (result != null && result != DBNull.Value)
-//         {
-//             idneworder = Convert.ToInt32(result);
-//         }
-//     }
-//     catch (MySqlException ex)
-//     {
-//         Console.WriteLine("Error getting idneworder from armoireNumber: " + ex.Message);
-//     }
-//     finally
-//     {
-//         CloseConnection();
-//     }
-
-//     return idneworder;
-// }
-
-
-public List<int> GetIdNewOrderFromArmoireNumber(int armoireNumber, int idClient)
+public List<int> GetIdNewOrderFromKit_boxNumber(int kit_boxNumber, int idClient)
 {
     List<int> idneworders = new List<int>(); // Liste pour stocker les idneworder
 
@@ -857,8 +754,8 @@ public List<int> GetIdNewOrderFromArmoireNumber(int armoireNumber, int idClient)
     {
         OpenConnection();
 
-        // Construire la requête SQL pour récupérer les idneworder correspondant à l'armoireNumber
-        string query = $"SELECT armoire{armoireNumber} FROM totalorder WHERE idclient = @IdClient";
+        // Construire la requête SQL pour récupérer les idneworder correspondant à l'kit_boxNumber
+        string query = $"SELECT kit_box{kit_boxNumber} FROM totalorder WHERE idclient = @IdClient";
         MySqlCommand command = new MySqlCommand(query, Connection);
         command.Parameters.AddWithValue("@IdClient", idClient); // Assurez-vous de définir idClient correctement
         MySqlDataReader reader = command.ExecuteReader();
@@ -874,7 +771,7 @@ public List<int> GetIdNewOrderFromArmoireNumber(int armoireNumber, int idClient)
     }
     catch (MySqlException ex)
     {
-        Console.WriteLine("Error getting idneworder from armoireNumber: " + ex.Message);
+        Console.WriteLine("Error getting idneworder from kit_boxNumber: " + ex.Message);
     }
     finally
     {
@@ -884,82 +781,16 @@ public List<int> GetIdNewOrderFromArmoireNumber(int armoireNumber, int idClient)
     return idneworders;
 }
 
-
-// public List<int> GetSavedArmoireNumbers(int idClient, int armoireNumber)
-// {
-//     List<int> armoireNumbers = new List<int>();
-    
-//     try
-//     {
-//         OpenConnection();
-
-//         // Construire la requête SQL pour récupérer les armoireNumber correspondants au client et à l'armoireNumber spécifié
-//         string query = $"SELECT armoire{armoireNumber} FROM totalorder WHERE idclient = @IdClient";
-//         MySqlCommand command = new MySqlCommand(query, Connection);
-//         command.Parameters.AddWithValue("@IdClient", idClient);
-//         MySqlDataReader reader = command.ExecuteReader();
-        
-//         while (reader.Read())
-//         {
-//             if (!reader.IsDBNull(0))
-//             {
-//                 armoireNumbers.Add(reader.GetInt32(0));
-//             }
-//         }
-//     }
-//     catch (MySqlException ex)
-//     {
-//         Console.WriteLine("Error getting armoire numbers for client: " + ex.Message);
-//     }
-//     finally
-//     {
-//         CloseConnection();
-//     }
-
-//     return armoireNumbers;
-// }
-// public List<int> GetPreviousArmoireNumbers(int idClient,int armoireNumber)
-// {
-//     List<int> armoireNumbers = new List<int>();
-
-//     try
-//     {
-//         OpenConnection();
-
-//         // Construire la requête SQL pour récupérer les numéros d'armoire précédents
-//         string query = $"SELECT DISTINCT armoire{armoireNumber} FROM totalorder WHERE idClient = @IdClient";
-//         MySqlCommand command = new MySqlCommand(query, Connection);
-//         command.Parameters.AddWithValue("@IdClient", idClient);
-
-//         using (MySqlDataReader reader = command.ExecuteReader())
-//         {
-//             while (reader.Read())
-//             {
-//                 armoireNumbers.Add(reader.GetInt32($"{armoireNumber}"));
-//             }
-//         }
-//     }
-//     catch (MySqlException ex)
-//     {
-//         Console.WriteLine("Error getting previous armoire numbers: " + ex.Message);
-//     }
-//     finally
-//     {
-//         CloseConnection();
-//     }
-
-//     return armoireNumbers;
-// }
-public List<int> GetPreviousArmoireOrders(int idClient, int armoireNumber)
+public List<int> GetPreviousKit_boxOrders(int idClient, int kit_boxNumber)
 {
-    List<int> armoireOrders = new List<int>();
+    List<int> kit_boxOrders = new List<int>();
 
     try
     {
         OpenConnection();
 
-        // Construire la requête SQL pour récupérer les commandes associées à chaque numéro d'armoire précédent
-        string columnName = $"armoire{armoireNumber}";
+        // Construire la requête SQL pour récupérer les commandes associées à chaque numéro d'kit_box précédent
+        string columnName = $"kit_box{kit_boxNumber}";
         string query = $"SELECT DISTINCT {columnName} FROM totalorder WHERE idClient = @IdClient";
         MySqlCommand command = new MySqlCommand(query, Connection);
         command.Parameters.AddWithValue("@IdClient", idClient);
@@ -969,13 +800,13 @@ public List<int> GetPreviousArmoireOrders(int idClient, int armoireNumber)
             while (reader.Read())
             {
                 int idneworder = reader.GetInt32("idneworder");
-                Console.WriteLine($"Contenu de l'armoire pour l'idneworder {idneworder}:");
+                Console.WriteLine($"Contenu de l'kit_box pour l'idneworder {idneworder}:");
                 
-                for (armoireNumber = 1; armoireNumber <= 14; armoireNumber++)
+                for (kit_boxNumber = 1; kit_boxNumber <= 14; kit_boxNumber++)
                 {
-                    // string columnName = $"armoire{armoireNumber}";
+                    // string columnName = $"kit_box{kit_boxNumber}";
                     int value = reader.GetInt32(columnName);
-                    Console.WriteLine($"Armoire {armoireNumber}: {value}");
+                    Console.WriteLine($"Kit_box {kit_boxNumber}: {value}");
                 }
             }
         }
@@ -983,47 +814,15 @@ public List<int> GetPreviousArmoireOrders(int idClient, int armoireNumber)
     }
     catch (MySqlException ex)
     {
-        Console.WriteLine("Error getting previous armoire orders: " + ex.Message);
+        Console.WriteLine("Error getting previous kit_box orders: " + ex.Message);
     }
     finally
     {
         CloseConnection();
     }
 
-    return armoireOrders;
+    return kit_boxOrders;
 }
-
-
-// public string LoadPreviousArmoireDetails(int idClient,int armoireNumber)
-// {
-//     StringBuilder allArmoireDetails = new StringBuilder();
-
-//     try
-//     {
-//         OpenConnection();
-
-//         // Récupérer tous les numéros d'armoire pour le client donné
-//         List<int> previousArmoireNumbers = GetPreviousArmoireOrders(idClient,armoireNumber);
-
-//         // Parcourir tous les numéros d'armoire et récupérer leurs détails
-//         foreach (int armoireNuumber in previousArmoireNumbers)
-//         {
-//             // Récupérer les détails de l'armoire pour ce numéro et ajouter à la chaîne
-//             string armoireDetails = Loadkitb(armoireNuumber, idClient);
-//             allArmoireDetails.AppendLine(armoireDetails);
-//         }
-//     }
-//     catch (MySqlException ex)
-//     {
-//         Console.WriteLine("Error loading previous armoire details: " + ex.Message);
-//     }
-//     finally
-//     {
-//         CloseConnection();
-//     }
-
-//     return allArmoireDetails.ToString();
-// }
 
 
 public int GetComponentQuantity(string componentCode)
@@ -1198,18 +997,6 @@ public int TestContact(int orderId, int amountlocker)
                 {
                     doorStock -= doorNecessary;
                 }
-
-                // Ajouter le détail du locker à la chaîne
-                /*orderDetails.AppendLine($"Locker {lockerNumber}:");
-                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"verticalbatten{lockerNumber}"))} Vertical Batten :");
-                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"frontcrossbar{lockerNumber}"))} Front Crossbar :");
-                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"backcrossbar{lockerNumber}"))} Back Crossbar :");
-                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"sidecrossbar{lockerNumber}"))} Side Crossbar :");
-                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"horizontalpanel{lockerNumber}"))} Horizontal Panel :");
-                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"sidepanel{lockerNumber}"))} Side Panel :");
-                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"backpanel{lockerNumber}"))} Back Panel :");
-                orderDetails.AppendLine($"{GetComponentQuantity(reader.GetString($"door{lockerNumber}"))} Door :");
-                orderDetails.AppendLine();*/
             }
         }
 
