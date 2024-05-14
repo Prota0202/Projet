@@ -1306,44 +1306,4 @@ public double GetAveragePrice(string code)
     return averagePrice;
 }
 
-public int GetLockerQuantity(string code)
-{
-    int lockerQuantity = 0;
-
-    // Construire la requête SQL pour récupérer le LockerQuantity de la ligne correspondante dans la table des composants
-    string query = "SELECT LockerQuantity FROM component WHERE Code = @Code";
-
-    try
-    {
-        OpenConnection();
-
-        using (MySqlCommand command = new MySqlCommand(query, Connection))
-        {
-            // Ajouter le paramètre code à la commande SQL
-            command.Parameters.AddWithValue("@Code", code);
-
-            // Exécuter la commande SQL et récupérer le résultat
-            object result = command.ExecuteScalar();
-
-            // Vérifier si le résultat est non nul
-            if (result != null)
-            {
-                // Convertir le résultat en entier et l'assigner à lockerQuantity
-                lockerQuantity = Convert.ToInt32(result);
-            }
-        }
-    }
-    catch (MySqlException ex)
-    {
-        Console.WriteLine("Error retrieving locker quantity from the database: " + ex.Message);
-    }
-    finally
-    {
-        CloseConnection();
-    }
-
-    return lockerQuantity;
-}
-
-
 }

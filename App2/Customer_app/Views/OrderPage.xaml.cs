@@ -391,7 +391,8 @@ namespace Customer_app.Views
 
             // Réactiver le gestionnaire d'événements après une courte période
             SaveButton.Clicked += SaveButton_Clicked;
-            // ResetFields();
+            
+            Navigation.PushAsync(new OrderPage(idClient, armoireNumber2));
         }
         
         

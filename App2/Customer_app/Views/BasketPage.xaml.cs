@@ -454,9 +454,6 @@ public partial class BasketPage : ContentPage
 	// 	BuyButton.Clicked += BuyButton_Clicked;
 	// }
 
-	//Il faut enregistrer dans NewOrder de la database les codes qu'il y a dans lockers
-		//Ensuite une fois qu'une armoire à été enregistré il faut enregistré dans TotalOrder dans la db
-		//LE numéro de l'armoire qui vient d'être créer (= le num du idNewOrder)
 	private async void BuyButton_Clicked(object sender, EventArgs e)
 {
     // Charger le contenu actuel du fichier JSON
@@ -518,8 +515,18 @@ public partial class BasketPage : ContentPage
         }
     }
 
-    // Supprimer le contenu du fichier JSON après l'avoir traité
-    File.Delete("basket_content.json");
+    	string filePath = "basket_content.json";
+
+	// Vérifier si le fichier existe
+	if (File.Exists(filePath))
+	{
+		// Supprimer le fichier
+		File.Delete(filePath);
+	}
+
+	// Afficher un message d'alerte et renvoyer l'utilisateur à la page d'accueil
+	await DisplayAlert("See you soon", "Thank you for your purchase!", "BYE");
+	await Navigation.PopToRootAsync(); // Renvoyer à la page d'accueil
 }
 
 private void CalculateTotalPrice()
@@ -575,16 +582,22 @@ private void CalculateTotalPrice()
     }
 
     // Utilisez la variable totalPrice selon vos besoins, par exemple, affichez-la dans une étiquette
-    //TotalPriceLabel.Text = $"Total Price: {totalPrice}"; // Remplacez TotalPriceLabel par le nom de votre étiquette d'affichage
-	totalPrice = totalPrice*1.2;
+	totalPrice = Math.Round(totalPrice * 1.2, 2);
+	//totalPrice = totalPrice * 1.2;
+    TotalPriceLabel.Text = $"Price: {totalPrice} €"; // Remplacez TotalPriceLabel par le nom de votre étiquette d'affichage
 	Console.WriteLine($"Total Price: {totalPrice}");
 }
 
+
+//Faut afficher le price sur la page //OK
+
+//Faut arrondire le prix //OK
+
+//Remettre les display alerte dans le buy //Normalement OK
+
+//Faire la traduction armoir
+
 //A chaque fois qu'on appel la fonction CalculateTotalPrice il faut faire un truc du style assync
 //Pouvoir aller sur la page meme si la fonction a pas fini
-
-//Faut afficher le price sur la page
-
-//Faut arrondire le prix
 
 }
