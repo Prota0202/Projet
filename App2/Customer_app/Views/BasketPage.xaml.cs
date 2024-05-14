@@ -315,22 +315,68 @@ public partial class BasketPage : ContentPage
 
                 // Ajouter l'idneworder à TotalOrder avec le même idClient
                 databaseManager.AddIdNewOrderToTotalOrder(idClient, idNewOrder, kit_box.Kit_boxNumber);
+
+				//Ici le récap affiche uniquement le numéro de commande
+				int amountlocker = currentOrder.GetNumberOfLockers();
+				string recap = $"Order Number: {idClient}";
+				Console.WriteLine(recap);
+				DisplayAlert("Recap",recap,"OK");
+				
+				int ContactForm = databaseManager.TestContact(idNewOrder, amountlocker);
+				if(ContactForm == 0)
+				{
+					await Navigation.PushAsync(new ContactPage(idClient));
+					await DisplayAlert("Out of stock :","Please complete the contact form","OK");
+				}
+				Console.WriteLine(ContactForm);
+				
+				// Attendre une courte période avant de réactiver le gestionnaire d'événements
+				await Task.Delay(1000);
+
+				string filePath = "basket_content.json";
+
+				// Vérifier si le fichier existe
+				if (File.Exists(filePath))
+				{
+					// Supprimer le fichier
+					File.Delete(filePath);
+				}
+
+				// Afficher un message d'alerte et renvoyer l'utilisateur à la page d'accueil
+				await DisplayAlert("See you soon", "Thank you for your purchase!", "OK");
+				await Navigation.PopToRootAsync(); // Renvoyer à la page d'accueil
             }
         }
     }
+		// //Ici le récap affiche uniquement le numéro de commande
+		// int amountlocker = currentOrder.GetNumberOfLockers();
+		// string recap = $"Order Number: {idClient}";
+		// Console.WriteLine(recap);
+		// DisplayAlert("Recap",recap,"OK");
 
-    	string filePath = "basket_content.json";
+		// int ContactForm = databaseManager.TestContact(idNewOrder, amountlocker);
+		// if(ContactForm == 0)
+		// {
+		// 	await Navigation.PushAsync(new ContactPage(idClient));
+		// 	await DisplayAlert("Out of stock :","Please complete the contact form","OK");
+		// }
+		// Console.WriteLine(ContactForm);
+		
+		// // Attendre une courte période avant de réactiver le gestionnaire d'événements
+		// await Task.Delay(1000);
 
-	// Vérifier si le fichier existe
-	if (File.Exists(filePath))
-	{
-		// Supprimer le fichier
-		File.Delete(filePath);
-	}
+		// string filePath = "basket_content.json";
 
-	// Afficher un message d'alerte et renvoyer l'utilisateur à la page d'accueil
-	await DisplayAlert("See you soon", "Thank you for your purchase!", "BYE");
-	await Navigation.PopToRootAsync(); // Renvoyer à la page d'accueil
+		// // Vérifier si le fichier existe
+		// if (File.Exists(filePath))
+		// {
+		// 	// Supprimer le fichier
+		// 	File.Delete(filePath);
+		// }
+
+		// // Afficher un message d'alerte et renvoyer l'utilisateur à la page d'accueil
+		// await DisplayAlert("See you soon", "Thank you for your purchase!", "OK");
+		// await Navigation.PopToRootAsync(); // Renvoyer à la page d'accueil
 }
 
 private void CalculateTotalPrice()
