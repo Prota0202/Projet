@@ -885,12 +885,6 @@ public List<int> GetIdNewOrderFromArmoireNumber(int armoireNumber, int idClient)
 }
 
 
-
-
-
-
-
-
 // public List<int> GetSavedArmoireNumbers(int idClient, int armoireNumber)
 // {
 //     List<int> armoireNumbers = new List<int>();
@@ -1032,7 +1026,7 @@ public List<int> GetPreviousArmoireOrders(int idClient, int armoireNumber)
 // }
 
 
-private int GetComponentQuantity(string componentCode)
+public int GetComponentQuantity(string componentCode)
 {
     int lockerQuantity = 0;
     Console.WriteLine("code recu " + componentCode);
@@ -1259,6 +1253,96 @@ public void AddCustomer(Customer customer)
     {
         CloseConnection();
     }
+}
+
+public double GetAveragePrice(string code)
+{
+    double averagePrice = 0;
+
+    // Construire la requête SQL pour récupérer la ligne correspondante dans la table des prix
+    string query = "SELECT price1, price2 FROM price WHERE code = @Code";
+
+    try
+    {
+        OpenConnection();
+
+        using (MySqlCommand command = new MySqlCommand(query, Connection))
+        {
+            // Ajouter le paramètre code à la commande SQL
+            command.Parameters.AddWithValue("@Code", code);
+
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+                int price1Total = 0;
+                int price2Total = 0;
+                int count = 0;
+
+                // Parcourir les résultats de la requête
+                while (reader.Read())
+                {
+                    // Ajouter les valeurs de price1 et price2 aux totaux
+                    price1Total += reader.GetInt32("price1");
+                    price2Total += reader.GetInt32("price2");
+                    count++;
+                }
+
+                // Calculer la moyenne des valeurs de price1 et price2
+                if (count > 0)
+                {
+                    averagePrice = (double)(price1Total + price2Total) / (2 * count);
+                }
+            }
+        }
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving average price from the database: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return averagePrice;
+}
+
+public int GetLockerQuantity(string code)
+{
+    int lockerQuantity = 0;
+
+    // Construire la requête SQL pour récupérer le LockerQuantity de la ligne correspondante dans la table des composants
+    string query = "SELECT LockerQuantity FROM component WHERE Code = @Code";
+
+    try
+    {
+        OpenConnection();
+
+        using (MySqlCommand command = new MySqlCommand(query, Connection))
+        {
+            // Ajouter le paramètre code à la commande SQL
+            command.Parameters.AddWithValue("@Code", code);
+
+            // Exécuter la commande SQL et récupérer le résultat
+            object result = command.ExecuteScalar();
+
+            // Vérifier si le résultat est non nul
+            if (result != null)
+            {
+                // Convertir le résultat en entier et l'assigner à lockerQuantity
+                lockerQuantity = Convert.ToInt32(result);
+            }
+        }
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error retrieving locker quantity from the database: " + ex.Message);
+    }
+    finally
+    {
+        CloseConnection();
+    }
+
+    return lockerQuantity;
 }
 
 

@@ -144,6 +144,8 @@ public partial class BasketPage : ContentPage
 								// Appel à la méthode DisplayBasketContent pour afficher le contenu du fichier JSON
     							DisplayBasketContent();
 
+								CalculateTotalPrice();
+
 								// Après avoir sauvegardé la commande dans SaveButton_Clicked
 								List<List<string>> armoireDetailsList = databaseManager.Loadkitb(armoireNumber,idClient);
 
@@ -384,77 +386,205 @@ public partial class BasketPage : ContentPage
 	}
 
 
-	private async void BuyButton_Clicked(object sender, EventArgs e) //Vient de la fonction SaveButton_Clicked
-	{
-		// Désactiver le gestionnaire d'événements pour éviter les enregistrements multiples
-		BuyButton.Clicked -= BuyButton_Clicked;
+	// private async void BuyButton_Clicked(object sender, EventArgs e) //Vient de la fonction SaveButton_Clicked
+	// {
+	// 	// Désactiver le gestionnaire d'événements pour éviter les enregistrements multiples
+	// 	BuyButton.Clicked -= BuyButton_Clicked;
 
-		int depth = currentOrder.Depth;
-		int width = currentOrder.Width;
-		int idneworder = databaseManager.GetNextOrderId()+1;
-		Console.WriteLine("next order id : ");
+	// 	int depth = currentOrder.Depth;
+	// 	int width = currentOrder.Width;
+	// 	int idneworder = databaseManager.GetNextOrderId()+1;
+	// 	Console.WriteLine("next order id : ");
 
-		int lockerNumber = 1; //Ici ca le fait pour chaque locker mais faudra surement changer pour que ça le fasse pour chaque kitbox
-		foreach (var locker in currentOrder.Lockers){
-		string verticalbatten = databaseManager.GetVerticalBattenCode(locker.Height);
-		string sidecrossbar = databaseManager.GetSideCrossbarCode(depth);
-		string frontcrossbar = databaseManager.GetFrontCrossbarCode(width);
-		string backcrossbar = databaseManager.GetBackCrossbarCode(width);
-		string horizontalpanel = databaseManager.GetHorizontalPanelCode(locker.PanelColor,width,depth);
-		string sidepanel = databaseManager.GetSidePanelCode(locker.PanelColor,locker.Height,depth);
-		string backpanel = databaseManager.GetBackPanelCode(locker.PanelColor, locker.Height, width);
-		string door = databaseManager.GetDoorCode(locker.PanelColor, locker.Height, width);
-		if(lockerNumber==1){
-				Console.WriteLine("avant");
-				//databaseManager.SaveLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
-				Console.WriteLine("après");
-		}
-		else{
-				databaseManager.UpdateLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
-		}
-		//databaseManager.AddIdNewOrderToTotalOrder(idClient, idneworder, armoireNumber);
-		lockerNumber++;
-		}
+	// 	int lockerNumber = 1; //Ici ca le fait pour chaque locker mais faudra surement changer pour que ça le fasse pour chaque kitbox
+	// 	foreach (var locker in currentOrder.Lockers){
+	// 	string verticalbatten = databaseManager.GetVerticalBattenCode(locker.Height);
+	// 	string sidecrossbar = databaseManager.GetSideCrossbarCode(depth);
+	// 	string frontcrossbar = databaseManager.GetFrontCrossbarCode(width);
+	// 	string backcrossbar = databaseManager.GetBackCrossbarCode(width);
+	// 	string horizontalpanel = databaseManager.GetHorizontalPanelCode(locker.PanelColor,width,depth);
+	// 	string sidepanel = databaseManager.GetSidePanelCode(locker.PanelColor,locker.Height,depth);
+	// 	string backpanel = databaseManager.GetBackPanelCode(locker.PanelColor, locker.Height, width);
+	// 	string door = databaseManager.GetDoorCode(locker.PanelColor, locker.Height, width);
+	// 	if(lockerNumber==1){
+	// 			Console.WriteLine("avant");
+	// 			//databaseManager.SaveLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
+	// 			Console.WriteLine("après");
+	// 	}
+	// 	else{
+	// 			databaseManager.UpdateLockerComponents(idneworder,lockerNumber, verticalbatten, frontcrossbar, backcrossbar, sidecrossbar, horizontalpanel, sidepanel, backpanel, door);
+	// 	}
+	// 	//databaseManager.AddIdNewOrderToTotalOrder(idClient, idneworder, armoireNumber);
+	// 	lockerNumber++;
+	// 	}
 
-		//Il faut enregistrer dans NewOrder de la database les codes qu'il y a dans lockers
+	// 	//Ici le récap affiche uniquement le numéro de commande
+	// 	int amountlocker = currentOrder.GetNumberOfLockers();
+	// 	string recap = $"Order Number: {idClient}";
+	// 	Console.WriteLine(recap);
+	// 	DisplayAlert("Recap",recap,"OK");
+
+
+	// 	int ContactForm = databaseManager.TestContact(idneworder, amountlocker);
+	// 	if(ContactForm == 0)
+	// 	{
+	// 		await Navigation.PushAsync(new ContactPage(idClient));
+	// 		await DisplayAlert("Out of stock :","Please complete the contact form","OK");
+	// 	}
+	// 	Console.WriteLine(ContactForm);
+		
+	// 	// Attendre une courte période avant de réactiver le gestionnaire d'événements
+	// 	await Task.Delay(1000);
+
+	// 	string filePath = "basket_content.json";
+
+	// 	// Vérifier si le fichier existe
+	// 	if (File.Exists(filePath))
+	// 	{
+	// 		// Supprimer le fichier
+	// 		File.Delete(filePath);
+	// 	}
+
+	// 	// Afficher un message d'alerte et renvoyer l'utilisateur à la page d'accueil
+	// 	await DisplayAlert("See you soon", "Thank you for your purchase!", "BYE");
+	// 	await Navigation.PopToRootAsync(); // Renvoyer à la page d'accueil
+
+
+	// 	// Réactiver le gestionnaire d'événements après une courte période
+	// 	BuyButton.Clicked += BuyButton_Clicked;
+	// }
+
+	//Il faut enregistrer dans NewOrder de la database les codes qu'il y a dans lockers
 		//Ensuite une fois qu'une armoire à été enregistré il faut enregistré dans TotalOrder dans la db
 		//LE numéro de l'armoire qui vient d'être créer (= le num du idNewOrder)
+	private async void BuyButton_Clicked(object sender, EventArgs e)
+{
+    // Charger le contenu actuel du fichier JSON
+    string jsonContent = await File.ReadAllTextAsync("basket_content.json");
 
-		//Ici le récap affiche uniquement le numéro de commande
-		int amountlocker = currentOrder.GetNumberOfLockers();
-		string recap = $"Order Number: {idClient}";
-		Console.WriteLine(recap);
-		DisplayAlert("Recap",recap,"OK");
+    // Désérialiser le contenu JSON en objet BasketContent
+    BasketContent basketContent = JsonSerializer.Deserialize<BasketContent>(jsonContent);
 
+    // Vérifier si la désérialisation a réussi
+    if (basketContent != null && basketContent.Armoires != null)
+    {
+        // Pour chaque armoire dans le panier
+        foreach (var armoire in basketContent.Armoires)
+        {
+            // Vérifier si cette armoire contient des lockers
+            if (armoire.Lockers != null)
+            {
+                // Extraire le depth et le width de cette armoire à partir du premier locker
+                int depth = armoire.Lockers[0].Depth;
+                int width = armoire.Lockers[0].Width;
 
-		int ContactForm = databaseManager.TestContact(idneworder, amountlocker);
-		if(ContactForm == 0)
-		{
-			await Navigation.PushAsync(new ContactPage(idClient));
-			await DisplayAlert("Out of stock :","Please complete the contact form","OK");
-		}
-		Console.WriteLine(ContactForm);
-		
-		// Attendre une courte période avant de réactiver le gestionnaire d'événements
-		await Task.Delay(1000);
+                // Obtenir ou créer un nouvel ID de commande (idNewOrder) pour cette armoire
+                int idNewOrder = databaseManager.GetNextOrderId();
 
-		string filePath = "basket_content.json";
+                // Créer un nouveau NewOrder pour cette armoire avec le depth et le width récupérés
+                NewOrder currentOrder = new NewOrder(depth, width);
 
-		// Vérifier si le fichier existe
-		if (File.Exists(filePath))
-		{
-			// Supprimer le fichier
-			File.Delete(filePath);
-		}
+                // Initialiser le numéro du locker à 1
+                int lockerNumber = 1;
 
-		// Afficher un message d'alerte et renvoyer l'utilisateur à la page d'accueil
-		await DisplayAlert("See you soon", "Thank you for your purchase!", "BYE");
-		await Navigation.PopToRootAsync(); // Renvoyer à la page d'accueil
+                // Pour chaque locker dans l'armoire
+                foreach (var locker in armoire.Lockers)
+                {
+                    // Extraire les codes des composants du casier
+                    string verticalBatten = locker.VerticalBatten;
+                    string sideCrossbar = locker.SideCrossbar;
+                    string frontCrossbar = locker.FrontCrossbar;
+                    string backCrossbar = locker.BackCrossbar;
+                    string horizontalPanel = locker.HorizontalPanel;
+                    string sidePanel = locker.SidePanel;
+                    string backPanel = locker.BackPanel;
+                    string door = locker.Door;
 
+                    // Utiliser la méthode SaveLockerComponents de DatabaseManager pour enregistrer les données dans la base de données
+                    if (lockerNumber == 1){
+                        databaseManager.SaveLockerComponents(idNewOrder, lockerNumber, verticalBatten, frontCrossbar, backCrossbar, sideCrossbar, horizontalPanel, sidePanel, backPanel, door);
+                    }
+                    else{
+                        databaseManager.UpdateLockerComponents(idNewOrder, lockerNumber, verticalBatten, frontCrossbar, backCrossbar, sideCrossbar, horizontalPanel, sidePanel, backPanel, door);
+                    }
 
-		// Réactiver le gestionnaire d'événements après une courte période
-		BuyButton.Clicked += BuyButton_Clicked;
-	}
-	
+                    // Incrémenter le numéro de locker pour le prochain locker
+                    lockerNumber++;
+                }
+
+                // Ajouter l'idneworder à TotalOrder avec le même idClient
+                databaseManager.AddIdNewOrderToTotalOrder(idClient, idNewOrder, armoire.ArmoireNumber);
+            }
+        }
+    }
+
+    // Supprimer le contenu du fichier JSON après l'avoir traité
+    File.Delete("basket_content.json");
+}
+
+private void CalculateTotalPrice()
+{
+    string filePath = "basket_content.json";
+    double totalPrice = 0.0; // Variable pour stocker le prix total de la commande
+
+    if (File.Exists(filePath))
+    {
+        string jsonContent = File.ReadAllText(filePath);
+        BasketContent basketContent = JsonSerializer.Deserialize<BasketContent>(jsonContent);
+
+        // Parcourir chaque armoire dans le contenu du panier
+        foreach (var armoire in basketContent.Armoires)
+        {
+            // Vérifier si cette armoire contient des lockers
+            if (armoire.Lockers != null)
+            {
+                // Pour chaque locker dans l'armoire
+                foreach (var locker in armoire.Lockers)
+                {
+                    // Liste des codes à considérer pour l'application des fonctions
+                    List<string> relevantCodes = new List<string>
+                    {
+                        locker.VerticalBatten,
+                        locker.SideCrossbar,
+                        locker.FrontCrossbar,
+                        locker.BackCrossbar,
+                        locker.HorizontalPanel,
+                        locker.SidePanel,
+                        locker.BackPanel,
+                        locker.Door
+                    };
+
+                    // Parcourir les codes pertinents et appliquer les fonctions si le code n'est pas vide
+                    foreach (var code in relevantCodes)
+                    {
+                        if (!string.IsNullOrEmpty(code))
+                        {
+                            // Obtenir la quantité de lockers pour ce type d'élément
+                            int lockerQuantity = databaseManager.GetComponentQuantity(code); // À remplacer par votre propre fonction GetLockerQuantity
+
+                            // Obtenir le prix moyen pour ce type d'élément
+                            double averagePrice = databaseManager.GetAveragePrice(code); // À remplacer par votre propre fonction GetAveragePrice
+
+                            // Calculer le prix total en multipliant la quantité de lockers par le prix moyen
+                            totalPrice += lockerQuantity * averagePrice;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Utilisez la variable totalPrice selon vos besoins, par exemple, affichez-la dans une étiquette
+    //TotalPriceLabel.Text = $"Total Price: {totalPrice}"; // Remplacez TotalPriceLabel par le nom de votre étiquette d'affichage
+	totalPrice = totalPrice*1.2;
+	Console.WriteLine($"Total Price: {totalPrice}");
+}
+
+//A chaque fois qu'on appel la fonction CalculateTotalPrice il faut faire un truc du style assync
+//Pouvoir aller sur la page meme si la fonction a pas fini
+
+//Faut afficher le price sur la page
+
+//Faut arrondire le prix
 
 }
