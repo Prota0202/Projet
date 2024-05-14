@@ -318,7 +318,7 @@ public partial class BasketPage : ContentPage
 
 				//Ici le récap affiche uniquement le numéro de commande
 				int amountlocker = currentOrder.GetNumberOfLockers();
-				string recap = $"Order Number: {idClient}";
+				string recap = $"ORDER NUMBER : {idNewOrder} [{idClient}]";
 				Console.WriteLine(recap);
 				DisplayAlert("Recap",recap,"OK");
 				
